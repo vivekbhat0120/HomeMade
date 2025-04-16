@@ -1,0 +1,74 @@
+@import "../../../styles/variables.scss";
+
+/* Style for the top products section */
+.TopSellingBox {
+    h3 {
+        font-size: 24px;
+        padding-bottom: 10px;
+        margin-bottom: 35px;
+        color: var(--black-color);
+        font-weight: 600;
+        position: relative;
+
+        &:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 3px;
+            background-color: var(--first-color);
+        }
+
+    }
+
+    .items {
+        padding: 20px 0px;
+        padding-left: 20px;
+        margin: 30px 0px;
+        position: relative;
+        transition: all 0.2s ease-in-out;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+
+        &:hover {
+            transform: translateY(-3px);
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .img {
+            width: 20%;
+            margin-left: 10px;
+        }
+
+        .info {
+            width: 80%;
+            margin-left: 20px;
+
+            a {
+                text-decoration: none;
+                color: var(--black-color);
+            }
+
+            h4 {
+                font-size: 16px;
+                opacity: 0.9;
+            }
+
+            .price {
+                font-size: 16px;
+                font-weight: 600;
+                color: var(--first-color);
+            }
+
+            .oldPrice {
+                font-size: 14px;
+                color: rgba(0, 0, 0, 0.6);
+                text-decoration: line-through;
+                margin-left: 10px;
+            }
+        }
+    }
+}

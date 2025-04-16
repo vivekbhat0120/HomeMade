@@ -1,0 +1,141 @@
+@import "../../styles/variables.scss";
+
+.selectDrop {
+    position: relative;
+    width: 200px;
+
+    &.open {
+        .downArrow {
+            transform: rotate(180deg);
+        }
+
+        .dropMenu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+
+            li {
+                text-align: left;
+                margin: 5px 0px;
+            }
+        }
+    }
+
+    @media (max-width: 767px) {
+        width: 180px;
+    }
+
+    @media (max-width: 575px) {
+        width: 160px;
+    }
+
+    .openSelect {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 5px 5px;
+        background: var(--white-color);
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        opacity: 0.9;
+        color: var(--black-color);
+        transition: all 0.3s ease;
+
+        &:hover {
+            color: var(--first-color);
+        }
+
+        @media (max-width: 767px) {
+            padding: 8px 12px;
+            font-size: 13px;
+        }
+    }
+
+    .downArrow {
+        transition: transform 0.3s ease;
+    }
+
+    .dropMenu {
+        position: absolute;
+        top: calc(100% + 15px);
+        right: -8px;
+        width: 120%;
+        background: var(--white-color);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        z-index: 1001;
+        padding: 15px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: all 0.3s ease;
+
+        @media (max-width: 767px) {
+            padding: 10px;
+        }
+    }
+
+    .searchField {
+        input {
+            width: 100%;
+            height: 40px;
+            border: 1px solid var(--first-color);
+            background: var(--white-color);
+            color: var(--black-color);
+            outline: none;
+            padding: 0 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+    }
+
+    .searchResult {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        max-height: 200px;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: var(--background-color);
+            border-radius: 10px;
+        }
+
+        li {
+            list-style: none;
+            padding: 8px 10px;
+            cursor: pointer;
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.8);
+            border-radius: 3px;
+            transition: all 0.2s ease;
+
+            &:hover {
+                background: var(--first-color-light);
+                color: var(--black-color);
+            }
+
+            &.active {
+                background: var(--background-color);
+                color: var(--black-color);
+            }
+
+            &.no-result {
+                cursor: default;
+                color: rgba(0, 0, 0, 0.5);
+                text-align: center;
+                padding: 15px 0;
+
+                &:hover {
+                    background: transparent;
+                }
+            }
+        }
+    }
+}
