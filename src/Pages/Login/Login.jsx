@@ -44,7 +44,7 @@ function LoginPage() {
 
     // Function to navigate Redirects to the Registration Page
     const handleSignUp = () => {
-        navigate('/');
+        navigate('/register');
     };
 
     // Function to navigate Redirects to the Forgot Password Page

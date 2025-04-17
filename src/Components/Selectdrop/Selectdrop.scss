@@ -21,14 +21,6 @@
         }
     }
 
-    @media (max-width: 767px) {
-        width: 180px;
-    }
-
-    @media (max-width: 575px) {
-        width: 160px;
-    }
-
     .openSelect {
         display: flex;
         align-items: center;
@@ -44,11 +36,6 @@
 
         &:hover {
             color: var(--first-color);
-        }
-
-        @media (max-width: 767px) {
-            padding: 8px 12px;
-            font-size: 13px;
         }
     }
 
@@ -70,10 +57,6 @@
         visibility: hidden;
         transform: translateY(10px);
         transition: all 0.3s ease;
-
-        @media (max-width: 767px) {
-            padding: 10px;
-        }
     }
 
     .searchField {

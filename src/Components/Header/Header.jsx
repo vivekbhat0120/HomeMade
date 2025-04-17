@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import "../Header/Header.scss";
 import "../../styles/_variables.scss";
 import Nav from "./Navbar/Navbar";
@@ -18,69 +18,26 @@ import VoucherIcon from "@mui/icons-material/LocalOfferOutlined";
 import SettingIcon from "@mui/icons-material/TuneOutlined";
 import LogoutIcon from "@mui/icons-material/LogoutOutlined";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
-
-// Mobile menu imports
 import MenuIcon from "@mui/icons-material/Menu";
 import Drawer from "@mui/material/Drawer";
 
 const Header = () => {
-  const [isOpenDropDown, setIsOpenDropDown] = useState(false); // State for account dropdown
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // State for mobile menu
-  const headerRef = useRef(); // Reference for the header element
+  const [isOpenDropDown, setIsOpenDropDown] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const headerRef = useRef();
 
   const [categories] = useState([
     "All Categories",
-    "Clothing",
+    "Fashion",
     "Electronics",
-    "Furniture",
+    "Bags",
+    "Footwear",
+    "Groceries",
+    "Beauty",
+    "Wellness",
     "Jewelry",
-    "Shoes",
-    "Sports",
-    "Vehicles",
-    "Books",
-    "Movies",
-    "Health & Beauty",
-    "Toys",
-    "Foods",
     "Other",
   ]);
-
-  // Renders the mobile menu content
-  const renderMobileMenu = () => (
-    <div style={{ width: 250, padding: "20px 15px" }}>
-      <Nav />
-      <div style={{ marginTop: "20px" }}>
-        <h4>Account</h4>
-        <ul style={{ paddingLeft: "0", listStyle: "none" }}>
-          <li>
-            <Button className="align-items-center">
-              <UserIcon /> My Account
-            </Button>
-          </li>
-          <li>
-            <Button>
-              <OrderIcon /> Orders
-            </Button>
-          </li>
-          <li>
-            <Button>
-              <VoucherIcon /> Vouchers
-            </Button>
-          </li>
-          <li>
-            <Button>
-              <SettingIcon /> Settings
-            </Button>
-          </li>
-          <li>
-            <Button>
-              <LogoutIcon /> Sign out
-            </Button>
-          </li>
-        </ul>
-      </div>
-    </div>
-  );
 
   return (
     <>
@@ -103,7 +60,7 @@ const Header = () => {
               {/* Search Section */}
               <div className="col-lg-5 d-none d-lg-block">
                 <div className="headerSearch d-flex align-items-center">
-                  <Select data={categories} /> {/* Dropdown for categories */}
+                  <Select data={categories} />
                   <div className="searchBox">
                     <input type="text" placeholder="Search for items..." />
                     <SearchIcon className="searchIcon cursor" />
@@ -115,16 +72,14 @@ const Header = () => {
               <div className="col-lg-5 col-2 d-flex align-items-center">
                 <div className="ml-auto">
                   <ul className="list list-inline mb-0 headerTabs">
-                    {/* Compare Icon */}
                     <li className="list-inline-item">
                       <span className="d-flex align-items-center">
-                        <img src={iconCompare} alt="Compare"/>
+                        <img src={iconCompare} alt="Compare" />
                         <span className="icon-label d-none d-lg-inline">
                           Compare
                         </span>
                       </span>
                     </li>
-                    {/* Wishlist Icon */}
                     <li className="list-inline-item">
                       <span className="d-flex align-items-center">
                         <img src={iconFavorite} alt="Wishlist" />
@@ -133,7 +88,6 @@ const Header = () => {
                         </span>
                       </span>
                     </li>
-                    {/* Cart Icon */}
                     <li className="list-inline-item">
                       <span className="d-flex align-items-center">
                         <img src={iconCart} alt="Cart" />
@@ -142,8 +96,6 @@ const Header = () => {
                         </span>
                       </span>
                     </li>
-
-                    {/* Account Dropdown */}
                     <ClickAwayListener
                       onClickAway={() => setIsOpenDropDown(false)}
                     >
@@ -206,7 +158,7 @@ const Header = () => {
           open={mobileMenuOpen}
           onClose={() => setMobileMenuOpen(false)}
         >
-          {renderMobileMenu()}
+          {/* Mobile menu content can be added here if needed */}
         </Drawer>
       </div>
     </>

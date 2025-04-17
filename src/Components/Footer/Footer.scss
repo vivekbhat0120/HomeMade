@@ -172,7 +172,7 @@ footer {
   }
 }
 
-.copyRight{
+.copyRight {
   text-align: left;
   font-weight: 500;
 }
@@ -192,7 +192,6 @@ footer {
         align-items: center;
         width: 30px;
         height: 30px;
-        // background: var(--first-color);
         border-radius: 50%;
         transition: all 0.3s ease-in-out;
 
@@ -203,10 +202,9 @@ footer {
         }
 
         &:hover svg {
-            transform: translate3d(0, -3px, 0);
-            transition: all 0.3s ease-in-out;
-          }
-        
+          transform: translate3d(0, -3px, 0);
+          transition: all 0.3s ease-in-out;
+        }
       }
     }
   }

@@ -16,33 +16,11 @@
     text-align: left;
     margin: 20px 0; 
   }
-
-  @media (max-width: 991px) {
-    padding: 30px 0;
-  }
-
-  @media (max-width: 767px) {
-    h3.hd {
-      font-size: 20px;
-    }
-  }
-
-  @media (max-width: 575px) {
-    padding: 20px 0;
-  }
 }
 
 .catSliderMain {
   .slick-slide {
     padding: 0 10px;
-
-    @media (max-width: 1199px) {
-      padding: 0 8px;
-    }
-
-    @media (max-width: 991px) {
-      padding: 0 5px;
-    }
   }
 
   .catSliderItem {
@@ -58,59 +36,44 @@
     padding: 10px; /* Add padding */
     margin: 10px auto; /* Center the circle */
     transition: transform 0.3s ease-in-out;
-    }
-
-    .info {
-      text-align: center;
-
-      img {
-        width: 70%; /* Ensure the image fits well within the circle */
-        height: 60%; /* Maintain aspect ratio */
-        object-fit: contain;
-        overflow: hidden;
-        margin: 0 auto; /* Center the image horizontally */
-        display: block; /* Ensure proper alignment */
-        margin-bottom: 10px; /* Add spacing below the image */
-        border: 1px solid var(--background-color); /* Add circular border */
-        border-radius: 50%; /* Make the border circular */
-        transition: transform 0.3s ease-in-out; /* Smooth scaling effect */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
-
-        &:hover {
-          transform: translate3d(0, -5px, 0); /* Scale effect on hover */
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
-        }
-
-        @media (max-width: 991px) {
-          width: 50px;
-          height: 50px;
-        }
-
-        @media (max-width: 575px) {
-          width: 40px;
-          height: 40px;
-        }
-      }
-
-      h5 {
-        font-size: 16px;
-        line-height: 1.8;
-        color: var(--black-color);
-        margin: 0;
-        font-weight: 500; /* Match the font weight in the design */
-      }
-
-      p {
-        font-size: 12px;
-        color: rgba(0, 0, 0, 0.7);
-      }
-    }
-
-    @media (max-width: 575px) {
-      padding: 10px;
-    }
   }
 
+  .info {
+    text-align: center;
+
+    img {
+      width: 70%; /* Ensure the image fits well within the circle */
+      height: 60%; /* Maintain aspect ratio */
+      object-fit: contain;
+      overflow: hidden;
+      margin: 0 auto; /* Center the image horizontally */
+      display: block; /* Ensure proper alignment */
+      margin-bottom: 10px; /* Add spacing below the image */
+      border: 1px solid var(--background-color); /* Add circular border */
+      border-radius: 50%; /* Make the border circular */
+      transition: transform 0.3s ease-in-out; /* Smooth scaling effect */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+
+      &:hover {
+        transform: translate3d(0, -5px, 0); /* Scale effect on hover */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add shadow for depth */
+      }
+    }
+
+    h5 {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--black-color);
+      margin: 0;
+      font-weight: 500; /* Match the font weight in the design */
+    }
+
+    p {
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.7);
+    }
+  }
+}
 
 /* Arrow styles */
 .slick-prev,
@@ -132,16 +95,8 @@
 
 .slick-prev {
   left: -15px;
-
-  @media (max-width: 767px) {
-    left: -5px;
-  }
 }
 
 .slick-next {
   right: -15px;
-
-  @media (max-width: 767px) {
-    right: -5px;
-  }
 }

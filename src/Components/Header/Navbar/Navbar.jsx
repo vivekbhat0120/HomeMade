@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Navbar.scss";
 import { Link } from "react-router-dom";
 
@@ -6,29 +6,14 @@ import Button from "@mui/material/Button";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
 import HeadsetMicOutlinedIcon from "@mui/icons-material/HeadsetMicOutlined";
-import MenuIcon from "@mui/icons-material/Menu";
 
 import MegaImg from "../../../assets/images/8.png";
 
 const Nav = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // State to toggle mobile menu
-
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen(!mobileMenuOpen); // Toggles the mobile menu state
-  };
-
   return (
     <div className="nav">
       <div className="container-fluid">
         <div className="row">
-          {/* Mobile menu toggle button */}
-          <button
-            className="mobile-menu-toggle d-lg-none"
-            onClick={toggleMobileMenu}
-          >
-            <MenuIcon />
-          </button>
-
           {/* Category button - Desktop only */}
           <div className="col-lg-2 part1 d-none d-lg-flex">
             <Button className="catTab">
@@ -80,7 +65,7 @@ const Nav = () => {
           {/* Navigation menu */}
           <div className="col-lg-8 col-12 part2">
             <nav>
-              <ul className={`list mb-0 ${mobileMenuOpen ? "show" : ""}`}>
+              <ul className="list mb-0">
                 {/* Home link */}
                 <li>
                   <Button>

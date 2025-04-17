@@ -151,65 +151,6 @@ header {
             }
         }
     }
-
-    @media (max-width: 991px) {
-        padding: 20px 15px;
-
-        .headerSearch {
-            height: 45px;
-        }
-
-        .headerTabs li span {
-            padding: 5px;
-
-            img {
-                margin-right: 0;
-            }
-        }
-
-        .headerTabs .icon-label {
-            display: none;
-        }
-    }
-
-    @media (max-width: 767px) {
-        .logo {
-            width: 120px;
-            margin: 0 auto;
-        }
-
-        .headerSearch {
-            margin-top: 15px;
-        }
-
-        .headerTabs li {
-            margin: 0 4px !important;
-
-            span img {
-                width: 20px;
-                height: 20px;
-            }
-        }
-    }
-
-    @media (max-width: 575px) {
-        padding: 15px 10px;
-
-        .headerSearch {
-            .selectDrop {
-                width: 30%;
-                font-size: 14px;
-            }
-
-            .searchBox {
-                padding-left: 15px;
-
-                input {
-                    font-size: 14px;
-                }
-            }
-        }
-    }
 }
 
 .headerWrapper {
