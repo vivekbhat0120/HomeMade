@@ -1,4 +1,4 @@
-@import "../../styles/variables.scss";
+@use "../../styles/Variable.scss" as *;
 
 header {
     width: 100%;

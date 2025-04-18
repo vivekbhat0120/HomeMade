@@ -3,7 +3,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // Import components using more standard Vite/React conventions
-import Header from './components/header/Header';
+import Header from './components/Header/Header';
 import Home from './pages/Home/Home';  // Points to Home.jsx
 import About from './pages/About/About';
 import Login from './pages/Login/Login';

@@ -10,7 +10,7 @@ import CompareArrowsOutlinedIcon from "@mui/icons-material/CompareArrowsOutlined
 import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import Tooltip from "@mui/material/Tooltip";
 
-import Product1 from "../../assets/images/bag.png";
+import Product1 from "../../assets/images/bag1.png";
 
 const Product = (props) => {
   return (

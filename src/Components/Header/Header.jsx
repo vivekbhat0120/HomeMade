@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import "../Header/Header.scss";
-import "../../styles/_variables.scss";
+import "../../styles/Variable.scss";
 import Nav from "./Navbar/Navbar";
 import Logo from "../../assets/images/logo.png";
 import SearchIcon from "@mui/icons-material/Search";
