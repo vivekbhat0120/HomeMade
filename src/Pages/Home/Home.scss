@@ -92,6 +92,7 @@ h3{
 
           &:hover {
             color: var(--first-color);
+            opacity: 1;
           }
        }
      }
@@ -133,9 +134,11 @@ h3{
         cursor: pointer;
         padding: 5px 10px;
         border-radius: 5px;
+        transition: all 0.3s ease-in-out;
 
         &:hover {
           color: var(--first-color);
+          opacity: 1;
         }
       }
     }
@@ -166,4 +169,64 @@ h3{
 
 .top-products-section{
   margin-top: 60px;
+}
+
+
+// Media Queries From Here
+
+// For Laptop screen size
+@media screen and (max-width: 1024px) {
+  body {
+    width: 112% !important;
+  }
+
+  .home-product-section {
+    padding: 30px 0;
+
+    .section-header {
+      flex-direction: column;
+      align-items: flex-start;
+
+      .category-filter {
+        gap: 0px;
+        align-self: flex-end; // Align to the right
+        margin-top: -40px;
+
+        li button {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .daily-best-sells {
+    .section-header {
+      flex-direction: column;
+      align-items: flex-start;
+
+      .category-filter {
+        gap: 0px;
+        align-self: flex-end; // Align to the right
+        margin-top: -40px;
+
+        li button {
+          font-size: 14px;
+        }
+      }
+    }
+
+    .daily-banner img {
+      width: 100%;
+    }
+  }
+
+  .top-products-section {
+    margin-top: 20px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+
+  
 }

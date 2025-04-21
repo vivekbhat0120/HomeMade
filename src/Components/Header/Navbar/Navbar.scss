@@ -254,3 +254,95 @@
     padding: 10px;
   }
 }
+
+
+// Media Query Starts From Here
+
+// For Laptop screen size
+@media screen and (max-width: 1024px) {
+  .nav {
+    height: auto;
+    padding: 5px;
+
+    .container-fluid {
+      padding: 0 10px;
+    }
+
+    .part1,
+    .part2,
+    .part3 {
+      justify-content: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .part3{
+      padding: 0 30px 0 0;
+    }
+
+    .catTab {
+      font-size: 14px;
+      padding: 6px 5px;
+    }
+
+    nav ul {
+      flex-direction: row;
+      gap: 5px;
+
+      li {
+        button {
+          padding: 8px 15px;
+          font-size: 14px;
+
+          a {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+
+    .support {
+      flex-direction: row;
+      margin-right: 60px;
+      margin-left: -10px;
+      gap: 5px;
+
+      svg {
+        font-size: 28px;
+      }
+
+      .info {
+        h4 {
+          font-size: 14px;
+        }
+
+        p {
+          font-size: 10px;
+        }
+      }
+    }
+
+    .dropDown_menu {
+      width: 140%;
+    }
+
+    .dropDown_menu li button {
+      font-size: 12px;
+    }
+
+    .megaMenu {
+      width: 95%;
+      grid-template-columns: 1fr;
+      padding: 10px 0px 20px 0px;
+
+      .col h4{
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .col ul li a{
+        font-size: 14px;
+      }
+    }
+  }
+}
+
