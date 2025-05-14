@@ -1,10 +1,10 @@
 import React, { useState, useRef } from "react";
-import "../Header/Header.scss";
-import "../../styles/Variable.scss";
-import Nav from "./Navbar/Navbar";
+// import "../../Styles/Theme_one/Header.scss";
+// import "../../Styles/Theme_one/Variable.scss";
+import Nav from "../Navbar/NavBar";
 import Logo from "../../assets/images/logo.png";
 import SearchIcon from "@mui/icons-material/Search";
-import Select from "../Selectdrop/Selectdrop";
+import Select from "../Selectdrop/SelectDrop";
 
 import iconCompare from "../../assets/images/compare.svg";
 import iconFavorite from "../../assets/images/fav.svg";

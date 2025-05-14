@@ -1,5 +1,5 @@
 import React from "react";
-import "./Banner.scss";
+// import "../../Styles/Theme_one/Banner.scss";
 
 import Ban1 from "../../assets/images/ban1.png";
 import Ban2 from "../../assets/images/ban2.png";

@@ -1,5 +1,5 @@
 import React from "react";
-import "./Footer.scss";
+// import "../../Styles/Theme_one/Footer.scss";
 
 import Ft1 from "../../assets/images/offer.png";
 import Ft2 from "../../assets/images/delivery.png";

@@ -1,5 +1,5 @@
 import React from "react";
-import "./Catslider.scss";
+// import "../../Styles/Theme_one/Catslider.scss";
 import Slider from "react-slick";
 
 import Trend1 from "../../assets/images/fashion.png";

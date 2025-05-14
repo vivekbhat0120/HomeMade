@@ -1,5 +1,6 @@
 import React from "react";
-import "./Navbar.scss";
+// import "../../Styles/Theme_one/Navbar.scss";
+// import React from "react'";
 import { Link } from "react-router-dom";
 
 import Button from "@mui/material/Button";
@@ -7,7 +8,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import AppsOutlinedIcon from "@mui/icons-material/AppsOutlined";
 import HeadsetMicOutlinedIcon from "@mui/icons-material/HeadsetMicOutlined";
 
-import MegaImg from "../../../assets/images/8.png";
+import MegaImg from "../../../src/assets/images/8.png";
 
 const Nav = () => {
   return (

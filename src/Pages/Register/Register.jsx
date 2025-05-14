@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 
-import './Register.scss';
+// import '../../Styles/Theme_one/Register.scss';
 
 function RegistrationPage() {
     const navigate = useNavigate();

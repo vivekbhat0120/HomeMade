@@ -1,13 +1,13 @@
 import React from "react";
-import HomeSlider from "./Addslider/Addslider.jsx"; // Renamed import for custom slider
+import ImgSlider from "../../Components/Imgslider/ImgSlider.jsx"; // Renamed import for custom slider
 import Slider from "react-slick"; // For product carousels
-import CatSlider from "../../Components/Catslider/Catslider.jsx"; // Ensure this path is correct
+import CatSlider from "../../Components/Catslider/CatSlider.jsx"; // Ensure this path is correct
 import Banners from "../../Components/Banners/Banner.jsx";
 import Product from "../../Components/Product/Product.jsx";
 import Banner4 from "../../assets/images/ban4.png";
-import TopProducts from "./Topproducts/Topproducts.jsx";
+import TopProducts from "../../Components/Topproducts/TopProducts.jsx";
 import Footer from "../../Components/Footer/Footer.jsx";
-import "./Home.scss";
+// import "../../Styles/Theme_one/Home.scss";
 
 const Home = () => {
   // Settings for product carousel
@@ -46,7 +46,7 @@ const Home = () => {
   return (
     <div className="home-page">
       {/* Main Banner Slider */}
-      <HomeSlider />
+      <ImgSlider />
 
       {/* Category Slider */}
       <CatSlider />

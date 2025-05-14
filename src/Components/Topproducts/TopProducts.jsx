@@ -1,10 +1,9 @@
-import React from "react";
-import "./Topproducts.scss";
+import React from 'react';
 import Rating from '@mui/material/Rating';
 
-import tp1 from "../../../assets/images/beauty.png";
-import tp2 from "../../../assets/images/grocery.png";
-import tp3 from "../../../assets/images/electronics.png";
+import tp1 from "../../assets/images/beauty.png";
+import tp2 from "../../assets/images/grocery.png";
+import tp3 from "../../assets/images/electronics.png";
 import { Link } from "react-router-dom";
 
 const TopProducts = (props) => {

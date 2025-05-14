@@ -1,4 +1,4 @@
-@use "../../styles/Variable.scss" as *;
+@use "../../Styles/Theme_one/_variable.scss" as *;
 
 .productThumb {
     width: 100%;
@@ -187,7 +187,7 @@
         &:hover {
             background: var(--background-color);
             color: var(--first-color);
-            font-weight: 800;
+            
         }
 
         svg {

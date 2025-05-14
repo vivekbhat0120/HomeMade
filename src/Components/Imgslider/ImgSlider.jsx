@@ -1,13 +1,12 @@
 import React from "react";
 import Slider from "react-slick"; // This is react-slick's Slider
-import "./Addslider.scss";
 
-import Banner1 from "../../../assets/images/bn1.png";
-import Banner2 from "../../../assets/images/bn2.png";
-import Banner3 from "../../../assets/images/bn3.png";
-import Banner4 from "../../../assets/images/bn4.png";
-import Banner5 from "../../../assets/images/bn5.png";
-import Banner6 from "../../../assets/images/bn6.png";
+import Banner1 from "../../assets/images/bn1.png";
+import Banner2 from "../../assets/images/bn2.png";
+import Banner3 from "../../assets/images/bn3.png";
+import Banner4 from "../../assets/images/bn4.png";
+import Banner5 from "../../assets/images/bn5.png";
+import Banner6 from "../../assets/images/bn6.png";
 
 // Rename your component to avoid conflict (e.g., `HomeSlider`)
 const HomeSlider = () => {

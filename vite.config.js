@@ -15,5 +15,8 @@ export default defineConfig({
       'react-slick',
       'react-router-dom'
     ]
-  }
+  },
+  
+    base: '/ecart/'
+  
 });

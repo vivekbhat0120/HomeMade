@@ -1,5 +1,5 @@
 import React from "react";
-import "./Product.scss";
+// import "../../Styles/Theme_one/Product.scss";
 import Rating from "@mui/material/Rating";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";

@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import './Styles/_global.scss';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // Import components using more standard Vite/React conventions
