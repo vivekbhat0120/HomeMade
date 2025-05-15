@@ -152,10 +152,10 @@ const Footer = () => {
                   <h5>Account</h5>
                   <ul className="footer-list">
                     <li>
-                      <Link to="#">Sign In</Link>
+                      <Link to="/login">Sign In</Link>
                     </li>
                     <li>
-                      <Link to="#">View Cart</Link>
+                      <Link to="/add-to-cart">View Cart</Link>
                     </li>
                     <li>
                       <Link to="#">My Wishlist</Link>

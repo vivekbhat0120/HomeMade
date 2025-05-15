@@ -81,7 +81,7 @@ header {
 
         li {
             position: relative;
-            margin-left:  40px;
+            margin-left:  30px;
             top: 0;
             white-space: nowrap;
 
@@ -113,9 +113,26 @@ header {
         }
     }
 
+// Badge styling for the MUI Badge component
+    .headerTabs {
+  .MuiBadge-root { // The root element of the MUI Badge
+    .MuiBadge-badge { // The actual badge element
+      &.MuiBadge-colorError { // When color="error" prop is used
+        font-size: 0.75rem; // Smaller font size
+        height: 16px; // Fixed height
+        min-width: 16px; // Fixed min-width to keep it circular for single digits
+        padding: 0 4px; // Horizontal padding
+        // If you used $danger-color in _variable.scss for the error color:
+        background-color: var(--first-color);
+        color: var(--white-color);
+      }
+    }
+  }
+}
     .subMenu {
         position: absolute;
         top: 50px;
+        right: -50px;
         width: 180px !important;
         height: auto;
         background: var(--white-color);

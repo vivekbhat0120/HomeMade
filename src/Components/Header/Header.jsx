@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { useNavigate } from 'react-router-dom';
 // import "../../Styles/Theme_one/Header.scss";
 // import "../../Styles/Theme_one/Variable.scss";
 import Nav from "../Navbar/NavBar";
@@ -20,11 +21,18 @@ import LogoutIcon from "@mui/icons-material/LogoutOutlined";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import MenuIcon from "@mui/icons-material/Menu";
 import Drawer from "@mui/material/Drawer";
+import Badge from '@mui/material/Badge'; // Import MUI Badge
+import { useCart } from "../CartContext/CartContext"; // Corrected path
+import { useWishlist } from "../WishlistContext/WishlistContext"; // Import Wishlist Context
+
 
 const Header = () => {
   const [isOpenDropDown, setIsOpenDropDown] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const headerRef = useRef();
+  const { cartItems } = useCart(); // Get cartItems from context
+  const { wishlistItems } = useWishlist(); // Get wishlistItems from context
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const [categories] = useState([
     "All Categories",
@@ -38,6 +46,9 @@ const Header = () => {
     "Jewelry",
     "Other",
   ]);
+
+  const cartItemCount = cartItems.reduce((count, item) => count + item.quantity, 0);
+  const wishlistItemCount = wishlistItems.length; // Get the count of wishlist items
 
   return (
     <>
@@ -80,21 +91,25 @@ const Header = () => {
                         </span>
                       </span>
                     </li>
-                    <li className="list-inline-item">
+                    <li className="list-inline-item" onClick={() => navigate('/WishList')} style={{ cursor: 'pointer' }}> {/* Add navigation */}
                       <span className="d-flex align-items-center">
-                        <img src={iconFavorite} alt="Wishlist" />
-                        <span className="icon-label d-none d-lg-inline">
+                        <Badge badgeContent={wishlistItemCount} color="error"> {/* Add Badge */}
+                          <img src={iconFavorite} alt="Wishlist" />
+                        </Badge>
+                        <span className="icon-label d-none d-lg-inline" style={{ marginLeft: '8px' }}> {/* Add margin for spacing */}
                           Wishlist
                         </span>
                       </span>
                     </li>
                     <li className="list-inline-item">
-                      <span className="d-flex align-items-center">
-                        <img src={iconCart} alt="Cart" />
-                        <span className="icon-label d-none d-lg-inline">
-                          Cart
-                        </span>
-                      </span>
+                        <span className="d-flex align-items-center" onClick={() => navigate('/add-to-cart')} style={{ cursor: 'pointer' }}>
+                          <Badge badgeContent={cartItemCount} color="error">
+                            <img src={iconCart} alt="Cart" />
+                          </Badge>
+                         <span className="icon-label d-none d-lg-inline" style={{ marginLeft: '8px' }}>
+                               Cart
+                          </span>
+                         </span>
                     </li>
                     <ClickAwayListener
                       onClickAway={() => setIsOpenDropDown(false)}
@@ -133,7 +148,7 @@ const Header = () => {
                             </li>
                             <li>
                               <Button>
-                                <LogoutIcon /> Sign out
+                                <LogoutIcon /> Sign in
                               </Button>
                             </li>
                           </ul>

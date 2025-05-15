@@ -11,8 +11,19 @@ import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import Tooltip from "@mui/material/Tooltip";
 
 import Product1 from "../../assets/images/bag1.png";
+import { useCart } from "../CartContext/CartContext"; // Corrected path
 
 const Product = (props) => {
+  const { addToCart } = useCart();
+
+  // Assuming product details are defined here or passed via props
+  // For this example, using the hardcoded details from the component
+  const productDetails = {
+    id: "school-bag-puma-1", // Needs a unique ID
+    name: "School Bag",
+    price: 1599,
+    image: Product1, // The imported image path or object
+  };
   return (
     <div className="productThumb">
       {/* Display product tag if available */}
@@ -85,7 +96,7 @@ const Product = (props) => {
             <span className="oldPrice">2199</span>
           </div>
           {/* Add to cart button */}
-          <Button>
+          <Button onClick={() => addToCart(productDetails)}>
             <ShoppingCartOutlinedIcon fontSize="small" />
             ADD
           </Button>

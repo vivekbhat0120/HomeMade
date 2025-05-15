@@ -1,0 +1,177 @@
+@use "../../Styles/Theme_one/variable" as *;
+
+.wishlist-page {
+  padding: 20px;
+  background-color: var(--background-color); // Page background
+  min-height: 60vh; // Ensure it takes up some space even when empty
+
+  h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--black-color);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .wishlist-items {
+    margin-bottom: 20px;
+  }
+
+  .wishlist-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px; // Adjusted padding
+    background-color: var(--white-color); // Item background
+    border: 1px solid var(--first-color); // Adjusted border to match cart item
+    // border-radius: 8px; // Removed border-radius
+    margin-bottom: 10px; // Adjusted margin
+    // box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); // Removed box-shadow
+
+    img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-right: 15px;
+      border-radius: 4px;
+      border: 1px solid var(--background-color);
+    }
+
+    .item-details {
+      flex-grow: 1;
+      h4 {
+        font-size: 18px;
+        color: var(--black-color);
+        margin-bottom: 5px;
+        font-weight: 500;
+      }
+      .price {
+        font-size: 16px;
+        color: var(--first-color);
+        font-weight: 600;
+      }
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column; // Stack buttons vertically on small screens if needed
+      gap: 10px; // Space between buttons
+
+      .btn-remove,
+      .btn-add-to-cart {
+        padding: 8px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        text-align: center;
+        min-width: 120px; // Ensure buttons have a decent width
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      .btn-remove {
+        background-color: #ff4d4f; // A distinct color for remove
+        color: var(--white-color);
+
+        &:hover {
+          background-color: darken(#ff4d4f, 10%);
+        }
+      }
+
+      .btn-add-to-cart {
+        background-color: var(--first-color);
+        color: var(--white-color);
+
+        &:hover {
+          background-color: var(--first-color-light);
+          color: var(--black-color);
+        }
+      }
+    }
+  }
+
+  .empty-wishlist {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: var(--white-color);
+    border-radius: 8px;
+    border: 1px dashed var(--first-color-light);
+
+    img {
+      max-width: 150px;
+      margin-bottom: 20px;
+      opacity: 0.7;
+    }
+
+    h3 {
+      font-size: 22px;
+      color: var(--black-color);
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 16px;
+      color: rgba(0, 0, 0, 0.7);
+      margin-bottom: 25px;
+    }
+
+    .shop-now-button {
+      display: inline-block;
+      padding: 12px 25px;
+      background-color: var(--first-color);
+      color: var(--white-color);
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: var(--first-color-light);
+        color: var(--black-color);
+      }
+    }
+  }
+
+  // Responsive adjustments
+  @media (max-width: 768px) {
+    .wishlist-item {
+      flex-direction: column;
+      align-items: flex-start;
+
+      img {
+        margin-bottom: 10px;
+        align-self: center;
+      }
+
+      .item-details {
+        margin-bottom: 10px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .actions {
+        width: 100%;
+        flex-direction: row; // Keep side-by-side on small if space allows
+        justify-content: space-around;
+
+        .btn-remove,
+        .btn-add-to-cart {
+          flex-grow: 1; // Allow buttons to grow
+          margin: 5px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .wishlist-item .actions {
+      flex-direction: column; // Stack buttons on very small screens
+      .btn-remove,
+      .btn-add-to-cart {
+        width: 100%;
+        margin: 5px 0;
+      }
+    }
+  }
+}
