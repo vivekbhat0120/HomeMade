@@ -1,15 +1,20 @@
 import React from "react";
-import ImgSlider from "../../Components/Imgslider/ImgSlider.jsx"; // Renamed import for custom slider
-import Slider from "react-slick"; // For product carousels
-import CatSlider from "../../Components/Catslider/CatSlider.jsx"; // Ensure this path is correct
+import ImgSlider from "../../Components/Imgslider/ImgSlider.jsx";
+import Slider from "react-slick";
+import CatSlider from "../../Components/Catslider/CatSlider.jsx";
 import Banners from "../../Components/Banners/Banner.jsx";
+import ProductList from "../../Components/Product/ProductList.jsx";
 import Product from "../../Components/Product/Product.jsx";
 import Banner4 from "../../assets/images/ban4.png";
 import TopProducts from "../../Components/Topproducts/TopProducts.jsx";
 import Footer from "../../Components/Footer/Footer.jsx";
-// import "../../Styles/Theme_one/Home.scss";
+import { productDetails } from "../../Data/ProductData"; // Assuming ProductData.js is in src/Data
+
 
 const Home = () => {
+  // Get a subset of products for different sections
+  const popularProducts = productDetails.slice(0, 10); // Example: first 10 products
+  const dailyBestSellsProducts = productDetails.slice(0, 6); // Example: first 6 products
   // Settings for product carousel
   const productSliderSettings = {
     dots: false,
@@ -54,8 +59,7 @@ const Home = () => {
       {/* Promotional Banners */}
       <Banners />
 
-      {/* Popular Products Section */}
-      <section className="home-product-section">
+      {/* Popular Products Section */}      <section className="home-product-section">
         <div className="container-fluid">
           <div className="section-header">
             <h3 className="section-title">Popular Products</h3>
@@ -70,15 +74,8 @@ const Home = () => {
               <li><button>Jewellery</button></li>
             </ul>
           </div>
-
-          <div className="product-grid">
-            {[...Array(10)].map((_, i) => (
-              <div className="col-lg-2 col-md-3 col-sm-4 col-6" key={i}>
-                <Product 
-                  tag={["Hot", "Sale", "New", "Best"][i % 4]}
-                />
-              </div>
-            ))}
+          <div className="product-list-container">
+            <ProductList products={productDetails} />
           </div>
         </div>
       </section>
@@ -101,18 +98,23 @@ const Home = () => {
             </div>
             <div className="col-lg-9 col-md-8">
               <Slider {...productSliderSettings} className="daily-best-slider">
-                {[...Array(6)].map((_, i) => (
-                  <Product 
-                    key={i}
-                    tag={["Best", "Sale", "Hot", "New"][i % 4]}
-                  />
-                ))}
+                {dailyBestSellsProducts.length > 0 ? (
+                  dailyBestSellsProducts.map((product, index) => (
+                    <Product
+                      key={product.id || index} // Use product.id if available and unique, otherwise fallback to index
+                      daily={true}
+                      product={product}
+                      tag={["Best", "Sale", "Hot", "New"][index % 4]} // You can adjust tag logic as needed
+                    />
+                  ))
+                ) : (
+                  <p>No best-selling products to display.</p>
+                )}
               </Slider>
             </div>
           </div>
         </div>
       </section>
-
       {/* Top Products Sections */}
       <section className="top-products-section">
         <div className="container-fluid">

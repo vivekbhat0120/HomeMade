@@ -1,45 +1,466 @@
 @use "../../Styles/Theme_one/variable" as *;
 
+/* =========================================================================
+   Cart Page Base Styles
+   ========================================================================== */
+
+/* Main Cart Container
+-------------------------------------------------- */
 .cart-page {
   padding: 20px;
-  background-color: var(--background-color); // Using SCSS variable for page background
+  width: 100%;
+  height: 100%;
+  margin: 130px auto 0 auto;
+
+  /* =========================================================================
+     Header Section
+     ========================================================================== */
+
+  /* Title */
+  h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 22px;
+    color: var(--black-color);
+    font-weight: 600;
+    opacity: 0.8;
+    padding-top: 20px;
+    text-transform: uppercase;
+    position: relative;
+    letter-spacing: 1px;
+  }
+
+  /* Navigation Buttons */
+  .cart-header-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    margin-bottom: 10px;
+
+    .shop-more-button,
+    .pincode-button {
+      min-width: 160px;
+      padding: 8px 20px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .shop-more-button {
+      background-color: var(--first-color);
+      color: var(--white-color);
+      border: none;
+      position: relative;
+      transition: all 0.3s ease;
+
+      svg {
+        transition: transform 0.3s ease;
+      }
+
+      &:hover {
+        background-color: var(--first-color);
+        box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.2); 
+        svg {
+          transform: translateX(-4px);
+        }
+      }
+    }
+
+    .pincode-button {
+      background-color: transparent;
+      color: var(--black-color);
+      border: 1px solid var(--first-color);
+
+      &:hover {
+       box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.2); 
+      }
+    }
+  }
 }
 
-.cart-page h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
+/* =========================================================================
+   Layout Structure
+   ========================================================================== */
+.cart-container {
+  display: flex;
+  gap: 20px;
 }
 
+/* =========================================================================
+   Cart Items Section
+   ========================================================================== */
 .cart-items {
+  flex: 1;
   margin-bottom: 20px;
 }
 
+// Individual Cart Item
 .cart-item {
   display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  background-color: var(--white-color); // Using SCSS variable for item background
-  border: 1px solid var(--first-color); // Using SCSS variable for item border
-  margin-bottom: 10px;
+  align-items: flex-start;
+  padding: 15px;
+  background-color: var(--white-color);
+  border: 1px solid var(--background-color);
+  border-radius: 5px;
+  margin-bottom: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+  // Product Image
+  .cart-item-image {
+    width: 120px;
+    height: 120px;
+    margin-right: 20px;
+    object-fit: contain;
+    background-color: var(--white-color);
+  }
+
+  // Product Details
+  .cart-item-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; // Align items to the left
+    gap: 12px; // Consistent vertical spacing
+    padding: 5px 0;
+
+    .cart-item-name {
+      font-size: 20px;
+      color: var(--black-color);
+      margin: 0 0 0 10px;
+      align-self: flex-start; // Ensure name aligns left
+    }
+
+    .cart-item-price {
+      margin: 0 0 0 10px;
+      align-self: flex-start; // Ensure price group aligns left
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .new-price {
+        color: var(--black-color);
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      .old-price {
+        color: var(--black-color);
+        text-decoration: line-through;
+        font-weight: normal;
+        font-size: 15px;
+        opacity: 0.6;
+        margin-right: 5px;
+        margin-top: 5px;
+      }
+
+      .discount-tag {
+        background-color: var(--green-color);
+        color: var(--white-color);
+        font-size: 14px;
+        font-weight: 500;
+        padding: 2px 8px;
+        border-radius: 4px;
+
+      }
+    }
+
+    // Quantity Controls
+    .cart-item-quantity {
+      align-self: flex-start; // Ensure quantity controls align left
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      button {
+        margin: 0 10px;
+        width: 28px;
+        height: 28px;
+        padding: 0;
+        border: 1px solid var(--background-color);
+        background: var(--background-color-light);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .cart-item-quantity-value {
+        color: var(--first-color);
+        padding: 0 8px;
+        font-size: 20px;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+      }
+    }
+  }
+
+  .cart-item-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    margin-left: auto;
+    padding: 5px 0;
+
+    .cart-item-subtotal {
+      
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--black-color);
+      margin: 10px 20px;
+    }
+
+    .remove-button {
+      margin-right: 30px;
+    }
+  }
 }
 
-.cart-item span {
-  flex: 1;
-  text-align: center;
+/* =========================================================================
+   Price Summary Section
+   ========================================================================== */
+.cart-summary {
+  width: 320px;
+  position: sticky;
+  top: 170px;
+  padding: 16px;
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  background: var(--white-color);
+  border: 2px solid var(--background-color);
+  border-radius: 5px;
+  box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.2);
+
+  align-self: flex-start;
+  margin-bottom: 20px;
+
+  // Scrollbar Styling
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--background-color);
+    border-radius: 3px;
+  }
+
+  h3 {
+    text-transform: uppercase;
+    font-size: 16px;
+    color: var(--black-color);
+    font-weight: 500;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--background-color);
+  }
 }
 
+/* Price Details
+-------------------------------------------------- */
+.price-details {
+  margin-top: 0;
+
+  .price-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    color: var(--black-color);
+    font-size: 14px;
+
+    // Different Price Item Types
+    &.delivery-charge {
+      color: var(--green-color);
+      span:last-child { color: var(--green-color); }
+    }
+
+    &.platform-fee {
+      color: var(--black-color);
+      font-size: 14px;
+    }
+
+    &.discount {
+      color: var(--green-color);
+      span:last-child { color: var(--green-color); }
+    }
+
+    &.total-amount {
+      font-weight: 500;
+      font-size: 16px;
+      border-top: 1px dashed var(--background-color);
+      border-bottom: none;
+      padding-top: 20px;
+      margin-top: 8px;
+    }
+
+    &.savings {
+      background: var(--background-color-light);
+      color: var(--green-color);
+      padding: 12px;
+      border-radius: 2px;
+      margin-top: 12px;
+      font-weight: 500;
+    }
+  }
+}
+
+/* =========================================================================
+   Button Styles
+   ========================================================================== */
 .checkout-button {
-  display: block;
   width: 100%;
-  padding: 10px;
-  background-color: var(--first-color); // Using SCSS variable for button background
-  color: var(--white-color); // Using SCSS variable for button text
-  text-align: center;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
 }
 
-.checkout-button:hover {
-  background-color: var(--first-color-light) ;// Darken the primary color on hover
+.remove-button {
+  background: none;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 10px;
+
+  &:hover {
+    color: var(--first-color);
+    background: none;
+  }
+}
+
+.proceed-to-checkout.MuiButton-root {
+  width: 100%;
+  padding: 12px 30px;
+  background-color: var(--first-color);
+  color: var(--white-color);
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    opacity: 0.8;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+
+  &:disabled {
+    background-color: var(--gray-color) !important;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    opacity: 0.7;
+  }
+}
+
+/* =========================================================================
+   Empty Cart State
+   ========================================================================== */
+.empty-cart-container {
+  padding: 40px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+
+  .empty-cart-image {
+    width: 150px;
+    height: 150px;
+    margin: 30px 0 20px 0;
+    object-fit: contain;
+    opacity: 0.3;
+    animation: float 5s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+
+  h2 {
+    font-size: 26px;
+    color: var(--black-color);
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 18px;
+    color: var(--black-color); 
+    opacity: 0.8;;
+  }
+
+  .btn-primary {
+    width: 10%;
+    display: inline-block;
+    padding: 8px 30px;
+    background-color: var(--first-color);
+    color: var(--white-color);
+    border: none;
+    border-radius: 4px;
+    font-size: 20px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+
+    &:hover {
+      background-color: var(--first-color-light);
+      opacity: 0.9;
+      box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
+/* =========================================================================
+   Pincode Input Section
+   ========================================================================== */
+.pincode-input-wrapper {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  input {
+    width: 200px;
+    padding: 8px 15px;
+    border: 1px solid var(--background-color);
+    border-radius: 4px;
+    font-size: 18px;
+    color: var(--black-color);
+    background-color: transparent;
+    transition: border-color 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: #2874f0;
+    }
+
+    &::placeholder {
+      color: var(--gray-color);
+    }
+  }
+
+  button {
+    min-width: 100px;
+  }
 }

@@ -1,15 +1,44 @@
 @use "../../Styles/Theme_one/_variable.scss" as *;
 
 /* Style for the product section */
-.home-product-section{
+.home-product-section {
   padding: 40px 0;
+  
+  .container-fluid {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
 
-  .product-grid{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap; /* Allow items to wrap to the next line */
-    gap: 0px;
+  .product-list-container {
+    margin-top: 20px;
+    
+    .product-container {
+      display: flex;
+      gap: 30px;
+
+      .filter-section {
+        flex: 0 0 250px;
+        background: var(--white-color);
+        padding: 20px;
+        border-radius: 15px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        height: fit-content;
+        position: sticky;
+        top: 20px;
+      }
+
+      .products-grid {
+        flex: 1;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+        gap: 20px;
+      }
+    }
+  }
+
+  .section-header {
+    margin-bottom: 30px;
   }
 }
 
@@ -48,7 +77,7 @@ h3{
 .HomeProductsRow2 {
   .productRow {
     .slick-slide {
-      padding: 0px 10px;
+      padding: 0px 5px; /* Reduced padding to decrease horizontal gap */
     }
   }
 
@@ -91,8 +120,8 @@ h3{
           transition: all 0.3s ease-in-out;
 
           &:hover {
-            color: var(--first-color);
-            opacity: 1;
+            color: var(--black-color);
+            opacity: 0.9;
           }
        }
      }
@@ -102,7 +131,7 @@ h3{
   .product-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 10px; /* Reduced gap to decrease horizontal and vertical spacing */
 
     .col-lg-2, .col-md-3, .col-sm-4, .col-6 {
       display: flex;
@@ -137,8 +166,8 @@ h3{
         transition: all 0.3s ease-in-out;
 
         &:hover {
-          color: var(--first-color);
-          opacity: 1;
+          color: var(--black-color);
+          opacity: 0.9;
         }
       }
     }
@@ -162,7 +191,7 @@ h3{
 
   .daily-best-slider {
     .slick-slide {
-      padding: 0 10px;
+      padding: 0 5px; /* Reduced padding to decrease horizontal gap */
     }
   }
 }

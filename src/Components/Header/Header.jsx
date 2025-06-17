@@ -17,7 +17,7 @@ import UserIcon from "@mui/icons-material/PersonOutlineOutlined";
 import OrderIcon from "@mui/icons-material/LocalMallOutlined";
 import VoucherIcon from "@mui/icons-material/LocalOfferOutlined";
 import SettingIcon from "@mui/icons-material/TuneOutlined";
-import LogoutIcon from "@mui/icons-material/LogoutOutlined";
+import LoginIcon from '@mui/icons-material/Login';
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import MenuIcon from "@mui/icons-material/Menu";
 import Drawer from "@mui/material/Drawer";
@@ -49,6 +49,10 @@ const Header = () => {
 
   const cartItemCount = cartItems.reduce((count, item) => count + item.quantity, 0);
   const wishlistItemCount = wishlistItems.length; // Get the count of wishlist items
+
+  const handleOrdersClick = () => {
+    navigate('/order');
+  };
 
   return (
     <>
@@ -127,28 +131,47 @@ const Header = () => {
                         {isOpenDropDown && (
                           <ul className="subMenu">
                             <li>
-                              <Button className="align-items-center">
+                              <Button 
+                                className="align-items-center"
+                                onClick={() => setIsOpenDropDown(false)}
+                              >
                                 <UserIcon /> My Account
                               </Button>
                             </li>
                             <li>
-                              <Button>
-                                <OrderIcon /> Orders
+                              <Button 
+                                onClick={() => {
+                                  handleOrdersClick();
+                                  setIsOpenDropDown(false);
+                                }}
+                                className="align-items-center"
+                                style={{ width: '100%', justifyContent: 'flex-start' }}
+                              >
+                                <OrderIcon style={{ marginRight: '8px' }}/> Orders
                               </Button>
                             </li>
                             <li>
-                              <Button>
+                              <Button
+                                onClick={() => setIsOpenDropDown(false)}
+                              >
                                 <VoucherIcon /> Vouchers
                               </Button>
                             </li>
                             <li>
-                              <Button>
+                              <Button
+                                onClick={() => setIsOpenDropDown(false)}
+                              >
                                 <SettingIcon /> Settings
                               </Button>
                             </li>
                             <li>
-                              <Button>
-                                <LogoutIcon /> Sign in
+                              <Button 
+                                onClick={() => {
+                                  navigate('/login');
+                                  setIsOpenDropDown(false);
+                                }}
+                              >
+                                <LoginIcon /> Sign in
                               </Button>
                             </li>
                           </ul>

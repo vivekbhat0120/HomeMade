@@ -158,10 +158,10 @@ const Footer = () => {
                       <Link to="/add-to-cart">View Cart</Link>
                     </li>
                     <li>
-                      <Link to="#">My Wishlist</Link>
+                      <Link to="/WishList">My Wishlist</Link>
                     </li>
                     <li>
-                      <Link to="#">Track My Order</Link>
+                      <Link to="/order">Track My Order</Link>
                     </li>
                     <li>
                       <Link to="#">Track Complaint</Link>

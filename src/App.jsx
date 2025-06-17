@@ -11,8 +11,11 @@ import Login from './Pages/Login/Login';
 import Register from './Pages/Register/Register';
 import AddToCart from "./Pages/AddToCart/AddToCart";
 import WishList from "./Pages/WishList/WishList"; // Corrected path
-import { WishlistProvider } from './Components/WishListContext/WishListContext'; // Import WishlistProvider
+import Order from './Pages/Orders/Order';
+import ProductDetails from './Pages/ProductDetails/ProductDetails';
+import { WishlistProvider } from './Components/WishlistContext/WishlistContext';
 import { CartProvider } from './Components/CartContext/CartContext';
+
 
 function App() {
   return (
@@ -27,6 +30,8 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/add-to-cart" element={<AddToCart />} />
             <Route path="/WishList" element={<WishList />} />
+            <Route path="/order" element={<Order />} />
+            <Route path="/product-details/:id" element={<ProductDetails />} />
           </Routes>
         </BrowserRouter>
       </WishlistProvider>
