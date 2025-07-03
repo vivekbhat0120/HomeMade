@@ -11,6 +11,7 @@ import FlashOnIcon from '@mui/icons-material/FlashOn';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 const ProductDetails = () => {
+  // Hooks and state management
   const { id } = useParams();
   const [selectedImage, setSelectedImage] = useState(0);
   const { addToCart } = useCart();
@@ -19,7 +20,8 @@ const ProductDetails = () => {
   // Find the product based on the ID
   const product = productDetails.find(p => p.id === parseInt(id));
 
-  // If product not found
+
+  // Handle product not found case
   if (!product) {
     return (
       <div className="product-not-found">
@@ -29,53 +31,61 @@ const ProductDetails = () => {
     );
   }
 
-  // Calculate discount percentage
+
+  // Data calculations and preparations
   const discountPercentage = Math.round(((product.oldprice - product.newprice) / product.oldprice) * 100);
 
-  // Prepare product info for cart/wishlist
+
   const productInfo = {
     id: product.id,
     name: product.name,
     price: product.newprice,
     oldprice: product.oldprice,
-    image: product.images?.[0] || product.image, // Use first image or fallback to single image
+
+    image: product.images?.[0] || product.image,
     category: product.category,
     brand: product.brand,
   };
 
-  // Use product images array or create array from single image
+
   const productImages = product.images || [product.image];
 
-  // Find similar category products (excluding current)
+
+  // Similar products logic
   const similarCategoryProducts = productDetails
     .filter(p => p.category === product.category && p.id !== product.id)
     .slice(0, 6);
 
-  // Find popular products (highest rating, excluding current)
+
   const popularProducts = productDetails
     .filter(p => p.id !== product.id)
     .sort((a, b) => b.rating - a.rating)
     .slice(0, 6);
 
-  // Combine similar category and popular products, avoiding duplicates
+
   const combinedSimilarProducts = [
     ...similarCategoryProducts,
-    ...popularProducts.filter(
-      p => !similarCategoryProducts.some(sp => sp.id === p.id)
-    ),
+
+
+
+    ...popularProducts.filter(p => !similarCategoryProducts.some(sp => sp.id === p.id)),
   ];
 
   return (
     <div className="product-details-bg">
       <div className="product-details-card">
+        {/* Header Section */}
         <div className="product-details__header">
           <Link to="/" className="back-link">
             <ArrowBackIosNewIcon fontSize="small" />
             <span>Back to Products</span>
           </Link>
         </div>
+
         <div className="product-details">
+          {/* Left Section - Images and Actions */}
           <div className="product-details__left">
+            {/* Image Gallery */}
             <div className="image-gallery">
               <div className="thumbnail-list">
                 {productImages.map((img, index) => (
@@ -92,6 +102,8 @@ const ProductDetails = () => {
                 <img src={productImages[selectedImage]} alt={product.name} />
               </div>
             </div>
+
+            {/* Action Buttons */}
             <div className="action-buttons">
               <button className="add-to-wishlist" onClick={() => addToWishlist(productInfo)}>
                 <FavoriteBorderIcon style={{marginRight: 8}} />
@@ -107,7 +119,8 @@ const ProductDetails = () => {
               </button>
             </div>
 
-            {/* Ratings & Reviews section */}
+
+            {/* Ratings & Reviews Section */}
             <div className="ratings-reviews-section">
               <h2>Ratings & Reviews</h2>
               <div className="ratings-summary">
@@ -133,7 +146,7 @@ const ProductDetails = () => {
                   ))}
                 </div>
               </div>
-              {/* No review images for now */}
+
               <div className="customer-reviews">
                 {product.reviews && product.reviews.length > 0 ? (
                   product.reviews.map((review, idx) => (
@@ -161,16 +174,16 @@ const ProductDetails = () => {
 
           <div className="divider-vertical"></div>
 
+          {/* Right Section - Product Information */}
           <div className="product-details__right">
+            {/* Basic Product Info */}
             <h1 className="product-title">
-              <span className="brand">{product.brand}</span>
-              {product.name}
+              <div className="product-meta">
+                <span className="category">{product.category}</span>
+                <span className="brand">{product.brand}</span>
+              </div>
+              <span className="product-name">{product.name}</span>
             </h1>
-            
-            <div className="product-meta">
-              <span className="category">{product.category}</span>
-              {/* Add more meta if available */}
-            </div>
 
             <div className="product-rating">
               <Rating 
@@ -183,12 +196,14 @@ const ProductDetails = () => {
               <span className="reviews">{product.numReviews} ratings</span>
             </div>
 
+            {/* Price Information */}
             <div className="product-price">
               <span className="special-price">₹{product.newprice}</span>
               <span className="mrp">₹{product.oldprice}</span>
               <span className="discount">{discountPercentage}% off</span>
             </div>
 
+            {/* Offers Section */}
             <div className="offers-section">
               <h3>Available offers</h3>
               <ul>
@@ -198,23 +213,26 @@ const ProductDetails = () => {
               </ul>
             </div>
 
-            <div className="delivery-info">
-              <h3>Delivery</h3>
-              <div className="pincode-checker">
-                <input type="text" placeholder="Enter delivery pincode" maxLength="6" pattern="[0-9]*"/>
-                <button>Check</button>
+            {/* Delivery and Highlights */}
+            <div className="product-info-columns">
+              <div className="delivery-info">
+                <h3>Delivery</h3>
+                <div className="pincode-checker">
+                  <input type="text" placeholder="Enter delivery pincode" maxLength="6" pattern="[0-9]*"/>
+                  <button>Check</button>
+                </div>
+                <p className="delivery-message">Usually delivered in 5-7 days</p>
               </div>
-              <p className="delivery-message">Usually delivered in 5-7 days</p>
-            </div>
 
-            <div className="product-highlights">
-              <h3>Highlights</h3>
-              <ul>
-                <li>100% Genuine Product</li>
-                <li>Easy 7 Days Return Policy</li>
-                <li>Secure Payments</li>
-                {/* Add more highlights if available */}
-              </ul>
+              <div className="product-highlights">
+                <h3>Highlights</h3>
+                <ul>
+                  <li>100% Genuine Product</li>
+                  <li>Easy 7 Days Return Policy</li>
+                  <li>Secure Payments</li>
+
+                </ul>
+              </div>
             </div>
 
             {/* Product Description */}
@@ -243,13 +261,15 @@ const ProductDetails = () => {
               <a href="#" className="read-more-specs">Read More</a>
             </div>
           </div>
-        </div> {/* end of product-details */}
+
+        </div>
         
-        {/* Similar Products Section at the bottom, full width */}
+
+        {/* Similar Products Section */}
         <section className="similar-products-section-wide">
           <h2>Similar Products</h2>
           <div className="similar-products-list-scroll">
-            {/* Show similar category products first, then popular products */}
+            {/* Similar Category Products */}
             {similarCategoryProducts.length > 0 && (
               <>
                 <div className="similar-products-label">Similar Category</div>
@@ -272,6 +292,7 @@ const ProductDetails = () => {
                 ))}
               </>
             )}
+            {/* Popular Products */}
             {popularProducts.length > 0 && (
               <>
                 <div className="similar-products-label">Popular Products</div>
@@ -296,6 +317,7 @@ const ProductDetails = () => {
                   ))}
               </>
             )}
+            {/* No Similar Products */}
             {combinedSimilarProducts.length === 0 && (
               <div className="no-similar">No similar products found.</div>
             )}
@@ -307,3 +329,4 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
+
