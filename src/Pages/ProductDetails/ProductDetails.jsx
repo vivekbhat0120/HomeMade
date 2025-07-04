@@ -17,6 +17,9 @@ const ProductDetails = () => {
   const { addToCart } = useCart();
   const { addToWishlist } = useWishlist();
 
+  // Add state for showing all reviews
+  const [showAllReviews, setShowAllReviews] = useState(false);
+
   // Find the product based on the ID
   const product = productDetails.find(p => p.id === parseInt(id));
 
@@ -126,19 +129,48 @@ const ProductDetails = () => {
               <div className="ratings-summary">
                 <div className="avg-rating">
                   <span className="rating-value">{product.rating || 4.5}</span>
-                  <span className="star">★</span>
+                  {/* Show stars according to the number of rating */}
+                  <Rating
+                    className="stars"
+                    value={product.rating}
+                    precision={0.5}
+                    readOnly
+                    size="small"
+                  />
                   <div className="rating-count">{product.numReviews || 0} Ratings & {product.reviews ? product.reviews.length : 0} Reviews</div>
                 </div>
                 <div className="rating-bars">
-                  {[5,4,3,2,1].map(star => (
-                    <div className="bar-row" key={star}>
-                      <span>{star}★</span>
-                      <div className="bar-bg">
-                        <div className="bar-fill" style={{width: `${Math.max(10, (product.reviews ? product.reviews.filter(r => r.rating === star).length / (product.reviews.length || 1) * 100 : 0))}%`}}></div>
+                  {[5,4,3,2,1].map(star => {
+                    // Calculate ratings count for each star
+                    let starCount = 0;
+                    if (product.ratingsBreakdown) {
+                      // If ratingsBreakdown is provided in data, use it
+                      starCount = product.ratingsBreakdown[star] || 0;
+                    } else if (product.reviews && product.reviews.length > 0 && product.numReviews > product.reviews.length) {
+                      // If there are more ratings than reviews, estimate
+                      const reviewStarCount = product.reviews.filter(r => r.rating === star).length;
+                      // Distribute extra ratings to the average star
+                      if (star === Math.round(product.rating)) {
+                        starCount = reviewStarCount + (product.numReviews - product.reviews.length);
+                      } else {
+                        starCount = reviewStarCount;
+                      }
+                    } else if (product.reviews) {
+                      // Fallback: just use review count for that star
+                      starCount = product.reviews.filter(r => r.rating === star).length;
+                    }
+                    // Calculate percent for bar-fill
+                    const percent = product.numReviews ? (starCount / product.numReviews) * 100 : 0;
+                    return (
+                      <div className="bar-row" key={star}>
+                        <span>{star}★</span>
+                        <div className="bar-bg">
+                          <div className="bar-fill" style={{width: `${Math.max(10, percent)}%`}}></div>
+                        </div>
+                        <span>{starCount}</span>
                       </div>
-                      <span>{product.reviews ? product.reviews.filter(r => r.rating === star).length : 0}</span>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
                 <div className="rating-categories">
                   {product.ratingCategories && product.ratingCategories.map((cat, idx) => (
@@ -149,22 +181,38 @@ const ProductDetails = () => {
 
               <div className="customer-reviews">
                 {product.reviews && product.reviews.length > 0 ? (
-                  product.reviews.map((review, idx) => (
-                    <div className="review-block" key={idx}>
-                      <div className="review-header">
-                        <span className="review-rating">{review.rating}★</span>
-                        <span className="review-title">{review.title}</span>
+                  <>
+                    {(showAllReviews ? product.reviews : product.reviews.slice(0, 2)).map((review, idx) => (
+                      <div className="review-block" key={idx}>
+                        <div className="review-header">
+                          <span className="review-rating">{review.rating}★</span>
+                          <span className="review-title">{review.title}</span>
+                        </div>
+                        <div className="review-body">
+                          {review.body}
+                        </div>
+                        <div className="review-footer">
+                          <span className="reviewer">{review.reviewer}</span>
+                          <span className="review-date">{review.date}</span>
+                          <span className="review-actions">👍 {review.likes} &nbsp; 💬 {review.comments}</span>
+                        </div>
                       </div>
-                      <div className="review-body">
-                        {review.body}
+                    ))}
+                    {product.reviews.length > 2 && !showAllReviews && (
+                      <div>
+                        <a
+                          href="#"
+                          className="read-more-reviews"
+                          onClick={e => {
+                            e.preventDefault();
+                            setShowAllReviews(true);
+                          }}
+                        >
+                          Read More Reviews
+                        </a>
                       </div>
-                      <div className="review-footer">
-                        <span className="reviewer">{review.reviewer}</span>
-                        <span className="review-date">{review.date}</span>
-                        <span className="review-actions">👍 {review.likes} &nbsp; 💬 {review.comments}</span>
-                      </div>
-                    </div>
-                  ))
+                    )}
+                  </>
                 ) : (
                   <div>No reviews yet.</div>
                 )}
