@@ -319,51 +319,80 @@ const ProductDetails = () => {
           <div className="similar-products-list-scroll">
             {/* Similar Category Products */}
             {similarCategoryProducts.length > 0 && (
-              <>
+              <div style={{display: 'flex', flexDirection: 'column', minWidth: 0}}>
                 <div className="similar-products-label">Similar Category</div>
-                {similarCategoryProducts.map(p => (
-                  <div className="similar-product-card" key={`cat-${p.id}`}>
-                    <img src={p.images?.[0] || p.image} alt={p.name} />
-                    <div className="similar-product-title">{p.name}</div>
-                    <div className="similar-product-rating">
-                      <span>{p.rating}★</span>
-                      <span className="assured">✔️</span>
-                    </div>
-                    <div className="similar-product-price">
-                      <span>₹{p.newprice.toLocaleString()}</span>
-                      <span className="old">₹{p.oldprice.toLocaleString()}</span>
-                      <span className="discount">
-                        {Math.round(((p.oldprice - p.newprice) / p.oldprice) * 100)}% off
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </>
+                <div style={{display: 'flex', gap: 18, minWidth: 0}}>
+                  {similarCategoryProducts.map(p => (
+                    <Link
+                      to={`/product/${p.id}`}
+                      key={`cat-${p.id}`}
+                      className="similar-product-card-link"
+                      style={{textDecoration: 'none'}}
+                    >
+                      <div className="similar-product-card">
+                        <img src={p.images?.[0] || p.image} alt={p.name} />
+                        <div className="similar-product-title">{p.name}</div>
+                        <div className="similar-product-rating">
+                          <span>{p.rating}★</span>
+                          <span className="assured">✔️</span>
+                        </div>
+                        <div className="similar-product-price">
+                          <span>₹{p.newprice.toLocaleString()}</span>
+                          <span className="old">₹{p.oldprice.toLocaleString()}</span>
+                          <span className="discount">
+                            {Math.round(((p.oldprice - p.newprice) / p.oldprice) * 100)}% off
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+            {/* Divider between blocks */}
+            {similarCategoryProducts.length > 0 && popularProducts.length > 0 && (
+              <div style={{
+                width: '2px',
+                background: '#e3eafc',
+                margin: '0 24px',
+                borderRadius: '2px',
+                alignSelf: 'stretch',
+                minHeight: '120px'
+              }}></div>
             )}
             {/* Popular Products */}
             {popularProducts.length > 0 && (
-              <>
+              <div style={{display: 'flex', flexDirection: 'column', minWidth: 0}}>
                 <div className="similar-products-label">Popular Products</div>
-                {popularProducts
-                  .filter(p => !similarCategoryProducts.some(sp => sp.id === p.id))
-                  .map(p => (
-                    <div className="similar-product-card" key={`pop-${p.id}`}>
-                      <img src={p.images?.[0] || p.image} alt={p.name} />
-                      <div className="similar-product-title">{p.name}</div>
-                      <div className="similar-product-rating">
-                        <span>{p.rating}★</span>
-                        <span className="assured">✔️</span>
-                      </div>
-                      <div className="similar-product-price">
-                        <span>₹{p.newprice.toLocaleString()}</span>
-                        <span className="old">₹{p.oldprice.toLocaleString()}</span>
-                        <span className="discount">
-                          {Math.round(((p.oldprice - p.newprice) / p.oldprice) * 100)}% off
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-              </>
+                <div style={{display: 'flex', gap: 18, minWidth: 0}}>
+                  {popularProducts
+                    .filter(p => !similarCategoryProducts.some(sp => sp.id === p.id))
+                    .map(p => (
+                      <Link
+                        to={`/product/${p.id}`}
+                        key={`pop-${p.id}`}
+                        className="similar-product-card-link"
+                        style={{textDecoration: 'none'}}
+                      >
+                        <div className="similar-product-card">
+                          <img src={p.images?.[0] || p.image} alt={p.name} />
+                          <div className="similar-product-title">{p.name}</div>
+                          <div className="similar-product-rating">
+                            <span>{p.rating}★</span>
+                            <span className="assured">✔️</span>
+                          </div>
+                          <div className="similar-product-price">
+                            <span>₹{p.newprice.toLocaleString()}</span>
+                            <span className="old">₹{p.oldprice.toLocaleString()}</span>
+                            <span className="discount">
+                              {Math.round(((p.oldprice - p.newprice) / p.oldprice) * 100)}% off
+                            </span>
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                </div>
+              </div>
             )}
             {/* No Similar Products */}
             {combinedSimilarProducts.length === 0 && (

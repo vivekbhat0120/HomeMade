@@ -411,17 +411,26 @@
       gap: 2px;
       font-size: 35px;
 
+      // Add a row for brand and category alignment
+      .brand-category-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 2px;
+        width: 100%;
+      }
+
       .brand {
-        color: var(--first-color);
-        font-size: 12px;
+        color: var(--red-color);
+        font-size: 13px;
         font-weight: 600;
         letter-spacing: 1.2px;
         text-transform: uppercase;
-        margin-bottom: 2px;
-        background: var(--background-color);
+        background: var(--background-color-light);
         padding: 2px 10px;
         border-radius: 8px;
         display: inline-block;
+        margin-bottom: 0; // Remove margin to align with category
       }
 
       .product-name {
@@ -438,15 +447,16 @@
       align-items: center;
       gap: 12px;
       margin-bottom: 4px;
+      padding-left: 0; // Remove left padding if any
 
       .category {
-        background: var(--background-color);
+        background: var(--background-color-light);
         color: var(--first-color);
         padding: 3px 14px;
         border-radius: 14px;
         font-size: 13px;
         font-weight: 600;
-        letter-spacing: 0.5px;
+        letter-spacing: 1.2px;
         margin: 0;
         display: inline-block;
       }
@@ -472,7 +482,7 @@
 
       .reviews {
         font-size: 14px;
-        color: #616161;
+        color: var(--background-color-dark);
         margin-left: 8px;
         font-weight: 500;
       }
@@ -760,51 +770,88 @@
         background: #f8fafd;
       }
 
-      .similar-products-label {
-        align-self: flex-end;
-        font-size: 15px;
-        font-weight: 700;
-        color: #1976d2;
-        background: #e3eafc;
-        border-radius: 8px;
-        padding: 4px 14px;
-        margin-right: 12px;
-        margin-top: 18px;
-        margin-bottom: 8px;
-        min-width: 120px;
-        text-align: center;
-        letter-spacing: 0.5px;
+      // Remove old > div:not(:last-child) margin, handled by .similar-products-block below
+
+      .similar-products-block {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        margin-right: 32px;
+
+        &:last-child {
+          margin-right: 0;
+        }
       }
 
-      .similar-product-card {
-        background: #fff;
-        border-radius: 8px;
-        box-shadow: 0 1px 4px rgba(60, 72, 100, 0.07);
-        padding: 12px 10px;
+      .similar-products-cards-row {
+        display: flex;
+        gap: 18px;
+        min-width: 0;
+      }
+
+      .similar-products-divider {
+        min-width: 2px;
+        width: 2px;
+        background: #e3eafc;
+        margin: 0 24px;
+        border-radius: 2px;
+        align-self: stretch;
+        min-height: 120px;
+        display: block;
+      }
+
+      // Add spacing between blocks
+      > div:not(:last-child) {
+        margin-right: 32px;
+      }
+
+      // Style for clickable card links
+      .similar-product-card-link {
+        text-decoration: none;
+        color: inherit;
         width: 170px;
         min-width: 170px;
         display: flex;
         flex-direction: column;
         align-items: center;
         transition: box-shadow 0.18s, transform 0.18s;
+      }
+
+      .similar-product-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(60, 72, 100, 0.10);
+        padding: 18px 12px 16px 12px;
+        width: 170px;
+        min-width: 170px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: box-shadow 0.18s, transform 0.18s, border 0.18s;
         cursor: pointer;
+        border: 2px solid transparent;
 
         &:hover {
-          box-shadow: 0 4px 16px rgba(60, 72, 100, 0.13);
-          transform: translateY(-4px) scale(1.03);
+          box-shadow: 0 8px 24px rgba(60, 72, 100, 0.18);
+          transform: translateY(-6px) scale(1.045);
+          border: 2px solid var(--first-color);
+          z-index: 2;
         }
 
         img {
-          width: 90px;
-          height: 90px;
+          width: 100px;
+          height: 100px;
           object-fit: contain;
-          margin-bottom: 8px;
+          margin-bottom: 10px;
+          border-radius: 8px;
+          background: #f8fafd;
+          box-shadow: 0 1px 4px rgba(60, 72, 100, 0.04);
         }
         .similar-product-title {
-          font-size: 14px;
+          font-size: 15px;
           font-weight: 600;
           color: #232323;
-          margin-bottom: 4px;
+          margin-bottom: 6px;
           text-align: center;
           white-space: nowrap;
           overflow: hidden;
@@ -846,11 +893,16 @@
           }
         }
       }
-      .no-similar {
-        color: #888;
-        font-size: 15px;
-        padding: 18px 0;
-        align-self: center;
+      // Divider between blocks (if present)
+      > div[style*="background: #e3eafc"] {
+        min-width: 2px;
+        width: 2px;
+        background: #e3eafc;
+        margin: 0 24px;
+        border-radius: 2px;
+        align-self: stretch;
+        min-height: 120px;
+        display: block;
       }
     }
   }
