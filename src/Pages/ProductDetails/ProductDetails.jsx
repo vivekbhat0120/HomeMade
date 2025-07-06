@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { productDetails } from '../../Data/ProductData';
 
@@ -19,6 +19,14 @@ const ProductDetails = () => {
 
   // Add state for showing all reviews
   const [showAllReviews, setShowAllReviews] = useState(false);
+
+  // Reset component state when product ID changes
+  useEffect(() => {
+    setSelectedImage(0);
+    setShowAllReviews(false);
+    // Scroll to top when navigating to a new product
+    window.scrollTo(0, 0);
+  }, [id]);
 
   // Find the product based on the ID
   const product = productDetails.find(p => p.id === parseInt(id));
@@ -313,92 +321,81 @@ const ProductDetails = () => {
         </div>
         
 
-        {/* Similar Products Section */}
+        {/* Similar Products Section (Enhanced with Auto-Scroll) */}
         <section className="similar-products-section-wide">
-          <h2>Similar Products</h2>
-          <div className="similar-products-list-scroll">
-            {/* Similar Category Products */}
-            {similarCategoryProducts.length > 0 && (
-              <div style={{display: 'flex', flexDirection: 'column', minWidth: 0}}>
-                <div className="similar-products-label">Similar Category</div>
-                <div style={{display: 'flex', gap: 18, minWidth: 0}}>
-                  {similarCategoryProducts.map(p => (
-                    <Link
-                      to={`/product/${p.id}`}
-                      key={`cat-${p.id}`}
-                      className="similar-product-card-link"
-                      style={{textDecoration: 'none'}}
-                    >
-                      <div className="similar-product-card">
-                        <img src={p.images?.[0] || p.image} alt={p.name} />
-                        <div className="similar-product-title">{p.name}</div>
-                        <div className="similar-product-rating">
-                          <span>{p.rating}★</span>
-                          <span className="assured">✔️</span>
-                        </div>
+          {/* Same Category Products */}
+          {similarCategoryProducts.length > 0 && (
+            <div className="product-category-section">
+              <div className="similar-products-label">
+                <h3>More from {product.category}</h3>
+                <span className="product-count">({similarCategoryProducts.length} items)</span>
+              </div>
+              <div className="similar-products-list auto-scroll">
+                {similarCategoryProducts.map((sp) => (
+                  <Link to={`/product-details/${sp.id}`} key={`category-${sp.id}`} className="similar-product-card">
+                    <div className="similar-product-image">
+                      <img src={sp.images?.[0] || sp.image} alt={sp.name} />
+                    </div>
+                    <div className="similar-product-info">
+                      <div className="similar-product-name">{sp.name}</div>
+                      <div className="similar-product-brand">{sp.brand}</div>
+                      <div className="similar-product-price">
+                        <span className="price">₹{sp.newprice}</span>
+                        {sp.oldprice && (
+                          <span className="old-price">₹{sp.oldprice}</span>
+                        )}
+                      </div>
+                      <div className="similar-product-rating">
+                        <Rating value={sp.rating} precision={0.5} readOnly size="small" />
+                        <span className="rating-text">({sp.rating})</span>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Popular Products */}
+          {popularProducts.filter(p => !similarCategoryProducts.some(sp => sp.id === p.id)).length > 0 && (
+            <div className="product-category-section">
+              <div className="similar-products-label">
+                <h3>Popular Products</h3>
+                <span className="product-count">({popularProducts.filter(p => !similarCategoryProducts.some(sp => sp.id === p.id)).length} items)</span>
+              </div>
+              <div className="similar-products-list auto-scroll-reverse">
+                {popularProducts
+                  .filter(p => !similarCategoryProducts.some(sp => sp.id === p.id))
+                  .map((sp) => (
+                    <Link to={`/product-details/${sp.id}`} key={`popular-${sp.id}`} className="similar-product-card">
+                      <div className="similar-product-image">
+                        <img src={sp.images?.[0] || sp.image} alt={sp.name} />
+                        <div className="popular-badge">Popular</div>
+                      </div>
+                      <div className="similar-product-info">
+                        <div className="similar-product-name">{sp.name}</div>
+                        <div className="similar-product-brand">{sp.brand}</div>
                         <div className="similar-product-price">
-                          <span>₹{p.newprice.toLocaleString()}</span>
-                          <span className="old">₹{p.oldprice.toLocaleString()}</span>
-                          <span className="discount">
-                            {Math.round(((p.oldprice - p.newprice) / p.oldprice) * 100)}% off
-                          </span>
+                          <span className="price">₹{sp.newprice}</span>
+                          {sp.oldprice && (
+                            <span className="old-price">₹{sp.oldprice}</span>
+                          )}
+                        </div>
+                        <div className="similar-product-rating">
+                          <Rating value={sp.rating} precision={0.5} readOnly size="small" />
+                          <span className="rating-text">({sp.rating})</span>
                         </div>
                       </div>
                     </Link>
                   ))}
-                </div>
               </div>
-            )}
-            {/* Divider between blocks */}
-            {similarCategoryProducts.length > 0 && popularProducts.length > 0 && (
-              <div style={{
-                width: '2px',
-                background: '#e3eafc',
-                margin: '0 24px',
-                borderRadius: '2px',
-                alignSelf: 'stretch',
-                minHeight: '120px'
-              }}></div>
-            )}
-            {/* Popular Products */}
-            {popularProducts.length > 0 && (
-              <div style={{display: 'flex', flexDirection: 'column', minWidth: 0}}>
-                <div className="similar-products-label">Popular Products</div>
-                <div style={{display: 'flex', gap: 18, minWidth: 0}}>
-                  {popularProducts
-                    .filter(p => !similarCategoryProducts.some(sp => sp.id === p.id))
-                    .map(p => (
-                      <Link
-                        to={`/product/${p.id}`}
-                        key={`pop-${p.id}`}
-                        className="similar-product-card-link"
-                        style={{textDecoration: 'none'}}
-                      >
-                        <div className="similar-product-card">
-                          <img src={p.images?.[0] || p.image} alt={p.name} />
-                          <div className="similar-product-title">{p.name}</div>
-                          <div className="similar-product-rating">
-                            <span>{p.rating}★</span>
-                            <span className="assured">✔️</span>
-                          </div>
-                          <div className="similar-product-price">
-                            <span>₹{p.newprice.toLocaleString()}</span>
-                            <span className="old">₹{p.oldprice.toLocaleString()}</span>
-                            <span className="discount">
-                              {Math.round(((p.oldprice - p.newprice) / p.oldprice) * 100)}% off
-                            </span>
-                          </div>
-                        </div>
-                      </Link>
-                    ))}
-                </div>
-              </div>
-            )}
-            {/* No Similar Products */}
-            {combinedSimilarProducts.length === 0 && (
-              <div className="no-similar">No similar products found.</div>
-            )}
-          </div>
+            </div>
+          )}
+
+          {/* Fallback if no products */}
+          {similarCategoryProducts.length === 0 && popularProducts.length === 0 && (
+            <div className="no-similar-products">No similar products found.</div>
+          )}
         </section>
       </div>
     </div>
