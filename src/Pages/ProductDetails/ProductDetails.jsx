@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { productDetails } from '../../Data/ProductData';
 
@@ -9,6 +9,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import FlashOnIcon from '@mui/icons-material/FlashOn';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 const ProductDetails = () => {
   // Hooks and state management
@@ -31,7 +32,6 @@ const ProductDetails = () => {
   // Find the product based on the ID
   const product = productDetails.find(p => p.id === parseInt(id));
 
-
   // Handle product not found case
   if (!product) {
     return (
@@ -42,45 +42,105 @@ const ProductDetails = () => {
     );
   }
 
-
   // Data calculations and preparations
   const discountPercentage = Math.round(((product.oldprice - product.newprice) / product.oldprice) * 100);
-
 
   const productInfo = {
     id: product.id,
     name: product.name,
     price: product.newprice,
     oldprice: product.oldprice,
-
     image: product.images?.[0] || product.image,
     category: product.category,
     brand: product.brand,
   };
 
-
   const productImages = product.images || [product.image];
-
 
   // Similar products logic
   const similarCategoryProducts = productDetails
     .filter(p => p.category === product.category && p.id !== product.id)
-    .slice(0, 6);
+    .slice(0, 10);
 
+  // Random category logic
+  const allCategories = Array.from(new Set(productDetails.map(p => p.category)));
+  const otherCategories = allCategories.filter(cat => cat !== product.category);
+  let randomCategory = null;
+  if (otherCategories.length > 0) {
+    randomCategory = otherCategories[Math.floor(Math.random() * otherCategories.length)];
+  }
+  const randomCategoryProducts = randomCategory
+    ? productDetails.filter(p => p.category === randomCategory && p.id !== product.id).slice(0, 10)
+    : [];
+
+  // Combine both for a single row
+  const combinedRowProducts = [
+    ...similarCategoryProducts.map(p => ({ ...p, _source: 'same' })),
+    ...randomCategoryProducts.map(p => ({ ...p, _source: 'random' })),
+  ];
 
   const popularProducts = productDetails
     .filter(p => p.id !== product.id)
     .sort((a, b) => b.rating - a.rating)
-    .slice(0, 6);
+    .slice(0, 10);
 
+  // --- Semi-scroller logic ---
+  const combinedRowRef = useRef(null);
+  const popularListRef = useRef(null);
 
-  const combinedSimilarProducts = [
-    ...similarCategoryProducts,
+  const scrollByAmount = 260; // px, should match card width + gap
 
+  const handleScroll = (ref, dir) => {
+    if (ref.current) {
+      ref.current.scrollBy({
+        left: dir === 'left' ? -scrollByAmount : scrollByAmount,
+        behavior: 'smooth',
+      });
+    }
+  };
 
-
-    ...popularProducts.filter(p => !similarCategoryProducts.some(sp => sp.id === p.id)),
-  ];
+  // --- Mouse drag-to-scroll logic ---
+  useEffect(() => {
+    const scrollers = [combinedRowRef.current, popularListRef.current];
+    scrollers.forEach(scroller => {
+      if (!scroller) return;
+      let isDown = false;
+      let startX;
+      let scrollLeft;
+      const onMouseDown = (e) => {
+        isDown = true;
+        scroller.classList.add('dragging');
+        startX = e.pageX - scroller.offsetLeft;
+        scrollLeft = scroller.scrollLeft;
+      };
+      const onMouseLeave = () => {
+        isDown = false;
+        scroller.classList.remove('dragging');
+      };
+      const onMouseUp = () => {
+        isDown = false;
+        scroller.classList.remove('dragging');
+      };
+      const onMouseMove = (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - scroller.offsetLeft;
+        const walk = (x - startX) * 1.2; // scroll-fast
+        scroller.scrollLeft = scrollLeft - walk;
+      };
+      scroller.addEventListener('mousedown', onMouseDown);
+      scroller.addEventListener('mouseleave', onMouseLeave);
+      scroller.addEventListener('mouseup', onMouseUp);
+      scroller.addEventListener('mousemove', onMouseMove);
+      // Clean up
+      return () => {
+        scroller.removeEventListener('mousedown', onMouseDown);
+        scroller.removeEventListener('mouseleave', onMouseLeave);
+        scroller.removeEventListener('mouseup', onMouseUp);
+        scroller.removeEventListener('mousemove', onMouseMove);
+      };
+    });
+  }, [combinedRowRef, popularListRef, combinedRowProducts.length, popularProducts.length]);
 
   return (
     <div className="product-details-bg">
@@ -129,7 +189,6 @@ const ProductDetails = () => {
                 BUY NOW
               </button>
             </div>
-
 
             {/* Ratings & Reviews Section */}
             <div className="ratings-reviews-section">
@@ -321,56 +380,22 @@ const ProductDetails = () => {
         </div>
         
 
-        {/* Similar Products Section (Enhanced with Auto-Scroll) */}
+        {/* Similar Products Section (Semi-Scroller) */}
         <section className="similar-products-section-wide">
-          {/* Same Category Products */}
-          {similarCategoryProducts.length > 0 && (
+          {/* Same Row: Same Category + Random Category */}
+          {combinedRowProducts.length > 0 && (
             <div className="product-category-section">
               <div className="similar-products-label">
-                <h3>More from {product.category}</h3>
-                <span className="product-count">({similarCategoryProducts.length} items)</span>
+                <h3>More from {product.category} & {randomCategory ? randomCategory : ''}</h3>
+                <span className="product-count">({combinedRowProducts.length} items)</span>
               </div>
-              <div className="similar-products-list auto-scroll">
-                {similarCategoryProducts.map((sp) => (
-                  <Link to={`/product-details/${sp.id}`} key={`category-${sp.id}`} className="similar-product-card">
-                    <div className="similar-product-image">
-                      <img src={sp.images?.[0] || sp.image} alt={sp.name} />
-                    </div>
-                    <div className="similar-product-info">
-                      <div className="similar-product-name">{sp.name}</div>
-                      <div className="similar-product-brand">{sp.brand}</div>
-                      <div className="similar-product-price">
-                        <span className="price">₹{sp.newprice}</span>
-                        {sp.oldprice && (
-                          <span className="old-price">₹{sp.oldprice}</span>
-                        )}
-                      </div>
-                      <div className="similar-product-rating">
-                        <Rating value={sp.rating} precision={0.5} readOnly size="small" />
-                        <span className="rating-text">({sp.rating})</span>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Popular Products */}
-          {popularProducts.filter(p => !similarCategoryProducts.some(sp => sp.id === p.id)).length > 0 && (
-            <div className="product-category-section">
-              <div className="similar-products-label">
-                <h3>Popular Products</h3>
-                <span className="product-count">({popularProducts.filter(p => !similarCategoryProducts.some(sp => sp.id === p.id)).length} items)</span>
-              </div>
-              <div className="similar-products-list auto-scroll-reverse">
-                {popularProducts
-                  .filter(p => !similarCategoryProducts.some(sp => sp.id === p.id))
-                  .map((sp) => (
-                    <Link to={`/product-details/${sp.id}`} key={`popular-${sp.id}`} className="similar-product-card">
+              <div className="scroller-wrapper">
+                <button className="scroller-arrow left" onClick={() => handleScroll(combinedRowRef, 'left')}><ArrowBackIosNewIcon /></button>
+                <div className="similar-products-list" ref={combinedRowRef} style={{overflowX: 'auto', scrollBehavior: 'smooth', cursor: 'grab'}}>
+                  {combinedRowProducts.map((sp, idx) => (
+                    <Link to={`/product-details/${sp.id}`} key={`combined-${sp.id}`} className="similar-product-card">
                       <div className="similar-product-image">
                         <img src={sp.images?.[0] || sp.image} alt={sp.name} />
-                        <div className="popular-badge">Popular</div>
                       </div>
                       <div className="similar-product-info">
                         <div className="similar-product-name">{sp.name}</div>
@@ -388,12 +413,55 @@ const ProductDetails = () => {
                       </div>
                     </Link>
                   ))}
+                </div>
+                <button className="scroller-arrow right" onClick={() => handleScroll(combinedRowRef, 'right')}><ArrowForwardIosIcon /></button>
+              </div>
+            </div>
+          )}
+
+          {/* Popular Products */}
+          {popularProducts.filter(p => !combinedRowProducts.some(sp => sp.id === p.id)).length > 0 && (
+            <div className="product-category-section">
+              <div className="similar-products-label">
+                <h3>Popular Products</h3>
+                <span className="product-count">({popularProducts.filter(p => !combinedRowProducts.some(sp => sp.id === p.id)).length} items)</span>
+              </div>
+              <div className="scroller-wrapper">
+                <button className="scroller-arrow left" onClick={() => handleScroll(popularListRef, 'left')}><ArrowBackIosNewIcon /></button>
+                <div className="similar-products-list" ref={popularListRef} style={{overflowX: 'auto', scrollBehavior: 'smooth', cursor: 'grab'}}>
+                  {popularProducts
+                    .filter(p => !combinedRowProducts.some(sp => sp.id === p.id))
+                    .slice(0, 10)
+                    .map((sp) => (
+                      <Link to={`/product-details/${sp.id}`} key={`popular-${sp.id}`} className="similar-product-card">
+                        <div className="similar-product-image">
+                          <img src={sp.images?.[0] || sp.image} alt={sp.name} />
+                          <div className="popular-badge">Popular</div>
+                        </div>
+                        <div className="similar-product-info">
+                          <div className="similar-product-name">{sp.name}</div>
+                          <div className="similar-product-brand">{sp.brand}</div>
+                          <div className="similar-product-price">
+                            <span className="price">₹{sp.newprice}</span>
+                            {sp.oldprice && (
+                              <span className="old-price">₹{sp.oldprice}</span>
+                            )}
+                          </div>
+                          <div className="similar-product-rating">
+                            <Rating value={sp.rating} precision={0.5} readOnly size="small" />
+                            <span className="rating-text">({sp.rating})</span>
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                </div>
+                <button className="scroller-arrow right" onClick={() => handleScroll(popularListRef, 'right')}><ArrowForwardIosIcon /></button>
               </div>
             </div>
           )}
 
           {/* Fallback if no products */}
-          {similarCategoryProducts.length === 0 && popularProducts.length === 0 && (
+          {combinedRowProducts.length === 0 && popularProducts.length === 0 && (
             <div className="no-similar-products">No similar products found.</div>
           )}
         </section>
@@ -403,4 +471,3 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
-
