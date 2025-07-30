@@ -1,10 +1,17 @@
 import React from 'react';
-import './Home.scss';
+import './../styles/home.scss';
+import products from '../Data/Productdata';
+import Product from '../components/Product';
+import Footer from '../components/Footer';
 
 const Home = () => (
   <div className="home">
-    <h2>Welcome to Arica!</h2>
-    <p>This is the home page of your application. Use the navigation bar to explore more.</p>
+    <div className="product-list">
+      {products.map(product => (
+        <Product key={product.id} {...product} />
+      ))}
+    </div>
+    <Footer />
   </div>
 );
 
