@@ -3,7 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/product.scss';
 
-const Product = ({ id, name, price, image, description }) => {
+const Product = ({ id, name, price, image, shortDescription }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -15,7 +15,7 @@ const Product = ({ id, name, price, image, description }) => {
       <img src={image} alt={name} className="product-image" />
       <div className="product-info">
         <h2 className="product-name">{name}</h2>
-        <p className="product-description">{description}</p>
+        <p className="product-description">{shortDescription}</p>
         <div className="product-price">₹ {price}</div>
       </div>
     </div>

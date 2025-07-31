@@ -2,7 +2,7 @@
 
 // Container
 .product-detail-container {
-  margin: 150px 40px 0 40px;
+  margin: 110px 10px 5px;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -17,19 +17,19 @@
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-  padding: 16px;
   border-radius: 8px;
+  padding: 5px;
 }
 
 // Info Section (left in code, first in logical order)
 .product-info-section {
-  width: 50%;
+  width: 45%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
+  margin-left: 10px;
 }
 .product-title {
   font-size: 24px;
@@ -72,7 +72,7 @@
   text-decoration: line-through;
 }
 .available-offers {
-  max-width: 540px;
+  max-width: 520px;
   width: 100%;
   // border: 1px solid var(--primary-color);
   padding: 12px;
@@ -99,28 +99,28 @@
 }
 
 .product-description {
-  margin-bottom: 16px;
+  
   h3 {
     margin-bottom: 8px;
     font-size: 18px;
     color: #333;
   }
   p {
+    padding-right: 15px;
     font-size: 15px;
-    color: #444;
+    color: var(--text-color);
   }
 }
 
 .product-reviews {
-  margin-bottom: 16px;
   h3 {
-    margin-bottom: 8px;
+    margin: 0 0 8px 0;
     font-size: 18px;
-    color: #333;
+    color: var(--text-color);
   }
 }
 .review-item {
-  min-width: 520px;
+  min-width: 500px;
   width: 100%;
   background: var(--secondary-color);
   border-radius: 5px;
@@ -150,21 +150,42 @@
 
 // Image/Action/Description/Specs Section
 .product-image-section {
-  width: 50%;
+  width: 55%;
   margin-right: 20px;
   border-right: var(--text-color) 1px solid;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  position: relative;
+}
+
+.product-thumbnails-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.main-image-and-actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  border-right: 1px solid var(--text-color);
+  margin-right: 10px;
 }
 
 // Back Button
 .back-button {
   position: absolute;
   top: 5px;
-  left: 10px;
+  left: 2px;
   background: var(--white-color);
   border: 1px solid var(--primary-color);
   border-radius: 4px;
-  padding: 8px 15px;
-  font-size: 16px;
+  padding: 4px 10px;
+  font-size: 14px;
   color: var(--text-color);
   cursor: pointer;
   z-index: 10;
@@ -182,16 +203,46 @@
 }
 
 .main-product-image {
-  margin-top: 20px;
-  width: auto;
-  height: 320px;
+  margin-top: 10px;
+  width: 350px;
+  height: 350px;
   object-fit: cover;
   border-radius: 4px;
+  display: block;
+  margin-left: 20px;
+}
+
+// .product-thumbnails horizontal style is now unused
+.product-thumbnails {
+  display: none;
+}
+
+.main-image-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.product-thumbnail-image {
+  width: 65px;
+  height: 65px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 2px solid #eee;
+  transition: border 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  background: #fafafa;
+}
+.product-thumbnail-image:hover {
+  border: 2px solid var(--primary-color, #FFC107);
+  box-shadow: 0 2px 8px rgba(255,193,7,0.15);
 }
 .action-buttons {
-  margin: 24px auto 24px auto;
+  margin: 24px auto;
   display: flex;
-  gap: 18px;
+  gap: 25px;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -249,15 +300,18 @@
 }
 
 .product-specifications {
-  margin: 28px 0 16px 0;
-  // border: 1px solid var(--primary-color);
   border-radius: 10px;
   padding: 20px 24px 12px 24px;
-  min-width: 260px;
-  max-width: 520px;
-  
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  margin: 0 auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
   h3 {
-    margin-bottom: 14px;
+    margin: 0;
     font-size: 20px;
     color: var(--text-color);
     font-weight: 600;
@@ -265,6 +319,7 @@
   }
 }
 .spec-table {
+  margin-top: 15px;
   background: var(--secondary-color);
   width: 100%;
   border-radius: 10px;

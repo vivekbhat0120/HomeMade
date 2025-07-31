@@ -21,6 +21,7 @@ const products = [
     price: 999,
     oldPrice: 1299,
     image: Product1,
+    images: [Product1, Product2, Product3, Product4],
     description: 'A hand-carved wooden wall panel featuring an intricately detailed Hamsa, symbolizing protection and good fortune. Perfect for home decor or gifting. This piece is finished with a natural polish and comes with a wall-mount hook for easy installation. Each Hamsa is unique, reflecting the artisan’s touch and centuries-old tradition.',
     specifications: [
       { label: 'Brand', value: 'ArtisanCrafts' },
@@ -46,6 +47,7 @@ const products = [
     price: 999,
     oldPrice: 1199,
     image: Product2,
+    images: [Product2, Product3, Product4, Product5],
     description: 'A detailed wood carving depicting a graceful swan, adding elegance to any room. The plaque is hand-finished and sealed for durability, making it suitable for both indoor and covered outdoor spaces. The swan’s wings are intricately detailed, showcasing the artisan’s skill.',
     specifications: [
       { label: 'Brand', value: 'WoodElegance' },
@@ -71,6 +73,7 @@ const products = [
     price: 999,
     oldPrice: 1399,
     image: Product3,
+    images: [Product3, Product4, Product5, Product6],
     description: 'Ornate floral carvings on a dark wood panel, ideal for traditional and modern interiors alike. The panel is handcrafted from premium teak and features a protective lacquer finish. It can be used as a wall accent or as part of a decorative partition.',
     specifications: [
       { label: 'Brand', value: 'ClassicCarvings' },
@@ -96,6 +99,7 @@ const products = [
     price: 999,
     oldPrice: 1099,
     image: Product4,
+    images: [Product4, Product5, Product6, Product7],
     description: 'A serene Buddha statue in a peaceful garden setting, bringing calm and positivity to your space. The statue is crafted from a blend of resin and wood, with hand-painted details and a weather-resistant finish. Ideal for meditation corners and garden nooks.',
     specifications: [
       { label: 'Brand', value: 'ZenDecor' },
@@ -121,6 +125,7 @@ const products = [
     price: 999,
     oldPrice: 1199,
     image: Product5,
+    images: [Product5, Product6, Product7, Product1],
     description: 'Sacred symbols of prosperity and wisdom, perfect for pooja rooms and festive decor. The set includes a beautifully crafted kalash and a Ganesha idol, both with intricate brass inlay work. A must-have for auspicious occasions.',
     specifications: [
       { label: 'Brand', value: 'DivineCraft' },
@@ -146,6 +151,7 @@ const products = [
     price: 999,
     oldPrice: 1299,
     image: Product6,
+    images: [Product6, Product7, Product1, Product2],
     description: 'A hand-carved Ganesha idol in a decorative arch, ideal for entryways and living rooms. The mount is made from solid rosewood and features a glossy finish. It comes with pre-installed hooks for easy hanging.',
     specifications: [
       { label: 'Brand', value: 'HeritageWood' },
@@ -171,6 +177,7 @@ const products = [
     price: 999,
     oldPrice: 1099,
     image: Product7,
+    images: [Product7, Product1, Product2, Product3],
     description: 'A rustic wooden frame showcasing a cherished family photo, adding warmth to your home. The frame is handcrafted from pine wood and features a distressed finish for a vintage look. It fits standard 8x10 inch photos and comes with a glass front.',
     specifications: [
       { label: 'Brand', value: 'FrameHouse' },

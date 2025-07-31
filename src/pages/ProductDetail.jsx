@@ -26,6 +26,7 @@ const ProductDetail = () => {
     price,
     oldPrice,
     image,
+    images,
     description,
     specifications,
     reviews,
@@ -33,32 +34,48 @@ const ProductDetail = () => {
     offers,
   } = product;
 
+  // Use images array if available, fallback to single image
+  const productImages = images && images.length > 0 ? images : [image];
+
   return (
     <div className="product-detail-container">
       <div className="product-detail-card">
         {/* Image, Actions, Description, Specs Section - now on the left */}
-        <div className="product-image-section">
-          <button className="back-button" onClick={() => navigate(-1)}>&larr; Back</button>
-          <img src={image} alt={name} className="main-product-image" />
-          <div className="action-buttons">
-            <button className="btn btn-wish" title="Add to Wishlist"><FaHeart /></button>
-            <button className="btn btn-buy-now">BUY NOW</button>
-            <button className="btn btn-cart" title="Add to Cart"><FaShoppingCart /></button>
-          </div>
-          <div className="product-specifications">
-            <h3>Specifications</h3>
-            <table className="spec-table">
-              <tbody>
-                {specifications.map((spec, index) => (
-                  <tr key={index}>
-                    <td>{spec.label}</td>
-                    <td>{spec.value}</td>
-                  </tr>
+          <div className="main-image-and-actions">
+            <button className="back-button" onClick={() => navigate(-1)}>&larr; Back</button>
+            <div className="main-image-row">
+              <div className="product-thumbnails-vertical">
+                {productImages.map((img, idx) => (
+                  <img
+                    key={idx}
+                    src={img}
+                    alt={`${name} thumbnail ${idx + 1}`}
+                    className="product-thumbnail-image"
+                  />
                 ))}
-              </tbody>
-            </table>
+              </div>
+              <img src={productImages[0]} alt={name} className="main-product-image" />
+            </div>
+            <div className="action-buttons">
+              <button className="btn btn-wish" title="Add to Wishlist"><FaHeart /></button>
+              <button className="btn btn-buy-now">BUY NOW</button>
+              <button className="btn btn-cart" title="Add to Cart"><FaShoppingCart /></button>
+            </div>
+            <div className="product-specifications">
+              <h3>Specifications</h3>
+              <table className="spec-table">
+                <tbody>
+                  {specifications.map((spec, index) => (
+                    <tr key={index}>
+                      <td>{spec.label}</td>
+                      <td>{spec.value}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
+        
         {/* Info Section - now on the right */}
         <div className="product-info-section">
           <h1 className="product-title">{name}</h1>
