@@ -1,83 +1,85 @@
-// src/pages/ProductDetail.jsx
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import products from '../Data/Productdata';
 import '../styles/productdetail.scss';
+import { FaStar, FaTag } from 'react-icons/fa';
 
 const ProductDetail = () => {
-  const location = useLocation();
+  const { id } = useParams();
   const navigate = useNavigate();
-  const product = location.state;
-
-  // Placeholder data for reviews, specifications, and offers
-  const reviews = [
-    { user: 'Amit', rating: 5, comment: 'Excellent product!' },
-    { user: 'Priya', rating: 4, comment: 'Very good, value for money.' },
-  ];
-  const specifications = [
-    { label: 'Brand', value: 'SampleBrand' },
-    { label: 'Model', value: 'XYZ123' },
-    { label: 'Color', value: 'Black' },
-    { label: 'Warranty', value: '1 Year' },
-  ];
-  const offers = [
-    '10% Instant Discount on Credit Cards',
-    'No Cost EMI available',
-    'Special Price: Get extra 5% off (price inclusive of discount)'
-  ];
+  const product = products.find(p => p.id === parseInt(id));
 
   if (!product) {
-    return (
-      <div className="product-detail-container">
-        <h2>No product data found.</h2>
-        <button onClick={() => navigate(-1)}>Go Back</button>
-      </div>
-    );
+    return <div className="product-detail-container"><h2>Product not found</h2></div>;
   }
+
+  const {
+    name,
+    shortDescription,
+    price,
+    oldPrice,
+    image,
+    description,
+    specifications,
+    reviews,
+    rating,
+    offers,
+  } = product;
 
   return (
     <div className="product-detail-container">
-      <button onClick={() => navigate(-1)} className="back-button top-left">&#8592; Back</button>
-      <div className="product-detail-main">
-        {/* Left: Product Image */}
-        <div className="product-detail-image-section">
-          <img src={product.image} alt={product.name} className="product-detail-image" />
-          <button className="order-button">Order Now</button>
-        </div>
-        {/* Right: Product Details */}
-        <div className="product-detail-info-section">
-          <h2 className="product-detail-name">{product.name}</h2>
-          <div className="product-detail-rating">
-            <span className="rating-value">4.3 ★</span>
-            <span className="rating-count">(2,345 ratings & 345 reviews)</span>
+      <button className="back-button" onClick={() => navigate(-1)}>&larr; Back</button>
+      <div className="product-detail-card">
+        <div className="product-image-section">
+          <img src={image} alt={name} className="main-product-image" />
+          <div className="action-buttons">
+            <button className="btn btn-add-to-cart">ADD TO CART</button>
+            <button className="btn btn-buy-now">BUY NOW</button>
           </div>
-          <div className="product-detail-price">₹ {product.price}</div>
-          <ul className="product-detail-offers">
-            <li><strong>Available Offers</strong></li>
-            {offers.map((offer, idx) => (
-              <li key={idx}>{offer}</li>
-            ))}
-          </ul>
-          <p className="product-detail-description">{product.description}</p>
-          <div className="product-detail-specs">
+          <div className="product-description">
+            <h3>Description</h3>
+            <p>{description}</p>
+          </div>
+          <div className="product-specifications">
             <h3>Specifications</h3>
-            <table>
+            <table className="spec-table">
               <tbody>
-                {specifications.map((spec, idx) => (
-                  <tr key={idx}>
-                    <td className="spec-label">{spec.label}</td>
-                    <td className="spec-value">{spec.value}</td>
+                {specifications.map((spec, index) => (
+                  <tr key={index}>
+                    <td>{spec.label}</td>
+                    <td>{spec.value}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <div className="product-detail-reviews">
-            <h3>Reviews & Ratings</h3>
-            {reviews.map((review, idx) => (
-              <div key={idx} className="review-card">
-                <div className="review-user">{review.user}</div>
-                <div className="review-rating">{review.rating} ★</div>
-                <div className="review-comment">{review.comment}</div>
+        </div>
+        <div className="product-info-section">
+          <h1 className="product-title">{name}</h1>
+          <div className="product-short-description">{shortDescription}</div>
+          <div className="product-rating">
+            <span>{rating} <FaStar /></span>
+            <span className="reviews-count">{reviews.length} Ratings &amp; Reviews</span>
+          </div>
+          <div className="product-price-block">
+            <span className="product-price">₹{price.toLocaleString('en-IN')}</span>
+            <span className="product-old-price">₹{oldPrice && oldPrice.toLocaleString('en-IN')}</span>
+          </div>
+          <div className="available-offers">
+            <h3>Available offers</h3>
+            {offers.map((offer, index) => (
+              <p key={index} className="offer-item">
+                <FaTag className="offer-icon" /> {offer}
+              </p>
+            ))}
+          </div>
+          <div className="product-reviews">
+            <h3>Reviews</h3>
+            {reviews.map((review, index) => (
+              <div key={index} className="review-item">
+                <h4>{review.user}</h4>
+                <p>{review.comment}</p>
+                <span>{review.rating} <FaStar /></span>
               </div>
             ))}
           </div>

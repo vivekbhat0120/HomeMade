@@ -7,61 +7,188 @@ import Product5 from '../assets/images/ProductImg/Photo-5.jpeg';
 import Product6 from '../assets/images/ProductImg/Photo-6.jpeg';
 import Product7 from '../assets/images/ProductImg/PF3.webp';
 
-
-
-
+const defaultOffers = [
+  '10% Instant Discount on Credit Cards',
+  'No Cost EMI available',
+  'Special Price: Get extra 5% off (price inclusive of discount)'
+];
 
 const products = [
   {
     id: 1,
     name: 'Wooden Hamsa',
+    shortDescription: 'Hand-carved Hamsa wall panel for protection and decor.',
     price: 999,
+    oldPrice: 1299,
     image: Product1,
-    description: 'hand-carved wooden wall panel featuring an intricately detailed Hamsa.'
+    description: 'A hand-carved wooden wall panel featuring an intricately detailed Hamsa, symbolizing protection and good fortune. Perfect for home decor or gifting. This piece is finished with a natural polish and comes with a wall-mount hook for easy installation. Each Hamsa is unique, reflecting the artisan’s touch and centuries-old tradition.',
+    specifications: [
+      { label: 'Brand', value: 'ArtisanCrafts' },
+      { label: 'Material', value: 'Sheesham Wood' },
+      { label: 'Dimensions', value: '12 x 8 inches' },
+      { label: 'Weight', value: '700g' },
+      { label: 'Warranty', value: '6 Months' },
+      { label: 'Finish', value: 'Natural Polish' },
+      { label: 'Mount Type', value: 'Wall Hook' },
+    ],
+    reviews: [
+      { user: 'Amit', rating: 5, comment: 'Beautiful craftsmanship and detail. Looks great on my wall!' },
+      { user: 'Sara', rating: 4, comment: 'Very unique piece, but a bit heavy.' },
+      { user: 'Nisha', rating: 5, comment: 'The Hamsa brings a positive vibe to my living room.' },
+    ],
+    rating: 4.5,
+    offers: defaultOffers,
   },
   {
     id: 2,
     name: 'Carved Swan Wall Plaque',
+    shortDescription: 'Graceful swan carving for elegant wall decor.',
     price: 999,
+    oldPrice: 1199,
     image: Product2,
-    description: 'Detailed wood carving depicting a graceful swan.'
+    description: 'A detailed wood carving depicting a graceful swan, adding elegance to any room. The plaque is hand-finished and sealed for durability, making it suitable for both indoor and covered outdoor spaces. The swan’s wings are intricately detailed, showcasing the artisan’s skill.',
+    specifications: [
+      { label: 'Brand', value: 'WoodElegance' },
+      { label: 'Material', value: 'Mango Wood' },
+      { label: 'Dimensions', value: '10 x 10 inches' },
+      { label: 'Weight', value: '600g' },
+      { label: 'Warranty', value: '1 Year' },
+      { label: 'Finish', value: 'Matte' },
+      { label: 'Mount Type', value: 'Sawtooth Hanger' },
+    ],
+    reviews: [
+      { user: 'Priya', rating: 4, comment: 'Very good, value for money.' },
+      { user: 'John', rating: 5, comment: 'The swan carving is exquisite and well-finished.' },
+      { user: 'Leena', rating: 5, comment: 'Looks even better in person. Highly recommended.' },
+    ],
+    rating: 4.7,
+    offers: defaultOffers,
   },
   {
     id: 3,
     name: 'Carved Wooden Panel',
+    shortDescription: 'Ornate floral wood panel for stylish interiors.',
     price: 999,
+    oldPrice: 1399,
     image: Product3,
-    description: 'Ornate floral carvings on dark wood panel.'
+    description: 'Ornate floral carvings on a dark wood panel, ideal for traditional and modern interiors alike. The panel is handcrafted from premium teak and features a protective lacquer finish. It can be used as a wall accent or as part of a decorative partition.',
+    specifications: [
+      { label: 'Brand', value: 'ClassicCarvings' },
+      { label: 'Material', value: 'Teak Wood' },
+      { label: 'Dimensions', value: '15 x 6 inches' },
+      { label: 'Weight', value: '800g' },
+      { label: 'Warranty', value: '2 Years' },
+      { label: 'Finish', value: 'Lacquer' },
+      { label: 'Usage', value: 'Wall/Partition' },
+    ],
+    reviews: [
+      { user: 'Meera', rating: 5, comment: 'The floral design is stunning. Highly recommend!' },
+      { user: 'Ravi', rating: 3, comment: 'Good quality but expected a larger size.' },
+      { user: 'Sonal', rating: 4, comment: 'Very detailed and elegant.' },
+    ],
+    rating: 4.2,
+    offers: defaultOffers,
   },
   {
     id: 4,
     name: 'Buddha Amidst Greenery',
+    shortDescription: 'Serene Buddha statue for peace and positivity.',
     price: 999,
+    oldPrice: 1099,
     image: Product4,
-    description: 'Buddha statue in peaceful garden setting.'
+    description: 'A serene Buddha statue in a peaceful garden setting, bringing calm and positivity to your space. The statue is crafted from a blend of resin and wood, with hand-painted details and a weather-resistant finish. Ideal for meditation corners and garden nooks.',
+    specifications: [
+      { label: 'Brand', value: 'ZenDecor' },
+      { label: 'Material', value: 'Resin & Wood' },
+      { label: 'Dimensions', value: '8 x 8 inches' },
+      { label: 'Weight', value: '500g' },
+      { label: 'Warranty', value: '1 Year' },
+      { label: 'Finish', value: 'Weather Resistant' },
+      { label: 'Placement', value: 'Indoor/Outdoor' },
+    ],
+    reviews: [
+      { user: 'Anil', rating: 5, comment: 'Very peaceful and beautiful. Love the details.' },
+      { user: 'Lata', rating: 4, comment: 'Nice product, but the color is a bit lighter than shown.' },
+      { user: 'Ramesh', rating: 5, comment: 'Perfect for my meditation space.' },
+    ],
+    rating: 4.6,
+    offers: defaultOffers,
   },
   {
     id: 5,
     name: 'Kalash and Ganesha',
+    shortDescription: 'Auspicious Kalash and Ganesha set for pooja rooms.',
     price: 999,
+    oldPrice: 1199,
     image: Product5,
-    description: 'Sacred symbols of prosperity and wisdom.'
+    description: 'Sacred symbols of prosperity and wisdom, perfect for pooja rooms and festive decor. The set includes a beautifully crafted kalash and a Ganesha idol, both with intricate brass inlay work. A must-have for auspicious occasions.',
+    specifications: [
+      { label: 'Brand', value: 'DivineCraft' },
+      { label: 'Material', value: 'Wood & Brass' },
+      { label: 'Dimensions', value: '9 x 7 inches' },
+      { label: 'Weight', value: '650g' },
+      { label: 'Warranty', value: '1 Year' },
+      { label: 'Inlay', value: 'Brass' },
+      { label: 'Set', value: 'Kalash + Ganesha' },
+    ],
+    reviews: [
+      { user: 'Sunil', rating: 5, comment: 'Perfect for my pooja room. Very auspicious.' },
+      { user: 'Neha', rating: 4, comment: 'Good quality, but packaging could be better.' },
+      { user: 'Manoj', rating: 5, comment: 'The brass work is very fine and detailed.' },
+    ],
+    rating: 4.4,
+    offers: defaultOffers,
   },
   {
     id: 6,
     name: 'Wooden Wall Mount',
+    shortDescription: 'Hand-carved Ganesha wall mount for entryways.',
     price: 999,
+    oldPrice: 1299,
     image: Product6,
-    description: 'Hand-carved Ganesha idol in a decorative arch.'
+    description: 'A hand-carved Ganesha idol in a decorative arch, ideal for entryways and living rooms. The mount is made from solid rosewood and features a glossy finish. It comes with pre-installed hooks for easy hanging.',
+    specifications: [
+      { label: 'Brand', value: 'HeritageWood' },
+      { label: 'Material', value: 'Rosewood' },
+      { label: 'Dimensions', value: '14 x 5 inches' },
+      { label: 'Weight', value: '900g' },
+      { label: 'Warranty', value: '2 Years' },
+      { label: 'Finish', value: 'Glossy' },
+      { label: 'Mount Type', value: 'Pre-installed Hooks' },
+    ],
+    reviews: [
+      { user: 'Kiran', rating: 5, comment: 'The carving is very detailed. Looks premium.' },
+      { user: 'Asha', rating: 4, comment: 'Nice finish and design.' },
+      { user: 'Vikas', rating: 5, comment: 'Easy to hang and looks great in my hallway.' },
+    ],
+    rating: 4.8,
+    offers: defaultOffers,
   },
   {
     id: 7,
     name: 'Wooden Photo Frame',
+    shortDescription: 'Rustic wooden frame for cherished memories.',
     price: 999,
+    oldPrice: 1099,
     image: Product7,
-    description: 'Rustic wooden frame showcasing a cherished family photo.'
+    description: 'A rustic wooden frame showcasing a cherished family photo, adding warmth to your home. The frame is handcrafted from pine wood and features a distressed finish for a vintage look. It fits standard 8x10 inch photos and comes with a glass front.',
+    specifications: [
+      { label: 'Brand', value: 'FrameHouse' },
+      { label: 'Material', value: 'Pine Wood' },
+      { label: 'Dimensions', value: '8 x 10 inches' },
+      { label: 'Weight', value: '400g' },
+      { label: 'Warranty', value: '1 Year' },
+      { label: 'Finish', value: 'Distressed' },
+      { label: 'Photo Size', value: '8x10 inches' },
+    ],
+    reviews: [
+      { user: 'Deepak', rating: 5, comment: 'Simple and elegant. My family loves it.' },
+      { user: 'Riya', rating: 4, comment: 'Good quality frame for the price.' },
+      { user: 'Mona', rating: 5, comment: 'The vintage look is perfect for my decor.' },
+    ],
+    rating: 4.3,
+    offers: defaultOffers,
   },
-  
 ];
 
 export default products;

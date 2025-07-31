@@ -3,13 +3,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/product.scss';
 
-const Product = ({ name, price, image, description }) => {
+const Product = ({ id, name, price, image, description }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/product-detail', {
-      state: { name, price, image, description }
-    });
+    navigate(`/product/${id}`);
   };
 
   return (
