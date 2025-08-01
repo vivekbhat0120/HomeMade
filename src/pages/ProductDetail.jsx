@@ -90,9 +90,9 @@ const ProductDetail = () => {
               </div>
             </div>
             <div className="action-buttons">
-              <button className="btn btn-wish" title="Add to Wishlist"><FaHeart /></button>
-              <button className="btn btn-buy-now">BUY NOW</button>
-              <button className="btn btn-cart" title="Add to Cart"><FaShoppingCart /></button>
+              <button className="btn btn-wish" title="Add to Wishlist">Add to Wish</button>
+              <button className="btn btn-buy-now">Buy Now</button>
+              <button className="btn btn-cart" title="Add to Cart">Add to Cart</button>
             </div>
             <div className="product-specifications">
               <h3>Specifications</h3>
