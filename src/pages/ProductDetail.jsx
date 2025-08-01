@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaStar, FaTag, FaHeart, FaShoppingCart } from 'react-icons/fa';
 import products from '../Data/Productdata';
@@ -37,6 +37,22 @@ const ProductDetail = () => {
   // Use images array if available, fallback to single image
   const productImages = images && images.length > 0 ? images : [image];
 
+  // State for selected image index
+  const [selectedImageIdx, setSelectedImageIdx] = useState(0);
+  // State for zoom
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 });
+
+  // Handlers for zoom
+  const handleMouseEnter = () => setIsZoomed(true);
+  const handleMouseLeave = () => setIsZoomed(false);
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setZoomPos({ x, y });
+  };
+
   return (
     <div className="product-detail-container">
       <div className="product-detail-card">
@@ -50,11 +66,28 @@ const ProductDetail = () => {
                     key={idx}
                     src={img}
                     alt={`${name} thumbnail ${idx + 1}`}
-                    className="product-thumbnail-image"
+                    className={`product-thumbnail-image${selectedImageIdx === idx ? ' selected' : ''}`}
+                    onClick={() => setSelectedImageIdx(idx)}
+                    style={{ cursor: 'pointer' }}
                   />
                 ))}
               </div>
-              <img src={productImages[0]} alt={name} className="main-product-image" />
+              <div
+                className="main-product-image-zoom-container"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                onMouseMove={handleMouseMove}
+              >
+                <img
+                  src={productImages[selectedImageIdx]}
+                  alt={name}
+                  className={`main-product-image${isZoomed ? ' zoomed' : ''}`}
+                  style={isZoomed ? {
+                    transform: 'scale(2)',
+                    transformOrigin: `${zoomPos.x}% ${zoomPos.y}%`
+                  } : {}}
+                />
+              </div>
             </div>
             <div className="action-buttons">
               <button className="btn btn-wish" title="Add to Wishlist"><FaHeart /></button>
