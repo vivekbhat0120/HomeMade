@@ -230,11 +230,96 @@
   cursor: zoom-out;
   z-index: 2;
   box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  transform: scale(2);
+  /* The transform-origin will be set dynamically via inline style, but we can use a CSS variable for it */
+  transform-origin: var(--zoom-x, 50%) var(--zoom-y, 50%);
 }
+
+/* Optional: If you want to use CSS variables for transform-origin, add this JS logic in React:
+   style={isZoomed ? { '--zoom-x': `${zoomPos.x}%`, '--zoom-y': `${zoomPos.y}%` } : {}}
+   and remove data-zoom-x, data-zoom-y. For now, this is ready for future use. */
 
 // .product-thumbnails horizontal style is now unused
 .product-thumbnails {
   display: none;
+}
+
+// Similar Products Section
+.similar-products-section {
+  background: var(--white-color);
+  width: 100%;
+  max-width: 1300px;
+  margin: 10px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text-color);
+    text-align: center;
+    padding-top: 20px;
+  }
+}
+.similar-products-list {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  justify-content: flex-start;
+  scrollbar-width: thin;
+  scrollbar-color: #ccc #f5f5f5;
+}
+.similar-products-list::-webkit-scrollbar {
+  height: 8px;
+  background: #f5f5f5;
+}
+.similar-products-list::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+.similar-product-card {
+  background: var(--secondary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  width: 200px;
+  padding: 10px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: box-shadow 0.2s, border 0.2s;
+  cursor: pointer;
+}
+.similar-product-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+  border-color: #bdbdbd;
+}
+.similar-product-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  background: #fafafa;
+  display: block;
+}
+.similar-product-info {
+  text-align: center;
+}
+.similar-product-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-color);
+  margin-bottom: 6px;
+}
+.similar-product-price {
+  font-size: 15px;
+  color: #1976d2;
+  font-weight: 600;
 }
 
 .main-image-row {

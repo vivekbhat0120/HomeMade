@@ -11,7 +11,7 @@ const Product = ({ id, name, price, image, shortDescription }) => {
   };
 
   return (
-    <div className="product-card" onClick={handleClick} style={{ cursor: 'pointer' }}>
+    <div className="product-card" onClick={handleClick}>
       <img src={image} alt={name} className="product-image" />
       <div className="product-info">
         <h2 className="product-name">{name}</h2>

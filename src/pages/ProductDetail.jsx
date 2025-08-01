@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { FaStar, FaTag, FaHeart, FaShoppingCart } from 'react-icons/fa';
+import { FaStar, FaTag } from 'react-icons/fa';
 import products from '../Data/Productdata';
 import '../styles/productdetail.scss';
 
@@ -9,6 +9,11 @@ const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const product = products.find(p => p.id === parseInt(id));
+
+  // Scroll to top when product id changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [id]);
 
   // Handle product not found
   if (!product) {
@@ -53,6 +58,9 @@ const ProductDetail = () => {
     setZoomPos({ x, y });
   };
 
+  // Similar products: pick 5 others (could be by category if available)
+  const similarProducts = products.filter(p => p.id !== product.id).slice(0, 10);
+
   return (
     <div className="product-detail-container">
       <div className="product-detail-card">
@@ -68,7 +76,6 @@ const ProductDetail = () => {
                     alt={`${name} thumbnail ${idx + 1}`}
                     className={`product-thumbnail-image${selectedImageIdx === idx ? ' selected' : ''}`}
                     onClick={() => setSelectedImageIdx(idx)}
-                    style={{ cursor: 'pointer' }}
                   />
                 ))}
               </div>
@@ -82,10 +89,9 @@ const ProductDetail = () => {
                   src={productImages[selectedImageIdx]}
                   alt={name}
                   className={`main-product-image${isZoomed ? ' zoomed' : ''}`}
-                  style={isZoomed ? {
-                    transform: 'scale(2)',
-                    transformOrigin: `${zoomPos.x}% ${zoomPos.y}%`
-                  } : {}}
+                  style={isZoomed ? undefined : {}}
+                  data-zoom-x={zoomPos.x}
+                  data-zoom-y={zoomPos.y}
                 />
               </div>
             </div>
@@ -145,6 +151,25 @@ const ProductDetail = () => {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+      {/* Similar Products Section */}
+      <div className="similar-products-section">
+        <h2>Similar Products</h2>
+        <div className="similar-products-list">
+          {similarProducts.map(sp => (
+            <div
+              className="similar-product-card"
+              key={sp.id}
+              onClick={() => navigate(`/product/${sp.id}`)}
+              >
+              <img src={sp.image || (sp.images && sp.images[0])} alt={sp.name} className="similar-product-image" />
+              <div className="similar-product-info">
+                <div className="similar-product-name">{sp.name}</div>
+                <div className="similar-product-price">₹{sp.price.toLocaleString('en-IN')}</div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
