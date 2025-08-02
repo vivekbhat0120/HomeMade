@@ -1,6 +1,8 @@
 @use "./../styles/variable" as *;
 
+// =========================
 // Container
+// =========================
 .product-detail-container {
   margin: 110px 10px 5px;
   padding: 0;
@@ -10,7 +12,9 @@
   position: relative;
 }
 
+// =========================
 // Card
+// =========================
 .product-detail-card {
   background: var(--white-color);
   display: flex;
@@ -22,7 +26,9 @@
   padding: 5px;
 }
 
-// Info Section (left in code, first in logical order)
+// =========================
+// Info Section (Left)
+// =========================
 .product-info-section {
   width: 45%;
   display: flex;
@@ -48,7 +54,6 @@
   margin-bottom: 10px;
   color: var(--text-color);
 }
-
 .product-rating span svg {
   margin-left: 4px;
   color: #ff9800;
@@ -97,9 +102,7 @@
   margin-right: 6px;
   color: #ff9800;
 }
-
 .product-description {
-  
   h3 {
     margin-bottom: 8px;
     font-size: 18px;
@@ -111,7 +114,6 @@
     color: var(--text-color);
   }
 }
-
 .product-reviews {
   h3 {
     margin: 0 0 8px 0;
@@ -126,7 +128,6 @@
   border-radius: 5px;
   padding: 10px 12px;
   margin-bottom: 10px;
-
   h4 {
     margin: 0 0 4px 0;
     font-size: 16px;
@@ -148,7 +149,9 @@
   }
 }
 
-// Image/Action/Description/Specs Section
+// =========================
+// Image/Action Section (Right)
+// =========================
 .product-image-section {
   width: 55%;
   margin-right: 20px;
@@ -158,14 +161,12 @@
   align-items: flex-start;
   position: relative;
 }
-
 .product-thumbnails-vertical {
   display: flex;
   flex-direction: column;
   gap: 20px;
   align-items: center;
 }
-
 .main-image-and-actions {
   width: 100%;
   display: flex;
@@ -175,7 +176,6 @@
   border-right: 1px solid var(--text-color);
   margin-right: 10px;
 }
-
 // Back Button
 .back-button {
   position: absolute;
@@ -201,7 +201,6 @@
   border-color: var(--text-color);
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.25);
 }
-
 .main-product-image-zoom-container {
   width: 350px;
   height: 350px;
@@ -213,7 +212,6 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   cursor: zoom-in;
 }
-
 .main-product-image {
   margin-top: 10px;
   width: 350px;
@@ -225,26 +223,165 @@
   transition: transform 0.25s cubic-bezier(0.4,0,0.2,1), box-shadow 0.2s;
   will-change: transform;
 }
-
+.main-product-image-zoom-container {
+  --zoom-x: 50%;
+  --zoom-y: 50%;
+}
 .main-product-image.zoomed {
   cursor: zoom-out;
   z-index: 2;
   box-shadow: 0 4px 24px rgba(0,0,0,0.12);
   transform: scale(2);
-  /* The transform-origin will be set dynamically via inline style, but we can use a CSS variable for it */
   transform-origin: var(--zoom-x, 50%) var(--zoom-y, 50%);
 }
-
 /* Optional: If you want to use CSS variables for transform-origin, add this JS logic in React:
    style={isZoomed ? { '--zoom-x': `${zoomPos.x}%`, '--zoom-y': `${zoomPos.y}%` } : {}}
    and remove data-zoom-x, data-zoom-y. For now, this is ready for future use. */
-
 // .product-thumbnails horizontal style is now unused
 .product-thumbnails {
   display: none;
 }
+.main-image-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.product-thumbnail-image {
+  width: 65px;
+  height: 65px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 2px solid transparent;
+  transition: border 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+.product-thumbnail-image:hover,
+.product-thumbnail-image.selected {
+  border: 2px solid var(--text-color);
+}
 
+// =========================
+// Action Buttons
+// =========================
+.action-buttons {
+  margin: 32px auto 16px auto;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 420px;
+}
+.btn {
+  padding: 12px;
+  border: none;
+  border-radius: 22px;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, border 0.2s;
+  min-width: 130px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+.btn-wish {
+  padding: 12px;
+  background: #fff0f6;
+  color: #d81b60;
+  border: 1.5px solid #d81b60;
+}
+.btn-wish:hover {
+  background: #ffe4ef;
+  color: #ad1457;
+  border-color: #ad1457;
+}
+.btn-buy-now {
+  background: #FFC107;
+  color: #fff;
+  border: 1.5px solid #FFC107;
+}
+.btn-buy-now:hover {
+  background: #ffb300;
+  color: #fff;
+  border-color: #ffb300;
+}
+.btn-cart {
+  padding: 12px;
+  background: #e3f2fd;
+  color: #1976d2;
+  border: 1.5px solid #1976d2;
+}
+.btn-cart:hover {
+  background: #bbdefb;
+  color: #0d47a1;
+  border-color: #0d47a1;
+}
+
+// =========================
+// Specifications Section
+// =========================
+.product-specifications {
+  border-radius: 10px;
+  padding: 20px 24px 12px 24px;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  margin: 0 auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  h3 {
+    margin: 0;
+    font-size: 20px;
+    color: var(--text-color);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+}
+.spec-table {
+  margin-top: 15px;
+  background: var(--secondary-color);
+  width: 100%;
+  border-radius: 10px;
+  border-collapse: separate;
+  border-spacing: 0 4px;
+  font-size: 15px;
+  tr {
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+  }
+  tr:nth-child(even) {
+    background: #f3f6fa;
+  }
+  td {
+    padding: 8px 14px;
+    font-size: 15px;
+    color: var(--text-color);
+    vertical-align: middle;
+  }
+  td:first-child {
+    font-weight: 500;
+    color: var(--text-color);
+    width: 40%;
+    letter-spacing: 0.2px;
+  }
+  td:last-child {
+    color: var(--text-color);
+    width: 60%;
+  }
+  tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+// =========================
 // Similar Products Section
+// =========================
 .similar-products-section {
   background: var(--white-color);
   width: 100%;
@@ -320,137 +457,4 @@
   font-size: 15px;
   color: #1976d2;
   font-weight: 600;
-}
-
-.main-image-row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
-
-.product-thumbnail-image {
-  width: 65px;
-  height: 65px;
-  object-fit: cover;
-  border-radius: 4px;
-  border: 2px solid transparent;
-  transition: border 0.2s, box-shadow 0.2s;
-  cursor: pointer;
-}
-.product-thumbnail-image:hover,
-.product-thumbnail-image.selected {
-  border: 2px solid var(--text-color);
-}
-
-.action-buttons {
-  margin: 32px auto 16px auto;
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 420px;
-}
-.btn {
-  padding: 12px;
-  border: none;
-  border-radius: 22px;
-  cursor: pointer;
-  font-size: 17px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s, color 0.2s, box-shadow 0.2s, border 0.2s;
-  min-width: 130px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-}
-.btn-wish {
-  padding: 12px;
-  background: #fff0f6;
-  color: #d81b60;
-  border: 1.5px solid #d81b60;
-}
-.btn-wish:hover {
-  background: #ffe4ef;
-  color: #ad1457;
-  border-color: #ad1457;
-}
-.btn-buy-now {
-  background: #FFC107;
-  color: #fff;
-  border: 1.5px solid #FFC107;
-}
-.btn-buy-now:hover {
-  background: #ffb300;
-  color: #fff;
-  border-color: #ffb300;
-}
-.btn-cart {
-  padding: 12px;
-  background: #e3f2fd;
-  color: #1976d2;
-  border: 1.5px solid #1976d2;
-}
-.btn-cart:hover {
-  background: #bbdefb;
-  color: #0d47a1;
-  border-color: #0d47a1;
-}
-
-.product-specifications {
-  border-radius: 10px;
-  padding: 20px 24px 12px 24px;
-  width: 100%;
-  min-width: 0;
-  max-width: none;
-  margin: 0 auto 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-sizing: border-box;
-  h3 {
-    margin: 0;
-    font-size: 20px;
-    color: var(--text-color);
-    font-weight: 600;
-    letter-spacing: 0.5px;
-  }
-}
-.spec-table {
-  margin-top: 15px;
-  background: var(--secondary-color);
-  width: 100%;
-  border-radius: 10px;
-  border-collapse: separate;
-  border-spacing: 0 4px;
-  font-size: 15px;
-  tr {
-    border-radius: 6px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
-  }
-  tr:nth-child(even) {
-    background: #f3f6fa;
-  }
-  td {
-    padding: 8px 14px;
-    font-size: 15px;
-    color: var(--text-color);
-    vertical-align: middle;
-  }
-  td:first-child {
-    font-weight: 500;
-    color: var(--text-color);
-    width: 40%;
-    letter-spacing: 0.2px;
-  }
-  td:last-child {
-    color: var(--text-color);
-    width: 60%;
-  }
-  tr:last-child td {
-    border-bottom: none;
-  }
 }

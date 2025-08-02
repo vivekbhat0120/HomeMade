@@ -84,14 +84,15 @@ const ProductDetail = () => {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
                 onMouseMove={handleMouseMove}
+                style={{
+                  '--zoom-x': `${zoomPos.x}%`,
+                  '--zoom-y': `${zoomPos.y}%`
+                }}
               >
                 <img
                   src={productImages[selectedImageIdx]}
                   alt={name}
                   className={`main-product-image${isZoomed ? ' zoomed' : ''}`}
-                  style={isZoomed ? undefined : {}}
-                  data-zoom-x={zoomPos.x}
-                  data-zoom-y={zoomPos.y}
                 />
               </div>
             </div>
