@@ -80,11 +80,6 @@
   color: var(--white-color);
 }
 
-.header__icon:hover svg,
-.header__icon:focus svg {
-  stroke: var(--white-color);
-}
-
 .header__icon:focus,
 .header__icon:active {
   outline: none;
