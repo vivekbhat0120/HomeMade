@@ -4,15 +4,20 @@ import products from '../Data/Productdata';
 import Product from '../components/Product';
 import Footer from '../components/Footer';
 
-const Home = () => (
-  <div className="home">
-    <div className="product-list">
-      {products.map(product => (
-        <Product key={product.id} {...product} />
-      ))}
+const Home = ({ searchQuery }) => {
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  return (
+    <div className="home">
+      <div className="product-list">
+        {filteredProducts.map(product => (
+          <Product key={product.id} {...product} />
+        ))}
+      </div>
+      <Footer />
     </div>
-    <Footer />
-  </div>
-);
+  );
+};
 
 export default Home;

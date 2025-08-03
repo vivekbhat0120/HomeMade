@@ -7,12 +7,13 @@ import ProductDetail from './pages/ProductDetail';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
+  const [searchQuery, setSearchQuery] = useState("");
   return (
     <BrowserRouter>
-      <Header />
+      <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home searchQuery={searchQuery} />} />
         <Route path="/product/:id" element={<ProductDetail />} />
       </Routes>
     </BrowserRouter>
