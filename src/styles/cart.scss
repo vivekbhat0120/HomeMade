@@ -1,0 +1,21 @@
+@use "./../styles/variable" as *;
+
+
+.cart-container {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  padding: 20px;
+}
+
+.cart-item {
+  border-bottom: 1px solid var(--secondary-color);
+  padding: 10px 0;
+}
+
+.cart-button {
+  background-color: var(--accent-color);
+  color: var(--white-color);
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}

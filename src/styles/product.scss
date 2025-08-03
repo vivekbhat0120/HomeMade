@@ -79,4 +79,35 @@
   font-size: 1.1rem;
   font-weight: bold;
   color: var(--text-color);
+  min-width: 60px;
+  text-align: center;
+  margin: 0 !important;
+}
+
+.product-price-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 8px;
+}
+
+.product-icon-wish,
+.product-icon-cart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  color: var(--text-color);
+  width: 32px;
+  height: 32px;
+  font-size: 1rem;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+.product-icon-wish:hover {
+  color: #e63946;
+}
+.product-icon-cart:hover {
+  color: #0077b6;
 }
