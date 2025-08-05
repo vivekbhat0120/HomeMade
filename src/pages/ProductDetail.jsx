@@ -105,36 +105,18 @@ const ProductDetail = () => {
             <div className="action-buttons">
               <button
                 className={`btn btn-wish${isWished ? ' wished' : ''}`}
-                title={isWished ? 'Added to Wish' : 'Add to Wish'}
-                onClick={() => {
-                  if (isWished) {
-                    removeFromWishlist(product.id);
-                  } else {
-                    addToWishlist({ id: product.id, name: product.name, price: product.price, image: product.image, shortDescription: product.shortDescription });
-                  }
-                }}
+                title={isWished ? 'Go to Wish' : 'Go to Wish'}
+                onClick={() => navigate('/wishlist')}
               >
-                {isWished ? 'Added to Wish' : 'Add to Wish'}
+                {isWished ? 'Go to Wish' : 'Go to Wish'}
               </button>
               <button className="btn btn-buy-now">Buy Now</button>
               <button
                 className="btn btn-cart"
-                title={isInCart(product.id) ? 'Added to Cart' : 'Add to Cart'}
-                onClick={() => {
-                  if (isInCart(product.id)) {
-                    removeFromCart(product.id);
-                  } else {
-                    addToCart({
-                      id: product.id,
-                      name: product.name,
-                      price: product.price,
-                      image: product.image,
-                      shortDescription: product.shortDescription
-                    });
-                  }
-                }}
+                title={isInCart(product.id) ? 'Go to Cart' : 'Go to Cart'}
+                onClick={() => navigate('/cart')}
               >
-                {isInCart(product.id) ? 'Added to Cart' : 'Add to Cart'}
+                {isInCart(product.id) ? 'Go to Cart' : 'Go to Cart'}
               </button>
             </div>
             <div className="product-specifications">

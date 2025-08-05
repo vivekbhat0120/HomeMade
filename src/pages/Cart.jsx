@@ -14,9 +14,10 @@ import Product from '../components/Product';
 const Cart = () => {
   // Get cart state and remove function from context
   const { cart, removeFromCart } = useCart();
-  // Calculate total items and total price
-  const totalItems = cart.length;
-  const totalPrice = cart.reduce((sum, product) => sum + Number(product.price), 0);
+  // Calculate total products, total quantity and total price
+  const totalProducts = cart.length;
+  const totalQuantity = cart.reduce((sum, product) => sum + (product.quantity || 1), 0);
+  const totalPrice = cart.reduce((sum, product) => sum + Number(product.price) * (product.quantity || 1), 0);
   // Navigation hook
   const navigate = useNavigate();
 
@@ -32,7 +33,8 @@ const Cart = () => {
             <button className="cart-summary-btn back-btn" onClick={() => navigate(-1)}>
               &#8592; Back
             </button>
-            <span>Total Items: <strong>{totalItems}</strong></span>
+            <span>Total Products: <strong>{totalProducts}</strong></span>
+            <span>Total Quantity: <strong>{totalQuantity}</strong></span>
             <span>Total Price: <strong>₹ {totalPrice}</strong></span>
             <button className="cart-summary-btn buy-btn">
               Buy Now
@@ -49,6 +51,7 @@ const Cart = () => {
                 image={product.image}
                 shortDescription={product.shortDescription}
                 className="cart-product-card"
+                showDescription={false}
               />
             ))}
           </div>

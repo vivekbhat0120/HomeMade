@@ -444,8 +444,7 @@
   cursor: pointer;
 }
 .similar-product-card:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.13);
-  border-color: #bdbdbd;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
 }
 .similar-product-image {
   width: 120px;
@@ -453,7 +452,6 @@
   object-fit: cover;
   border-radius: 6px;
   margin-bottom: 12px;
-  background: #fafafa;
   display: block;
 }
 .similar-product-info {
@@ -469,4 +467,9 @@
   font-size: 15px;
   color: var(--text-color);
   font-weight: 600;
+}
+
+// Ensure wish icon in similar products is filled red when wished
+.similar-product-card .product-icon-wish.wished svg {
+  fill: var(--red-color);
 }

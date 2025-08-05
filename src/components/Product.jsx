@@ -8,10 +8,13 @@ import { useCart } from '../context/CartContext';
 const Product = ({ id, name, price, image, shortDescription, className = '', showDescription = true }) => {
   const navigate = useNavigate();
   const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
-  const { isInCart, addToCart, removeFromCart } = useCart();
+  const { isInCart, addToCart, removeFromCart, incrementQuantity, decrementQuantity, cart } = useCart();
 
   const isWished = wishlist.some(item => item.id === id);
   const inCart = isInCart(id);
+  // Get quantity if in cart
+  const cartItem = cart.find(item => item.id === id);
+  const quantity = cartItem ? cartItem.quantity : 1;
 
   const handleClick = () => {
     navigate(`/product/${id}`);
@@ -77,6 +80,33 @@ const Product = ({ id, name, price, image, shortDescription, className = '', sho
             )}
           </span>
         </div>
+        {/* Quantity controls for cart view */}
+        {className.includes('cart-product-card') && inCart && (
+          <div className="cart-quantity-controls">
+            <button
+              className="cart-qty-btn"
+              onClick={e => {
+                e.stopPropagation();
+                decrementQuantity(id);
+              }}
+              aria-label="Decrease quantity"
+              disabled={quantity === 1}
+            >
+              <span className="qty-symbol">-</span>
+            </button>
+            <span className="cart-qty-value">{quantity}</span>
+            <button
+              className="cart-qty-btn"
+              onClick={e => {
+                e.stopPropagation();
+                incrementQuantity(id);
+              }}
+              aria-label="Increase quantity"
+            >
+              <span className="qty-symbol">+</span>
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
