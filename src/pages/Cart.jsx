@@ -1,18 +1,59 @@
+// Cart.jsx
+// Displays the user's shopping cart with summary and product list
+
 import React from 'react';
+// Styles
 import '../styles/cart.scss';
+// Contexts
+import { useCart } from '../context/CartContext';
+// Routing
+import { useNavigate } from 'react-router-dom';
+// Components
+import Product from '../components/Product';
 
 const Cart = () => {
+  // Get cart state and remove function from context
+  const { cart, removeFromCart } = useCart();
+  // Calculate total items and total price
+  const totalItems = cart.length;
+  const totalPrice = cart.reduce((sum, product) => sum + Number(product.price), 0);
+  // Navigation hook
+  const navigate = useNavigate();
+
   return (
     <div className="cart-container">
-      <h1>My Cart</h1>
-      <ul className="cart-items">
-        {/* Example item */}
-        <li className="cart-item">
-          <span>Product Name</span>
-          <span>$Price</span>
-          <button className="cart-button">Remove</button>
-        </li>
-      </ul>
+      {/* If cart is empty, show message */}
+      {cart.length === 0 ? (
+        <p>Your cart is empty.</p>
+      ) : (
+        <>
+          {/* Cart summary section */}
+          <div className="cart-summary">
+            <button className="cart-summary-btn back-btn" onClick={() => navigate(-1)}>
+              &#8592; Back
+            </button>
+            <span>Total Items: <strong>{totalItems}</strong></span>
+            <span>Total Price: <strong>₹ {totalPrice}</strong></span>
+            <button className="cart-summary-btn buy-btn">
+              Buy Now
+            </button>
+          </div>
+          {/* Cart items list */}
+          <div className="cart-items">
+            {cart.map(product => (
+              <Product
+                key={product.id}
+                id={product.id}
+                name={product.name}
+                price={product.price}
+                image={product.image}
+                shortDescription={product.shortDescription}
+                className="cart-product-card"
+              />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };

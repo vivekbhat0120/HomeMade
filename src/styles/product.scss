@@ -106,8 +106,8 @@
   cursor: pointer;
 }
 .product-icon-wish:hover {
-  color: #e63946;
+  color: var(--red-color);
 }
 .product-icon-cart:hover {
-  color: #0077b6;
+  color: var(--blue-color);
 }

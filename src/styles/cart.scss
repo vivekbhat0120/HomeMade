@@ -1,50 +1,49 @@
 @use "./../styles/variable" as *;
 
-
+// =========================
+// Cart Container
+// =========================
 .cart-container {
-  background-color: var(--primary-color);
   color: var(--white-color);
-  padding: 32px 16px;
-  max-width: 500px;
-  margin: 40px auto;
-  border-radius: 18px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  max-width: 1250px;
+  width: 100%;
+  margin-top: 110px;
+  height: 100%;
+  
+  p {
+    color: var(--primary-color);
+    font-size: var(--font-size-xl);
+  }
 }
 
-.cart-items {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.cart-item {
+// =========================
+// Cart Summary Section
+// =========================
+.cart-summary {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   background: var(--secondary-color);
-  border-radius: 12px;
-  margin-bottom: 16px;
-  padding: 18px 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  transition: box-shadow 0.2s;
-}
-.cart-item:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.13);
-}
-
-.cart-item span:first-child {
-  font-weight: 600;
+  color: var(--text-color);
+  padding: 16px 20px;
+  border-radius: 10px;
+  margin: 10px;
   font-size: 1.1rem;
-}
-
-.cart-item span:last-child {
   font-weight: 500;
-  margin-left: 16px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.4);
+  gap: 100px;
+  width: 100%;
+  max-width: 1200px;
 }
 
-.cart-button {
-  background-color: var(--accent-color);
-  color: var(--white-color);
+.cart-summary span {
+  color: var(--text-color);
+  font-size: var(--font-size-lg);
+  flex: 1;
+  text-align: center;
+}
+
+.cart-summary-btn {
   padding: 8px 18px;
   border: none;
   border-radius: 6px;
@@ -53,11 +52,112 @@
   cursor: pointer;
   transition: background 0.2s, transform 0.1s;
 }
-.cart-button:hover {
-  background-color: var(--accent-color);
-  transform: translateY(-2px) scale(1.04);
+
+.back-btn {
+  background: var(--white-color);
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 18px;
+  transition: all 0.2s, transform 0.1s;
+}
+.back-btn:hover {
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
+  box-shadow: 2px 2px 8px 0 rgba(0,0,0,0.2);
 }
 
+.buy-btn {
+  background-color: var(--red-color);
+  color: var(--white-color);
+  margin-left: auto;
+  padding: 6px 15px;
+}
+.buy-btn:hover {
+  background-color: var(--red-color);
+  opacity: 0.9;
+}
+
+// =========================
+// Cart Items List
+// =========================
+.cart-items {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 1250px;
+  padding: 10px;
+}
+
+// =========================
+// Cart Count Badge
+// =========================
+.cart-count-badge {
+  position: absolute;
+  top: -6px;
+  right: -15px;
+  color: var(--white-color);
+  background: var(--red-color);
+  border-radius: 50%;
+  min-width: 20px;
+  min-height: 20px;
+  font-size: var(--font-size-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  z-index: 2;
+}
+
+// =========================
+// Product Card Cart Icon (Filled State)
+// =========================
+.product-icon-cart.in-cart svg {
+  stroke: #0077b6;
+  fill: #0077b6;
+}
+
+.product-icon-cart {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+
+// =========================
+// Cart-Specific Product Card Overrides
+// =========================
+
+.cart-product-card{
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cart-product-card .product-name {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 8px 0 4px 0;
+  line-height: 1.2;
+}
+.cart-product-card .product-description {
+  font-size: 0.95rem;
+  color: #888;
+  margin-bottom: 8px;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+// =========================
+// Responsive Styles
+// =========================
 @media (max-width: 600px) {
   .cart-container {
     padding: 12px 2vw;

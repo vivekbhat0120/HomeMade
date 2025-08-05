@@ -4,12 +4,17 @@ import { FaStar, FaTag } from 'react-icons/fa';
 import products from '../Data/Productdata';
 import '../styles/productdetail.scss';
 import { useWishlist } from '../context/WishlistContext';
+import { useCart } from '../context/CartContext';
 
 const ProductDetail = () => {
   // Hooks
   const { id } = useParams();
   const navigate = useNavigate();
   const product = products.find(p => p.id === parseInt(id));
+  const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
+  const { isInCart, addToCart, removeFromCart } = useCart();
+
+  const isWished = wishlist.some(item => item.id === product?.id);
 
   // Scroll to top when product id changes
   useEffect(() => {
@@ -98,9 +103,39 @@ const ProductDetail = () => {
               </div>
             </div>
             <div className="action-buttons">
-              <button className="btn btn-wish" title="Add to Wishlist">Add to Wish</button>
+              <button
+                className={`btn btn-wish${isWished ? ' wished' : ''}`}
+                title={isWished ? 'Added to Wish' : 'Add to Wish'}
+                onClick={() => {
+                  if (isWished) {
+                    removeFromWishlist(product.id);
+                  } else {
+                    addToWishlist({ id: product.id, name: product.name, price: product.price, image: product.image, shortDescription: product.shortDescription });
+                  }
+                }}
+              >
+                {isWished ? 'Added to Wish' : 'Add to Wish'}
+              </button>
               <button className="btn btn-buy-now">Buy Now</button>
-              <button className="btn btn-cart" title="Add to Cart">Add to Cart</button>
+              <button
+                className="btn btn-cart"
+                title={isInCart(product.id) ? 'Added to Cart' : 'Add to Cart'}
+                onClick={() => {
+                  if (isInCart(product.id)) {
+                    removeFromCart(product.id);
+                  } else {
+                    addToCart({
+                      id: product.id,
+                      name: product.name,
+                      price: product.price,
+                      image: product.image,
+                      shortDescription: product.shortDescription
+                    });
+                  }
+                }}
+              >
+                {isInCart(product.id) ? 'Added to Cart' : 'Add to Cart'}
+              </button>
             </div>
             <div className="product-specifications">
               <h3>Specifications</h3>
@@ -160,14 +195,22 @@ const ProductDetail = () => {
         <h2>Similar Products</h2>
         <div className="similar-products-list">
           {similarProducts.map(sp => {
-            const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
             const isWished = wishlist.some(item => item.id === sp.id);
+            const inCart = isInCart(sp.id);
             const handleWishClick = (e) => {
               e.stopPropagation();
               if (isWished) {
                 removeFromWishlist(sp.id);
               } else {
                 addToWishlist({ id: sp.id, name: sp.name, price: sp.price, image: sp.image, shortDescription: sp.shortDescription });
+              }
+            };
+            const handleCartClick = (e) => {
+              e.stopPropagation();
+              if (inCart) {
+                removeFromCart(sp.id);
+              } else {
+                addToCart({ id: sp.id, name: sp.name, price: sp.price, image: sp.image, shortDescription: sp.shortDescription });
               }
             };
             return (
@@ -193,15 +236,23 @@ const ProductDetail = () => {
                     </span>
                     <span className="similar-product-price">₹{sp.price.toLocaleString('en-IN')}</span>
                     <span
-                      className="product-icon-cart"
-                      onClick={e => e.stopPropagation()}
-                      title="Add to Cart"
+                      className={`product-icon-cart${inCart ? ' in-cart' : ''}`}
+                      onClick={handleCartClick}
+                      title={inCart ? 'Remove from Cart' : 'Add to Cart'}
                     >
-                      <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                        <circle cx="7" cy="20" r="2"/>
-                        <circle cx="17" cy="20" r="2"/>
-                        <path d="M7 18h10V6H7v12zm0-14h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
-                      </svg>
+                      {inCart ? (
+                        <svg width="20" height="20" fill="none" stroke="var(--accent-color)" strokeWidth="2" viewBox="0 0 24 24">
+                          <circle cx="9" cy="21" r="1"/>
+                          <circle cx="20" cy="21" r="1"/>
+                          <path d="M1 1h4l2.68 13.39A2 2 0 0 0 9.64 17h7.72a2 2 0 0 0 1.96-1.61L23 6H6"/>
+                        </svg>
+                      ) : (
+                        <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                          <circle cx="9" cy="21" r="1"/>
+                          <circle cx="20" cy="21" r="1"/>
+                          <path d="M1 1h4l2.68 13.39A2 2 0 0 0 9.64 17h7.72a2 2 0 0 0 1.96-1.61L23 6H6"/>
+                        </svg>
+                      )}
                     </span>
                   </div>
                 </div>

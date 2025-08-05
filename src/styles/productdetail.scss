@@ -191,7 +191,14 @@
   z-index: 10;
   box-shadow: 0 2px 6px rgba(0,0,0,0.07);
   transition: background 0.2s, color 0.2s;
+
+  &focus,
+  &:active {
+    outline: none;
+    box-shadow: none;
+  }
 }
+
 .product-image-section {
   position: relative;
 }
@@ -272,7 +279,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 420px;
+  max-width: 450px;
 }
 .btn {
   padding: 12px;
@@ -287,6 +294,11 @@
   transition: background 0.2s, color 0.2s, box-shadow 0.2s, border 0.2s;
   min-width: 130px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  &:focus,
+  &:active {
+    outline: none;
+    box-shadow: none;
+  }
 }
 .btn-wish {
   padding: 12px;
@@ -455,6 +467,6 @@
 }
 .similar-product-price {
   font-size: 15px;
-  color: #1976d2;
+  color: var(--text-color);
   font-weight: 600;
 }
