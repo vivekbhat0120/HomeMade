@@ -21,6 +21,17 @@ const Cart = () => {
   // Navigation hook
   const navigate = useNavigate();
 
+  // Platform fee
+  const platformFee = 49;
+  // Delivery charge logic: ₹79 if totalPrice < 500, else free
+  const deliveryCharge = totalPrice > 0 && totalPrice < 500 ? 79 : 0;
+  // Discount: sum of (old price - new price) for all products
+  const totalOldPrice = cart.reduce((sum, product) => sum + Number(product.oldPrice || product.price) * (product.quantity || 1), 0);
+  const discount = totalOldPrice - totalPrice;
+  const coupon = Math.round(totalPrice * 0.05);
+  // Final total
+  const totalAmount = totalPrice - discount - coupon + platformFee + deliveryCharge;
+
   return (
     <div className="cart-container">
       {/* If cart is empty, show message */}
@@ -48,20 +59,63 @@ const Cart = () => {
               Buy Now
             </button>
           </div>
-          {/* Cart items list */}
-          <div className="cart-items">
-            {cart.map(product => (
-              <Product
-                key={product.id}
-                id={product.id}
-                name={product.name}
-                price={product.price}
-                image={product.image}
-                shortDescription={product.shortDescription}
-                className="cart-product-card"
-                showDescription={false}
-              />
-            ))}
+          {/* Cart main content: items and summary */}
+          <div className="cart-main-content">
+            {/* Cart items list */}
+            <div className="cart-items">
+              {cart.map(product => (
+                <Product
+                  key={product.id}
+                  id={product.id}
+                  name={product.name}
+                  price={product.price}
+                  image={product.image}
+                  shortDescription={product.shortDescription}
+                  className="cart-product-card"
+                  showDescription={false}
+                />
+              ))}
+            </div>
+            {/* Product Summary */}
+            <div className="cart-summary-box">
+              <h2>Product Summary</h2>
+              <div className="summary-row">
+                <span>Price ({totalQuantity} qnty)</span>
+                <span>₹ {totalPrice}</span>
+              </div>
+              <div className="summary-row">
+                <span>Discount</span>
+                <span className="discount">- ₹ {discount}</span>
+              </div>
+              <div className="summary-row">
+                <span>Coupons for you</span>
+                <span className="coupon">- ₹ {coupon}</span>
+              </div>
+              <div className="summary-row">
+                <span>Platform Fee</span>
+                <span>₹ {platformFee}</span>
+              </div>
+              {deliveryCharge > 0 && (
+                <div className="summary-row">
+                  <span>Delivery Charge</span>
+                  <span>₹ {deliveryCharge}</span>
+                </div>
+              )}
+              <div className="summary-row total">
+                <span><strong>Total Amount</strong></span>
+                <span><strong>₹ {totalAmount}</strong></span>
+              </div>
+              <div className="summary-row savings">
+                <span><p>You will save</p></span>
+                <span><strong>₹ {discount + coupon}</strong> on this order</span>
+              </div>
+              <button className="cart-summary-btn buy-btn">
+                Buy Now
+              </button>
+              <div className="summary-safe">
+                <p>Safe and Secure Payments. Easy returns. 100% Authentic products.</p>
+              </div>
+            </div>
           </div>
         </>
       )}

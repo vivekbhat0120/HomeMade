@@ -40,7 +40,7 @@ const Wishlist = () => {
               Total amount: ₹
               {wishlist.reduce((sum, item) => sum + (item.price || 0), 0)}
             </span>
-            <button className="wishlist-checkout-btn">Checkout</button>
+            <button className="wishlist-checkout-btn">Buy Now</button>
           </div>
           {/* Wishlist items list */}
           <div className="wishlist-product-list">
