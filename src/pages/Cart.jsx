@@ -25,7 +25,15 @@ const Cart = () => {
     <div className="cart-container">
       {/* If cart is empty, show message */}
       {cart.length === 0 ? (
-        <p>Your cart is empty.</p>
+        <div className="cart-empty">
+          Your cart is empty.<br />
+          <button
+            className="cart-empty-btn"
+            onClick={() => navigate('/')}
+          >
+            Add products to cart
+          </button>
+        </div>
       ) : (
         <>
           {/* Cart summary section */}

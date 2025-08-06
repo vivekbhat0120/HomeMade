@@ -103,22 +103,46 @@ const ProductDetail = () => {
               </div>
             </div>
             <div className="action-buttons">
-              <button
-                className={`btn btn-wish${isWished ? ' wished' : ''}`}
-                title={isWished ? 'Go to Wish' : 'Go to Wish'}
-                onClick={() => navigate('/wishlist')}
-              >
-                {isWished ? 'Go to Wish' : 'Go to Wish'}
-              </button>
-              <button className="btn btn-buy-now">Buy Now</button>
-              <button
-                className="btn btn-cart"
-                title={isInCart(product.id) ? 'Go to Cart' : 'Go to Cart'}
-                onClick={() => navigate('/cart')}
-              >
-                {isInCart(product.id) ? 'Go to Cart' : 'Go to Cart'}
-              </button>
-            </div>
+    <button
+      className={`btn btn-wish${isWished ? ' wished' : ''}`}
+      title={isWished ? 'Go to Wish' : 'Add to Wish'}
+      onClick={() => {
+        if (isWished) {
+          navigate('/wishlist');
+        } else {
+          addToWishlist({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.image,
+            shortDescription: product.shortDescription,
+          });
+        }
+      }}
+    >
+      {isWished ? 'Go to Wish' : 'Add to Wish'}
+    </button>
+    <button className="btn btn-buy-now">Buy Now</button>
+    <button
+      className="btn btn-cart"
+      title={isInCart(product.id) ? 'Go to Cart' : 'Add to Cart'}
+      onClick={() => {
+        if (isInCart(product.id)) {
+          navigate('/cart');
+        } else {
+          addToCart({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image: product.image,
+            shortDescription: product.shortDescription,
+          });
+        }
+      }}
+    >
+      {isInCart(product.id) ? 'Go to Cart' : 'Add to Cart'}
+    </button>
+  </div>
             <div className="product-specifications">
               <h3>Specifications</h3>
               <table className="spec-table">

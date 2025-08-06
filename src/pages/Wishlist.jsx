@@ -8,16 +8,28 @@ import '../styles/wishlist.scss';
 import { useWishlist } from '../context/WishlistContext';
 // Components
 import Product from '../components/Product';
+// Routing
+import { useNavigate } from 'react-router-dom';
 
 const Wishlist = () => {
   // Get wishlist state and remove function from context
   const { wishlist, removeFromWishlist } = useWishlist();
+  // Navigation hook
+  const navigate = useNavigate();
 
   return (
     <div className="wishlist-container">
       {/* If wishlist is empty, show message */}
       {wishlist.length === 0 ? (
-        <div className="wishlist-empty">No items in wishlist.</div>
+        <div className="wishlist-empty">
+          No items in wishlist.<br />
+          <button
+            className="wishlist-empty-btn"
+            onClick={() => navigate('/')}
+          >
+            Add your favourite product
+          </button>
+        </div>
       ) : (
         <>
           {/* Wishlist summary section */}
