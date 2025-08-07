@@ -110,13 +110,7 @@ const ProductDetail = () => {
         if (isWished) {
           navigate('/wishlist');
         } else {
-          addToWishlist({
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            image: product.image,
-            shortDescription: product.shortDescription,
-          });
+          addToWishlist(product);
         }
       }}
     >
@@ -130,13 +124,7 @@ const ProductDetail = () => {
         if (isInCart(product.id)) {
           navigate('/cart');
         } else {
-          addToCart({
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            image: product.image,
-            shortDescription: product.shortDescription,
-          });
+          addToCart(product);
         }
       }}
     >
@@ -169,7 +157,12 @@ const ProductDetail = () => {
           <div className="product-price-block">
             <span className="product-price">₹{price.toLocaleString('en-IN')}</span>
             {oldPrice && (
-              <span className="product-old-price">₹{oldPrice.toLocaleString('en-IN')}</span>
+              <>
+                <span className="product-old-price">₹{oldPrice.toLocaleString('en-IN')}</span>
+                <span className="product-discount">
+                  {`-${Math.round(((oldPrice - price) / oldPrice) * 100)}% OFF`}
+                </span>
+              </>
             )}
           </div>
           <div className="available-offers">
@@ -208,7 +201,7 @@ const ProductDetail = () => {
               if (isWished) {
                 removeFromWishlist(sp.id);
               } else {
-                addToWishlist({ id: sp.id, name: sp.name, price: sp.price, image: sp.image, shortDescription: sp.shortDescription });
+                addToWishlist(sp);
               }
             };
             const handleCartClick = (e) => {
@@ -216,7 +209,7 @@ const ProductDetail = () => {
               if (inCart) {
                 removeFromCart(sp.id);
               } else {
-                addToCart({ id: sp.id, name: sp.name, price: sp.price, image: sp.image, shortDescription: sp.shortDescription });
+                addToCart(sp);
               }
             };
             return (

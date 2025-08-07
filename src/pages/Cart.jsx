@@ -30,7 +30,9 @@ const Cart = () => {
   const discount = totalOldPrice - totalPrice;
   const coupon = Math.round(totalPrice * 0.05);
   // Final total
-  const totalAmount = totalPrice - discount - coupon + platformFee + deliveryCharge;
+  const totalAmount = totalPrice + platformFee + deliveryCharge;
+  // Savings calculation
+  const savings = discount + coupon + (deliveryCharge === 0 ? 79 : 0);
 
   return (
     <div className="cart-container">
@@ -69,6 +71,9 @@ const Cart = () => {
                   id={product.id}
                   name={product.name}
                   price={product.price}
+                  oldPrice={product.oldPrice}
+                  rating={product.rating}
+                  reviews={product.reviews}
                   image={product.image}
                   shortDescription={product.shortDescription}
                   className="cart-product-card"
@@ -95,19 +100,21 @@ const Cart = () => {
                 <span>Platform Fee</span>
                 <span>₹ {platformFee}</span>
               </div>
-              {deliveryCharge > 0 && (
-                <div className="summary-row">
-                  <span>Delivery Charge</span>
-                  <span>₹ {deliveryCharge}</span>
-                </div>
-              )}
+              <div className="summary-row">
+                <span>Delivery Charge</span>
+                <span>
+                  {deliveryCharge === 0
+                    ? <><span className="free-delivery">Free</span> <span style={{ textDecoration: 'line-through', color: '#888' }}>₹79</span></>
+                    : `₹ ${deliveryCharge}`}
+                </span>
+              </div>
               <div className="summary-row total">
                 <span><strong>Total Amount</strong></span>
                 <span><strong>₹ {totalAmount}</strong></span>
               </div>
               <div className="summary-row savings">
-                <span><p>You will save</p></span>
-                <span><strong>₹ {discount + coupon}</strong> on this order</span>
+                <span>You will save</span>
+                <span><strong>₹{savings}</strong> on this order</span>
               </div>
               <button className="cart-summary-btn buy-btn">
                 Buy Now

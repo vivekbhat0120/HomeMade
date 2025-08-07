@@ -49,7 +49,7 @@ const Product = ({
     if (isWished) {
       removeFromWishlist(id);
     } else {
-      addToWishlist({ id, name, price, image, shortDescription });
+      addToWishlist({ id, name, price, oldPrice, rating, reviews, image, shortDescription });
     }
   };
 
@@ -58,7 +58,7 @@ const Product = ({
     if (inCart) {
       removeFromCart(id);
     } else {
-      addToCart({ id, name, price, image, shortDescription });
+      addToCart({ id, name, price, oldPrice, rating, reviews, image, shortDescription });
     }
   };
 
@@ -104,7 +104,44 @@ const Product = ({
           <span className="product-review-count">({reviews.length})</span>
         </div>
         <div className="product-price-row">
-          <span className="product-price">₹ {price}</span>
+          {/* Left: old price and discount badge */}
+          <span className="product-price-left">
+            {oldPrice && (
+              <span className="product-oldprice-discount-wrap">
+                {discount && <span className="product-discount-badge">{discount}% OFF</span>}
+                <span className="product-old-price-bottomleft">₹ {oldPrice}</span>
+              </span>
+            )}
+          </span>
+          {/* Center: new price */}
+          <span className="product-price-center">
+            <span className="product-price">₹ {price}</span>
+          </span>
+          {/* Right: cart icon for cart-product-card */}
+          <span className="product-price-right">
+            {className.includes('cart-product-card') && (
+              <span
+                className={`product-icon-cart${inCart ? ' in-cart' : ''}`}
+                onClick={handleCartClick}
+                title={inCart ? 'Remove from Cart' : 'Add to Cart'}
+              >
+                {/* Cart Icon */}
+                {inCart ? (
+                  <svg width="20" height="20" fill="none" stroke="var(--accent-color)" strokeWidth="2" viewBox="0 0 24 24">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39A2 2 0 0 0 9.64 17h7.72a2 2 0 0 0 1.96-1.61L23 6H6" />
+                  </svg>
+                ) : (
+                  <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <circle cx="9" cy="21" r="1" />
+                    <circle cx="20" cy="21" r="1" />
+                    <path d="M1 1h4l2.68 13.39A2 2 0 0 0 9.64 17h7.72a2 2 0 0 0 1.96-1.61L23 6H6" />
+                  </svg>
+                )}
+              </span>
+            )}
+          </span>
         </div>
         {/* Quantity controls for cart view */}
         {className.includes('cart-product-card') && inCart && (
@@ -128,36 +165,32 @@ const Product = ({
           </div>
         )}
       </div>
-      {/* Old Price & Discount */}
-      {oldPrice && (
-        <div className="product-oldprice-discount-wrap">
-          {discount && <span className="product-discount-badge">{discount}% OFF</span>}
-          <span className="product-old-price-bottomleft">₹ {oldPrice}</span>
+      {/* Cart Icon */}
+      {/* Only show outside price row if not cart-product-card */}
+      {!className.includes('cart-product-card') && (
+        <div className="product-cart-bottomright">
+          <span
+            className={`product-icon-cart${inCart ? ' in-cart' : ''}`}
+            onClick={handleCartClick}
+            title={inCart ? 'Remove from Cart' : 'Add to Cart'}
+          >
+            {/* Cart Icon */}
+            {inCart ? (
+              <svg width="20" height="20" fill="none" stroke="var(--accent-color)" strokeWidth="2" viewBox="0 0 24 24">
+                <circle cx="9" cy="21" r="1" />
+                <circle cx="20" cy="21" r="1" />
+                <path d="M1 1h4l2.68 13.39A2 2 0 0 0 9.64 17h7.72a2 2 0 0 0 1.96-1.61L23 6H6" />
+              </svg>
+            ) : (
+              <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <circle cx="9" cy="21" r="1" />
+                <circle cx="20" cy="21" r="1" />
+                <path d="M1 1h4l2.68 13.39A2 2 0 0 0 9.64 17h7.72a2 2 0 0 0 1.96-1.61L23 6H6" />
+              </svg>
+            )}
+          </span>
         </div>
       )}
-      {/* Cart Icon */}
-      <div className="product-cart-bottomright">
-        <span
-          className={`product-icon-cart${inCart ? ' in-cart' : ''}`}
-          onClick={handleCartClick}
-          title={inCart ? 'Remove from Cart' : 'Add to Cart'}
-        >
-          {/* Cart Icon */}
-          {inCart ? (
-            <svg width="20" height="20" fill="none" stroke="var(--accent-color)" strokeWidth="2" viewBox="0 0 24 24">
-              <circle cx="9" cy="21" r="1" />
-              <circle cx="20" cy="21" r="1" />
-              <path d="M1 1h4l2.68 13.39A2 2 0 0 0 9.64 17h7.72a2 2 0 0 0 1.96-1.61L23 6H6" />
-            </svg>
-          ) : (
-            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <circle cx="9" cy="21" r="1" />
-              <circle cx="20" cy="21" r="1" />
-              <path d="M1 1h4l2.68 13.39A2 2 0 0 0 9.64 17h7.72a2 2 0 0 0 1.96-1.61L23 6H6" />
-            </svg>
-          )}
-        </span>
-      </div>
     </div>
   );
 };
