@@ -204,6 +204,11 @@
   color: var(--green-color);
   font-weight: 600;
 }
+.delivery-strike {
+  text-decoration: line-through;
+  color: #888;
+  margin-left: 4px;
+}
 
 .summary-safe p {
   margin: 10px 0;

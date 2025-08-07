@@ -104,7 +104,7 @@ const Cart = () => {
                 <span>Delivery Charge</span>
                 <span>
                   {deliveryCharge === 0
-                    ? <><span className="free-delivery">Free</span> <span style={{ textDecoration: 'line-through', color: '#888' }}>₹79</span></>
+                    ? <><span className="free-delivery">Free</span> <span className="delivery-strike">₹79</span></>
                     : `₹ ${deliveryCharge}`}
                 </span>
               </div>
