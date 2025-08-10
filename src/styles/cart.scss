@@ -52,7 +52,7 @@
 // =========================
 .cart-summary {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   background: var(--secondary-color);
   color: var(--text-color);
@@ -64,7 +64,7 @@
   box-shadow: 2px 2px 10px rgba(0,0,0,0.4);
   gap: 100px;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1210px;
 }
 
 .cart-summary span {

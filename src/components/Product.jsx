@@ -76,7 +76,6 @@ const Product = ({
   return (
     <div className={`product-card ${className}`.trim()} onClick={handleClick}>
       {/* Wishlist Icon */}
-      <div className="product-wish-topright">
         <span
           className={`product-icon-wish${isWished ? ' wished' : ''}`}
           onClick={handleWishClick}
@@ -89,7 +88,13 @@ const Product = ({
             <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
           )}
         </span>
-      </div>
+      
+      {/* Discount badge at top left */}
+      {discount && (
+        <span className="product-discount-topleft">
+          <span className="product-discount-badge">{discount}% OFF</span>
+        </span>
+      )}
       {/* Product Image & Rating */}
       <div className="product-image-wrap">
         <img src={image} alt={name} className="product-image" />
@@ -98,50 +103,18 @@ const Product = ({
       <div className="product-info">
         <h2 className="product-name">{name}</h2>
         {showDescription && <p className="product-description">{shortDescription}</p>}
-        <div className="product-rating-info">
-          <span className="star filled" >&#9733;</span>
-          <span className="product-rating-value">{rating}</span>
-          <span className="product-review-count">({reviews.length})</span>
-        </div>
-        <div className="product-price-row">
-          {/* Left: old price and discount badge */}
-          <span className="product-price-left">
+        <div className="product-info-row">
+          <div className="product-rating-info">
+            <span className="star filled" >&#9733;</span>
+            <span className="product-rating-value">{rating}</span>
+            <span className="product-review-count">({reviews.length})</span>
+          </div>
+          <div className="product-price-section">
             {oldPrice && (
-              <span className="product-oldprice-discount-wrap">
-                {discount && <span className="product-discount-badge">{discount}% OFF</span>}
-                <span className="product-old-price-bottomleft">₹ {oldPrice}</span>
-              </span>
+              <span className="product-old-price">₹ {oldPrice}</span>
             )}
-          </span>
-          {/* Center: new price */}
-          <span className="product-price-center">
-            <span className="product-price">₹ {price}</span>
-          </span>
-          {/* Right: cart icon for cart-product-card */}
-          <span className="product-price-right">
-            {className.includes('cart-product-card') && (
-              <span
-                className={`product-icon-cart${inCart ? ' in-cart' : ''}`}
-                onClick={handleCartClick}
-                title={inCart ? 'Remove from Cart' : 'Add to Cart'}
-              >
-                {/* Cart Icon */}
-                {inCart ? (
-                  <svg width="20" height="20" fill="none" stroke="var(--accent-color)" strokeWidth="2" viewBox="0 0 24 24">
-                    <circle cx="9" cy="21" r="1" />
-                    <circle cx="20" cy="21" r="1" />
-                    <path d="M1 1h4l2.68 13.39A2 2 0 0 0 9.64 17h7.72a2 2 0 0 0 1.96-1.61L23 6H6" />
-                  </svg>
-                ) : (
-                  <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <circle cx="9" cy="21" r="1" />
-                    <circle cx="20" cy="21" r="1" />
-                    <path d="M1 1h4l2.68 13.39A2 2 0 0 0 9.64 17h7.72a2 2 0 0 0 1.96-1.61L23 6H6" />
-                  </svg>
-                )}
-              </span>
-            )}
-          </span>
+            <span className="product-new-price">₹ {price}</span>
+          </div>
         </div>
         {/* Quantity controls for cart view */}
         {className.includes('cart-product-card') && inCart && (
@@ -165,32 +138,24 @@ const Product = ({
           </div>
         )}
       </div>
-      {/* Cart Icon */}
-      {/* Only show outside price row if not cart-product-card */}
-      {!className.includes('cart-product-card') && (
-        <div className="product-cart-bottomright">
-          <span
-            className={`product-icon-cart${inCart ? ' in-cart' : ''}`}
-            onClick={handleCartClick}
-            title={inCart ? 'Remove from Cart' : 'Add to Cart'}
-          >
-            {/* Cart Icon */}
-            {inCart ? (
-              <svg width="20" height="20" fill="none" stroke="var(--accent-color)" strokeWidth="2" viewBox="0 0 24 24">
-                <circle cx="9" cy="21" r="1" />
-                <circle cx="20" cy="21" r="1" />
-                <path d="M1 1h4l2.68 13.39A2 2 0 0 0 9.64 17h7.72a2 2 0 0 0 1.96-1.61L23 6H6" />
-              </svg>
-            ) : (
-              <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <circle cx="9" cy="21" r="1" />
-                <circle cx="20" cy="21" r="1" />
-                <path d="M1 1h4l2.68 13.39A2 2 0 0 0 9.64 17h7.72a2 2 0 0 0 1.96-1.61L23 6H6" />
-              </svg>
-            )}
-          </span>
-        </div>
-      )}
+      {/* Cart Button at bottom */}
+      <div className="product-cart-bottomrow">
+        <button
+          className={`product-cart-btn${inCart ? ' in-cart' : ''}`}
+          onClick={handleCartClick}
+          title={inCart ? 'Remove from Cart' : 'Add to Cart'}
+        >
+          {/* Cart Icon only for Add to Cart */}
+          {!inCart && (
+            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path d="M1 1h4l2.68 13.39A2 2 0 0 0 9.64 17h7.72a2 2 0 0 0 1.96-1.61L23 6H6" />
+            </svg>
+          )}
+          <span className="cart-btn-label">{inCart ? 'Remove from Cart' : 'Add to Cart'}</span>
+        </button>
+      </div>
     </div>
   );
 };
