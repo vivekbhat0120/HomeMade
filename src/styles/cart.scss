@@ -1,7 +1,7 @@
 @use "./../styles/variable" as *;
 
 // =========================
-// Cart Container
+// 1. GENERAL CONTAINER
 // =========================
 .cart-container {
   color: var(--white-color);
@@ -9,6 +9,7 @@
   width: 100%;
   margin-top: 110px;
   height: 100%;
+  padding: 0 15px;
   
   p {
     color: var(--primary-color);
@@ -16,6 +17,9 @@
   }
 }
 
+// =========================
+// 2. EMPTY CART STATE
+// =========================
 .cart-empty {
   text-align: center;
   font-size: 1.2rem;
@@ -36,19 +40,20 @@
   box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
   transition: background 0.18s, color 0.18s, box-shadow 0.18s;
   letter-spacing: 0.5px;
-}
-.cart-empty-btn:hover {
-  box-shadow: 0 4px 16px 0 rgba(0,0,0,0.4);
+  
+  &:hover {
+    box-shadow: 0 4px 16px 0 rgba(0,0,0,0.4);
 
-  &:active,
-  &:focus {
-    outline: none;
-    box-shadow: none;
+    &:active,
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
   }
 }
 
 // =========================
-// Cart Summary Section
+// 3. CART SUMMARY BAR
 // =========================
 .cart-summary {
   display: flex;
@@ -95,11 +100,12 @@
   cursor: pointer;
   margin-right: 18px;
   transition: all 0.2s, transform 0.1s;
-}
-.back-btn:hover {
-  border: 1px solid var(--text-color);
-  color: var(--text-color);
-  box-shadow: 2px 2px 8px 0 rgba(0,0,0,0.2);
+  
+  &:hover {
+    border: 1px solid var(--text-color);
+    color: var(--text-color);
+    box-shadow: 2px 2px 8px 0 rgba(0,0,0,0.2);
+  }
 }
 
 .buy-btn {
@@ -107,20 +113,21 @@
   color: var(--white-color);
   margin-left: auto;
   padding: 6px 15px;
-}
-.buy-btn:hover {
-  background-color: var(--red-color);
-  opacity: 0.9;
+  
+  &:hover {
+    background-color: var(--red-color);
+    opacity: 0.9;
 
-  &:active,
-  &:focus {
-    outline: none;
-    box-shadow: none;
+    &:active,
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
   }
 }
 
 // =========================
-// Cart Items List
+// 4. CART MAIN CONTENT LAYOUT
 // =========================
 .cart-main-content {
   display: flex;
@@ -140,161 +147,10 @@
   padding: 10px;
 }
 
-
 // =========================
-// Cart Summary Box
+// 5. CART PRODUCT CARD
 // =========================
-.cart-summary-box {
-  background: var(--white-color);
-  color: var(--text-color);
-  border-radius: 12px;
-  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.10), 0 1.5px 4px 0 rgba(0,0,0,0.04);
-  padding: 10px 20px;
-  width: 25%;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.cart-summary-box h2 {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin: 0 0 10px 0;
-  color: var(--wood-color);
-  text-align: center;
-}
-
-.summary-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: var(--font-size-md);
-  
-}
-
-.summary-row.total {
-  font-size: 1.15rem;
-  border-top: 1px solid var(--primary-color);
-  padding-top: 10px;
-  margin: 0;
-}
-
-.summary-row.savings {
-  color: var(--green-color);
-  font-size: 1.08rem;
-  margin: 0;
-  gap: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  strong{
-    margin-left: 5px;
-  }
-}
-
-.summary-row .discount,
-.summary-row .coupon {
-  color: var(--green-color);
-  font-weight: 600;
-}
-
-/* Free delivery highlight */
-.free-delivery {
-  color: var(--green-color);
-  font-weight: 600;
-}
-.delivery-strike {
-  text-decoration: line-through;
-  color: #888;
-  margin-left: 4px;
-}
-
-.summary-safe p {
-  margin: 10px 0;
-  font-size: var(--font-size-sm);
-  color: var(--primary-color);
-  text-align: center;
-}
-
-// Style for Buy Now button in summary box
-.cart-summary-box .buy-btn {
-  width: 100%;
-  margin: 10px 0 0 0;
-  padding: 12px 0;
-  font-size: 1.12rem;
-  font-weight: 700;
-  border-radius: 8px;
-  background: var(--red-color);
-  color: var(--white-color);
-  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
-  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
-}
-.cart-summary-box .buy-btn:hover {
-  background: var(--red-color);
-  opacity: 0.92;
-  box-shadow: 0 4px 16px 0 rgba(0,0,0,0.18);
-}
-
-// Responsive for cart main content and summary
-@media (max-width: 900px) {
-  .cart-main-content {
-    flex-direction: column;
-    gap: 0;
-  }
-  .cart-items {
-    width: 100%;
-    grid-template-columns: 1fr;
-  }
-  .cart-summary-box {
-    max-width: 100%;
-    min-width: 0;
-    margin-left: 0;
-    margin-top: 18px;
-    width: 100%;
-  }
-}
-
-// =========================
-// Cart Count Badge
-// =========================
-.cart-count-badge {
-  position: absolute;
-  top: -6px;
-  right: -15px;
-  color: var(--white-color);
-  background: var(--red-color);
-  border-radius: 50%;
-  min-width: 20px;
-  min-height: 20px;
-  font-size: var(--font-size-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  z-index: 2;
-}
-
-// =========================
-// Product Card Cart Icon (Filled State)
-// =========================
-.product-icon-cart.in-cart svg {
-  stroke: #0077b6;
-  fill: #0077b6;
-}
-
-.product-icon-cart {
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  transition: color 0.2s;
-}
-
-// =========================
-// Cart-Specific Product Card Overrides
-// =========================
-
-.cart-product-card{
+.cart-product-card {
   width: 100%;
   position: relative;
   display: flex;
@@ -303,13 +159,12 @@
   margin: 0;
 
   .product-name {
-  color: var(--text-color);
+    color: var(--text-color);
+  }
 }
-}
-
 
 // =========================
-// Cart Quantity Controls
+// 6. CART QUANTITY CONTROLS
 // =========================
 .cart-quantity-controls {
   display: flex;
@@ -322,6 +177,7 @@
   margin-right: auto;
   margin-top: 10px;
 }
+
 .cart-qty-btn {
   background: rgba(255,255,255,0.15);
   color: var(--primary-color);
@@ -344,24 +200,24 @@
   backdrop-filter: blur(2px);
   position: relative;
   z-index: 1;
+  
+  span, svg, .qty-symbol, > * {
+    color: var(--text-color);
+    transform: translateY(-2px);
+    display: inline-block;
+  }
+  
+  &:hover {
+    box-shadow: 0 6px 18px 0 rgba(0,0,0,0.3);
+  }
+  
+  &:focus,
+  &:active {
+    outline: none;
+    box-shadow: none;
+  }
 }
 
-.cart-qty-btn span, .cart-qty-btn svg, .cart-qty-btn .qty-symbol,
-.cart-qty-btn > * {
-  color: var(--text-color);
-  transform: translateY(-2px);
-  display: inline-block;
-}
-
-.cart-qty-btn:hover {
-  box-shadow: 0 6px 18px 0 rgba(0,0,0,0.3);
-}
-
-.cart-qty-btn:focus,
-.cart-qty-btn:active {
-  outline: none;
-  box-shadow: none;
-}
 .cart-qty-value {
   min-width: 32px;
   text-align: center;
@@ -372,62 +228,129 @@
   padding: 2px 8px;
 }
 
-
 // =========================
-// Responsive Styles
+// 7. CART SUMMARY BOX
 // =========================
-@media (max-width: 600px) {
-  .cart-container {
-    padding: 12px 2vw;
-    max-width: 98vw;
+.cart-summary-box {
+  background: var(--white-color);
+  color: var(--text-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.10), 0 1.5px 4px 0 rgba(0,0,0,0.04);
+  padding: 10px 20px;
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    color: var(--wood-color);
+    text-align: center;
   }
-  .cart-item {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 14px 10px;
-  }
-  .cart-item span:last-child {
-    margin-left: 0;
-    margin-top: 6px;
-  }
-  .cart-button {
+  
+  // Buy button in summary box
+  .buy-btn {
     width: 100%;
-    margin-top: 10px;
-  }
-  .cart-quantity-controls {
-    max-width: 100%;
-    gap: 10px;
-    padding: 6px 0 2px 0;
-  }
-  .cart-qty-btn {
-    width: 28px;
-    height: 28px;
-    font-size: 1.1rem;
-  }
-  .cart-qty-value {
-    min-width: 24px;
-    font-size: 1rem;
-    padding: 1px 6px;
+    margin: 10px 0 0 0;
+    padding: 12px 0;
+    font-size: 1.12rem;
+    font-weight: 700;
+    border-radius: 8px;
+    background: var(--red-color);
+    color: var(--white-color);
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.10);
+    transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+    
+    &:hover {
+      background: var(--red-color);
+      opacity: 0.92;
+      box-shadow: 0 4px 16px 0 rgba(0,0,0,0.18);
+    }
   }
 }
 
-// Responsive for cart main content and summary
-@media (max-width: 900px) {
-  .cart-main-content {
-    flex-direction: column;
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-size-md);
+  
+  &.total {
+    font-size: 1.15rem;
+    border-top: 1px solid var(--primary-color);
+    padding-top: 10px;
+    margin: 0;
+  }
+  
+  &.savings {
+    color: var(--green-color);
+    font-size: 1.08rem;
+    margin: 0;
     gap: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    strong {
+      margin-left: 5px;
+    }
   }
-  .cart-items {
-    width: 100%;
-    grid-template-columns: 1fr;
-  }
-  .cart-summary-box {
-    max-width: 100%;
-    min-width: 0;
-    margin-left: 0;
-    margin-top: 18px;
-    width: 100%;
+  
+  .discount,
+  .coupon {
+    color: var(--green-color);
+    font-weight: 600;
   }
 }
 
+.free-delivery {
+  color: var(--green-color);
+  font-weight: 600;
+}
 
+.delivery-strike {
+  text-decoration: line-through;
+  color: #888;
+  margin-left: 4px;
+}
+
+.summary-safe p {
+  margin: 10px 0;
+  font-size: var(--font-size-sm);
+  color: var(--primary-color);
+  text-align: center;
+}
+
+// =========================
+// 8. CART BADGES & ICONS
+// =========================
+.cart-count-badge {
+  position: absolute;
+  top: -6px;
+  right: -15px;
+  color: var(--white-color);
+  background: var(--red-color);
+  border-radius: 50%;
+  min-width: 20px;
+  min-height: 20px;
+  font-size: var(--font-size-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  z-index: 2;
+}
+
+.product-icon-cart {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.2s;
+  
+  &.in-cart svg {
+    stroke: #0077b6;
+    fill: #0077b6;
+  }
+}
