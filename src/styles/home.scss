@@ -52,9 +52,13 @@
 }
 
 // Responsive adjustments
-@media (max-width: 992px) {
+@media (max-width: 425px) {
+  .home{
+    padding: 100px 0 0 0;
+  }
   .home-content {
     flex-direction: column;
+    padding: 0;
   }
   
   .filter-sidebar {
@@ -62,10 +66,75 @@
     height: auto;
     position: relative;
     top: 0;
-    
   }
   
   .product-list {
     justify-content: center;
+  }
+}
+
+@media (min-width: 426px) and (max-width: 768px) {
+  .home {
+    padding: 110px 0 0 0;
+  }
+  .home-content {
+    flex-direction: column;
+    padding: 0;
+  }
+  .filter-sidebar {
+    width: 97%;
+    position: relative;
+    top: 0;
+    height: auto;
+    order: 0;
+  }
+  .product-content {
+    width: 100%;
+    order: 1;
+  }
+  .product-list {
+    justify-content: flex-start; // aligns 3-up cards (each ~32% width from product.scss)
+    gap: 15px;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1440px){
+  .home {
+    padding: 150px 0 0 0;
+  }
+  .home-content {
+    max-width: 1440px;
+    padding: 0 10px;
+    margin: 0;
+  }
+  
+  .filter-sidebar {
+    width: 320px;
+    position: sticky;
+    top: 150px;
+    height: calc(100vh - 180px);
+  }
+}
+
+
+@media (min-width: 1441px) and (max-width: 2560px) {
+  .home {
+    padding: 150px 0 0 0;
+  }
+  .home-content {
+    max-width: 2560px;
+    padding: 0 40px;
+    margin: 0;
+  }
+  
+  .filter-sidebar {
+    width: 350px;
+    position: sticky;
+    top: 150px;
+    height: calc(100vh - 180px);
+  }
+  
+  .product-list {
+    gap: 30px;
   }
 }

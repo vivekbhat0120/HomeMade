@@ -1,6 +1,8 @@
 @use "./variable" as *;
 
+
 .filter-container {
+  max-width: 100%;
   background: var(--white-color);
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.15);
@@ -185,4 +187,128 @@
 }
 .range-slider-min, .range-slider-max {
   z-index: 2;
+}
+
+// MEDIA QUERIES
+@media (max-width: 425px) {
+  .filter-container {
+    width: 75%;
+    margin: 30px auto;
+  }
+
+  .filter-header h2 {
+    font-size: var(--font-size-lg);
+  }
+
+  .reset-button {
+    font-size: var(--font-size-sm);
+  }
+
+  .filter-section h3 {
+    font-size: var(--font-size-md);
+  }
+
+  .sort-dropdown {
+    padding: 10px 12px;
+    font-size: var(--font-size-sm);
+  }
+
+  .price-display {
+    font-size: var(--font-size-sm);
+  }
+}
+
+@media (min-width: 426px) and (max-width: 768px) {
+  .filter-container {
+    width: 90%;
+    text-align: center;
+    margin: 20px 0 20px 30px;
+    padding: 18px;
+    align-self: center; // center horizontally within flex parent
+  }
+
+  .filter-header {
+    margin-bottom: 14px;
+  }
+
+  .filter-section {
+    margin-bottom: 18px;
+  }
+
+  .filter-header h2 {
+    font-size: var(--font-size-md);
+  }
+
+  .reset-button {
+    font-size: var(--font-size-xs);
+  }
+
+  .filter-section h3 {
+    font-size: var(--font-size-sm);
+  }
+
+  .sort-dropdown {
+    padding: 6px 10px;
+    font-size: var(--font-size-xs);
+  }
+
+  .price-display {
+    font-size: var(--font-size-xs);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .filter-container {
+    width: 80%;
+    margin: 0;
+  }
+
+  .filter-header h2 {
+    font-size: var(--font-size-lg);
+  }
+
+  .reset-button {
+    font-size: var(--font-size-sm);
+  }
+
+  .filter-section h3 {
+    font-size: var(--font-size-md);
+  }
+
+  .sort-dropdown {
+    padding: 10px 14px;
+    font-size: var(--font-size-md);
+  }
+
+  .price-display {
+    font-size: var(--font-size-md);
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .filter-container {
+    width: 85%;
+    margin: 10px auto;
+  }
+
+  .filter-header h2 {
+    font-size: var(--font-size-lg);
+  }
+
+  .reset-button {
+    font-size: var(--font-size-sm);
+  }
+
+  .filter-section h3 {
+    font-size: var(--font-size-md);
+  }
+
+  .sort-dropdown {
+    padding: 10px 14px;
+    font-size: var(--font-size-md);
+  }
+
+  .price-display {
+    font-size: var(--font-size-md);
+  }
 }

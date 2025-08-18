@@ -1,5 +1,11 @@
 @use "./../styles/variable" as *;
 
+$mobile: 425px;
+$tablet: 768px;
+$laptop: 1024px;
+$desktop: 1440px;
+$monitor: 2560px;
+
 .footer {
   background: var(--secondary-color);
   color: var(--text-color);
