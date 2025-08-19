@@ -129,17 +129,7 @@ const ProductDetail = () => {
         <div className="main-image-and-actions">
           <button className="back-button" onClick={() => navigate(-1)}>&larr; Back</button>
           <div className="main-image-row">
-            <div className="product-thumbnails-vertical">
-              {productImages.map((img, idx) => (
-                <img
-                  key={idx}
-                  src={img}
-                  alt={`${name} thumbnail ${idx + 1}`}
-                  className={`product-thumbnail-image${selectedImageIdx === idx ? ' selected' : ''}`}
-                  onClick={() => setSelectedImageIdx(idx)}
-                />
-              ))}
-            </div>
+            
             <div
               className={`main-product-image-zoom-container${isZoomed ? ' zoomed' : ''}`}
               onMouseEnter={handleMouseEnter}
@@ -154,6 +144,17 @@ const ProductDetail = () => {
               />
             </div>
           </div>
+          <div className="product-thumbnails-vertical">
+              {productImages.map((img, idx) => (
+                <img
+                  key={idx}
+                  src={img}
+                  alt={`${name} thumbnail ${idx + 1}`}
+                  className={`product-thumbnail-image${selectedImageIdx === idx ? ' selected' : ''}`}
+                  onClick={() => setSelectedImageIdx(idx)}
+                />
+              ))}
+            </div>
           <div className="action-buttons">
             <button
               className={`btn btn-wish${isWished ? ' wished' : ''}`}
@@ -227,6 +228,20 @@ const ProductDetail = () => {
           <div className="product-description">
             <h3>Description</h3>
             <p>{description}</p>
+          </div>
+          {/* Mobile-only specifications section that appears between description and reviews */}
+          <div className="product-specifications mobile-specs">
+            <h3>Specifications</h3>
+            <table className="spec-table">
+              <tbody>
+                {specifications.map((spec, index) => (
+                  <tr key={index}>
+                    <td>{spec.label}</td>
+                    <td>{spec.value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
           <div className="product-reviews">
             <h3>Reviews</h3>

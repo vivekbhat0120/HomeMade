@@ -271,8 +271,8 @@ $monitor: 2560px;
 // MEDIA QUERIES
 @media (max-width: 435px) {
   .product-list {
+    width: 100%;
     gap: 10px;
-    justify-content: space-between;
   }
   
   .product-card {
