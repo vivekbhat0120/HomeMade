@@ -10,7 +10,7 @@ import Product7 from '../assets/images/ProductImg/PF3.webp';
 const defaultOffers = [
   '10% Instant Discount on Credit Cards',
   'No Cost EMI available',
-  'Special Price: Get extra 5% off (price inclusive of discount)'
+  'Special Price: Get extra 5% off'
 ];
 
 const products = [

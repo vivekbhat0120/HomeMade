@@ -75,7 +75,7 @@
   height: 350px;
   overflow: hidden;
   border-radius: 4px;
-  margin-left: 20px;
+  margin-left: 0; // Changed from 20px to center the image
   position: relative;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   cursor: zoom-in;
@@ -586,13 +586,20 @@
   .main-image-and-actions {
     border: none;
   }
+  .main-image-row {
+    margin-top: 20px;
+  }
   .product-detail-container {
-    margin: 60px 5px 5px;
+    margin: 50px 5px 5px;
   }
 
   .product-detail-card {
     flex-direction: column;
     padding: 8px;
+  }
+
+  .product-thumbnails-vertical {
+    gap: 40px;
   }
 
   .product-info-section {
@@ -656,10 +663,17 @@
     font-size: 15px;
   }
   .available-offers {
-    max-width: 370px;
+    max-width: 350px;
     width: 100%;
-    padding: 5px;
+    padding: 10px;
+    margin: 20px 0;
   }
+
+  .offer-item {
+      text-align: center;
+      display: flex;
+      justify-content: center;
+    }
 
   .product-description p {
     font-size: 14px;
