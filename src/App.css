@@ -1,4 +1,13 @@
-html, body, #root {
+/* Global reset and base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
   background: var(--secondary-color);
   width: 100%;
   max-width: 100vw;
@@ -8,8 +17,24 @@ html, body, #root {
   overflow-x: hidden;
 }
 
+body {
+  font-family: "Poppins", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #333;
+  background-color: #fff;
+}
+
 #root {
   text-align: center;
+}
+
+/* Container utility class */
+.container {
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 15px;
 }
 
 .logo {
@@ -46,4 +71,26 @@ html, body, #root {
 
 .read-the-docs {
   color: #888;
+}
+
+/* Button styles */
+button {
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+}
+
+button:focus {
+  outline: none;
+}
+
+/* Link styles */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Image styles */
+img {
+  max-width: 100%;
+  height: auto;
 }

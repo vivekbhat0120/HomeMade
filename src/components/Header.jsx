@@ -1,92 +1,46 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import './../styles/header.scss';
-import { useWishlist } from '../context/WishlistContext';
-import { useCart } from '../context/CartContext';
+import React from 'react';
+import '../styles/header.scss';
 
-// ===============================
-// HEADER COMPONENT
-// ===============================
-const Header = ({ searchQuery, setSearchQuery }) => {
-  // ===== CONTEXTS =====
-  const { wishlist } = useWishlist();
-  const { cart } = useCart();
-  const location = useLocation();
-
-  // ===== STATE =====
-  const [isSearchVisible, setIsSearchVisible] = useState(false);
-
-  // ===== PATH MATCHING =====
-  const isWishlist = location.pathname === '/wishlist';
-  const isCart = location.pathname === '/cart';
-  const isAccount = location.pathname === '/account';
-
-  // ===== HANDLERS =====
-  const toggleSearch = () => {
-    setIsSearchVisible(!isSearchVisible);
-  };
-
+const Header = () => {
   return (
-    <header className="header">
-      {/* ===== LOGO SECTION ===== */}
-      <div className="header__logo">
-        <img src="/src/assets/images/logo.png" alt="Logo" />
+    <header className="header" id="home">
+      <div className="header-container">
+        <div className="header-content">
+          <h1>Homemade Goodness, <br />Delivered to Your Door</h1>
+          <p>
+            Authentic home-cooked meals made with love and premium ingredients.
+            Taste the difference of real homemade food.
+          </p>
+          <div className="header-buttons">
+            <button className="btn-primary">Shop Now</button>
+            <button className="btn-secondary">Learn More</button>
+          </div>
+          <div className="header-features">
+            <div className="feature">
+              <span className="feature-icon">🌿</span>
+              <span className="feature-text">Natural Ingredients</span>
+            </div>
+            <div className="feature">
+              <span className="feature-icon">🏠</span>
+              <span className="feature-text">Homemade Fresh</span>
+            </div>
+            <div className="feature">
+              <span className="feature-icon">🚚</span>
+              <span className="feature-text">Fast Delivery</span>
+            </div>
+          </div>
+        </div>
+        <div className="header-image">
+          <div className="image-container">
+            <img src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" 
+                 alt="Homemade food delights" />
+          </div>
+        </div>
       </div>
-
-      {/* ===== SEARCH SECTION ===== */}
-      <div className={`header__search-container ${isSearchVisible ? 'visible' : ''}`}>
-        <form className="header__search" onSubmit={e => e.preventDefault()}>
-          <input
-            type="text"
-            placeholder="Search products..."
-            value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
-          />
-          <button type="submit" aria-label="Search">
-            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          </button>
-        </form>
-      </div>
-
-      {/* ===== SEARCH TOGGLE (MOBILE) ===== */}
-      <button className="header__search-toggle" onClick={toggleSearch} aria-label="Toggle search">
-        <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      </button>
-
-      {/* ===== ACTIONS SECTION ===== */}
-      <div className="header__actions">
-        {/* Wishlist */}
-        <Link to="/wishlist" className={`header__icon header__icon--wishlist${isWishlist ? ' active' : ''}`} aria-label="Wishlist" style={{ position: 'relative' }}>
-          <span className="header__icon-text">Wishlist</span>
-          <span style={{position: 'relative', display: 'inline-block'}}>
-            <svg width="22" height="22" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            {wishlist.length > 0 && (
-              <span className="wishlist-count-badge">{wishlist.length}</span>
-            )}
-          </span>
-        </Link>
-        {/* Cart */}
-        <Link to="/cart" className={`header__icon header__icon--cart${isCart ? ' active' : ''}`} aria-label="Cart" style={{ position: 'relative' }}>
-          <span className="header__icon-text">Cart</span>
-          <span style={{position: 'relative', display: 'inline-block'}}>
-            <svg width="22" height="22" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <circle cx="9" cy="21" r="1"/>
-              <circle cx="20" cy="21" r="1"/>
-              <path d="M1 1h4l2.68 13.39A2 2 0 0 0 9.64 17h7.72a2 2 0 0 0 1.96-1.61L23 6H6"/>
-            </svg>
-            {cart.length > 0 && (
-              <span className="cart-count-badge">{cart.length}</span>
-            )}
-          </span>
-        </Link>
-        {/* Account */}
-        <button className={`header__icon header__icon--account${isAccount ? ' active' : ''}`} aria-label="Account">
-          <span className="header__icon-text">Account</span>
-          <svg width="22" height="22" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z"/>
-            <path d="M4 20c0-2.67 5.33-4 8-4s8 1.33 8 4"/>
-          </svg>
-        </button>
+      <div className="wave-divider">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+          <path fill="#ffffff" fillOpacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,117.3C672,107,768,117,864,144C960,171,1056,213,1152,213.3C1248,213,1344,171,1392,149.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
       </div>
     </header>
   );

@@ -1,140 +1,493 @@
-@use "./../styles/variable" as *;
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap");
+
+$primary-color: #ff6b6b;
+$secondary-color: #4ecdc4;
+$dark-color: #1a535c;
+$light-color: #f7fff7;
+$bg-color: #f9f7f4;
+$transition: all 0.3s ease-in-out;
 
 .home {
-  width: 100%;
-  max-width: 100vw;
-  margin: 0;
-  background: var(--secondary-color);
-  padding: 130px 0 0 0;
-}
+  font-family: "Poppins", sans-serif;
+  color: #333;
 
-.home-content {
-  display: flex;
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
+  .container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 50px;
 
-.filter-sidebar {
-  width: 280px;
-  flex-shrink: 0;
-  position: sticky;
-  top: 130px;
-  align-self: flex-start;
-  height: calc(100vh - 150px);
-  overflow-y: auto;
-}
+    @media screen and (max-width: 768px) {
+      padding: 0 30px;
+    }
 
-.product-content {
-  flex: 1;
-}
+    @media screen and (max-width: 576px) {
+      padding: 0 20px;
+    }
+  }
 
-.product-list {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: 25px;
-}
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
 
-.no-products-message {
-  width: 100%;
-  padding: 50px 20px;
-  text-align: center;
-  font-size: var(--font-size-lg);
-  color: var(--text-color);
-  background: var(--white-color);
-  border-radius: 8px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-}
+    h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: $dark-color;
+      margin-bottom: 15px;
+      position: relative;
+      display: inline-block;
 
-// Responsive adjustments
-@media (max-width: 425px) {
-  .home{
-    padding: 100px 0 0 0;
-  }
-  .home-content {
-    flex-direction: column;
-    padding: 0;
-  }
-  
-  .filter-sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-    top: 0;
-  }
-  
-  .product-list {
-    justify-content: center;
-  }
-}
+      &:after {
+        content: "";
+        width: 70px;
+        height: 3px;
+        background: $primary-color;
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
 
-@media (min-width: 426px) and (max-width: 768px) {
-  .home {
-    padding: 110px 0 0 0;
+    p {
+      font-size: 1.1rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+      margin-top: 20px;
+    }
   }
-  .home-content {
-    flex-direction: column;
-    padding: 0;
-  }
-  .filter-sidebar {
-    width: 97%;
-    position: relative;
-    top: 0;
-    height: auto;
-    order: 0;
-  }
-  .product-content {
-    width: 100%;
-    order: 1;
-  }
-  .product-list {
-    justify-content: flex-start; // aligns 3-up cards (each ~32% width from product.scss)
-    gap: 15px;
-  }
-}
 
-@media (min-width: 1025px) and (max-width: 1440px){
-  .home {
-    padding: 150px 0 0 0;
-  }
-  .home-content {
-    max-width: 1440px;
-    padding: 0 10px;
-    margin: 0;
-  }
-  
-  .filter-sidebar {
-    width: 320px;
-    position: sticky;
-    top: 150px;
-    height: calc(100vh - 180px);
-  }
-}
+  // Featured Products Section
+  .featured-products {
+    padding: 100px 0;
+    background-color: white;
 
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
 
-@media (min-width: 1441px) and (max-width: 2560px) {
-  .home {
-    padding: 150px 0 0 0;
+      .product-card {
+        background-color: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        transition: $transition;
+        position: relative;
+
+        &:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+
+          .product-image img {
+            transform: scale(1.05);
+          }
+
+          .add-to-cart {
+            background-color: $primary-color;
+            color: white;
+          }
+        }
+
+        .product-badge {
+          position: absolute;
+          top: 15px;
+          left: 15px;
+          background-color: $secondary-color;
+          color: white;
+          padding: 5px 12px;
+          border-radius: 20px;
+          font-size: 0.8rem;
+          font-weight: 500;
+          z-index: 1;
+        }
+
+        .product-image {
+          height: 200px;
+          overflow: hidden;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+          }
+        }
+
+        .product-info {
+          padding: 20px;
+
+          h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: $dark-color;
+          }
+
+          p {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+          }
+
+          .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+
+            .product-rating {
+              display: flex;
+              align-items: center;
+              color: #ffc107;
+              font-weight: 500;
+
+              svg {
+                margin-right: 5px;
+              }
+            }
+
+            .product-price {
+              font-size: 1.2rem;
+              font-weight: 600;
+              color: $primary-color;
+            }
+          }
+
+          .add-to-cart {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid $primary-color;
+            background-color: white;
+            color: $primary-color;
+            border-radius: 30px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: $transition;
+            font-family: "Poppins", sans-serif;
+          }
+        }
+      }
+    }
+
+    .see-more {
+      text-align: center;
+      margin-top: 60px;
+
+      .btn-outline {
+        padding: 12px 30px;
+        background-color: transparent;
+        border: 2px solid $dark-color;
+        color: $dark-color;
+        border-radius: 30px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: $transition;
+        font-family: "Poppins", sans-serif;
+
+        &:hover {
+          background-color: $dark-color;
+          color: white;
+        }
+      }
+    }
   }
-  .home-content {
-    max-width: 2560px;
-    padding: 0 40px;
-    margin: 0;
+
+  // About Section
+  .about-section {
+    padding: 100px 0;
+    background-color: $bg-color;
+
+    .about-content {
+      display: flex;
+      align-items: center;
+      gap: 50px;
+
+      .about-text {
+        flex: 1;
+
+        h2 {
+          font-family: "Playfair Display", serif;
+          font-size: 2.5rem;
+          font-weight: 700;
+          color: $dark-color;
+          margin-bottom: 10px;
+        }
+
+        h3 {
+          font-family: "Poppins", sans-serif;
+          font-size: 1.5rem;
+          font-weight: 600;
+          color: $primary-color;
+          margin-bottom: 20px;
+        }
+
+        p {
+          font-size: 1.1rem;
+          line-height: 1.7;
+          color: #555;
+          margin-bottom: 20px;
+        }
+
+        .btn-primary {
+          padding: 12px 25px;
+          background-color: $primary-color;
+          color: white;
+          border: none;
+          border-radius: 30px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: $transition;
+          font-family: "Poppins", sans-serif;
+          margin-top: 10px;
+          box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+
+          &:hover {
+            background-color: darken($primary-color, 10%);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+          }
+        }
+      }
+
+      .about-image {
+        flex: 1;
+
+        img {
+          width: 100%;
+          height: auto;
+          border-radius: 15px;
+          box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+      }
+
+      @media screen and (max-width: 992px) {
+        flex-direction: column;
+
+        .about-text,
+        .about-image {
+          width: 100%;
+        }
+      }
+    }
   }
-  
-  .filter-sidebar {
-    width: 350px;
-    position: sticky;
-    top: 150px;
-    height: calc(100vh - 180px);
+
+  // Features Section
+  .features-section {
+    padding: 100px 0;
+    background-color: white;
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+
+      .feature-card {
+        text-align: center;
+        padding: 40px 30px;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        transition: $transition;
+
+        &:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+
+          .feature-icon {
+            background-color: $primary-color;
+            color: white;
+          }
+        }
+
+        .feature-icon {
+          width: 80px;
+          height: 80px;
+          background-color: rgba($primary-color, 0.1);
+          color: $primary-color;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 2rem;
+          border-radius: 50%;
+          margin: 0 auto 20px;
+          transition: $transition;
+        }
+
+        h3 {
+          font-size: 1.3rem;
+          font-weight: 600;
+          color: $dark-color;
+          margin-bottom: 15px;
+        }
+
+        p {
+          font-size: 1rem;
+          color: #666;
+          line-height: 1.6;
+        }
+      }
+    }
   }
-  
-  .product-list {
-    gap: 30px;
+
+  // Testimonials Section
+  .testimonials-section {
+    padding: 100px 0;
+    background-color: $bg-color;
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+
+      .testimonial-card {
+        background-color: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        transition: $transition;
+
+        &:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-rating {
+          color: #ffc107;
+          font-size: 1.2rem;
+          margin-bottom: 15px;
+
+          svg {
+            margin-right: 3px;
+          }
+        }
+
+        .testimonial-text {
+          font-size: 1rem;
+          line-height: 1.7;
+          color: #555;
+          margin-bottom: 20px;
+          font-style: italic;
+        }
+
+        .testimonial-author {
+          display: flex;
+          align-items: center;
+
+          img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+          }
+
+          span {
+            font-weight: 600;
+            color: $dark-color;
+          }
+        }
+      }
+    }
+  }
+
+  // CTA Section
+  .cta-section {
+    padding: 100px 0;
+    background: linear-gradient(
+      to right,
+      $primary-color,
+      darken($primary-color, 15%)
+    );
+    color: white;
+
+    .cta-content {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+
+      h2 {
+        font-family: "Playfair Display", serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
+
+      p {
+        font-size: 1.2rem;
+        margin-bottom: 40px;
+        opacity: 0.9;
+      }
+
+      .cta-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+
+        button {
+          padding: 15px 30px;
+          border-radius: 30px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: $transition;
+          font-family: "Poppins", sans-serif;
+          font-size: 1rem;
+
+          &.btn-primary {
+            background-color: white;
+            color: $primary-color;
+            border: none;
+
+            &:hover {
+              background-color: $dark-color;
+              color: white;
+              transform: translateY(-3px);
+            }
+          }
+
+          &.btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+
+            &:hover {
+              background-color: white;
+              color: $primary-color;
+              transform: translateY(-3px);
+            }
+          }
+        }
+
+        @media screen and (max-width: 576px) {
+          flex-direction: column;
+
+          button {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .section-header {
+      h2 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+    }
+
+    .featured-products,
+    .about-section,
+    .features-section,
+    .testimonials-section,
+    .cta-section {
+      padding: 70px 0;
+    }
   }
 }

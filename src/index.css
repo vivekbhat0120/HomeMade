@@ -1,4 +1,11 @@
 :root {
+  --primary-color: #ff6b6b;
+  --secondary-color: #4ecdc4;
+  --dark-color: #1a535c;
+  --light-color: #f7fff7;
+  --bg-color: #f9f7f4;
+  --transition: all 0.3s ease-in-out;
+
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -24,6 +31,8 @@ a:hover {
 
 body {
   margin: 0;
+  padding: 0;
+  overflow-x: hidden;
   display: flex;
   place-items: center;
   min-width: 320px;

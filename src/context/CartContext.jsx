@@ -1,62 +1,161 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useReducer, useEffect } from 'react';
 
-const CartContext = createContext();
+// Initial state for the cart
+const initialState = {
+  items: localStorage.getItem('cart') 
+    ? JSON.parse(localStorage.getItem('cart')) 
+    : [],
+  totalAmount: 0,
+  totalItems: 0
+};
 
+// Create the context
+const CartContext = createContext(initialState);
+
+// Cart reducer to handle all cart-related actions
+const cartReducer = (state, action) => {
+  switch (action.type) {
+    case 'ADD_ITEM': {
+      const { product, quantity = 1 } = action.payload;
+      const existingItemIndex = state.items.findIndex(item => item.id === product.id);
+      
+      let updatedItems;
+      
+      if (existingItemIndex !== -1) {
+        // Item exists, update quantity
+        updatedItems = [...state.items];
+        updatedItems[existingItemIndex] = {
+          ...updatedItems[existingItemIndex],
+          quantity: updatedItems[existingItemIndex].quantity + quantity
+        };
+      } else {
+        // Item doesn't exist, add new item
+        updatedItems = [...state.items, { ...product, quantity }];
+      }
+      
+      // Calculate new totals
+      const totalAmount = updatedItems.reduce(
+        (total, item) => total + item.price * item.quantity, 
+        0
+      );
+      
+      const totalItems = updatedItems.reduce(
+        (total, item) => total + item.quantity, 
+        0
+      );
+      
+      return { 
+        ...state, 
+        items: updatedItems,
+        totalAmount,
+        totalItems
+      };
+    }
+    
+    case 'REMOVE_ITEM': {
+      const { id } = action.payload;
+      const existingItemIndex = state.items.findIndex(item => item.id === id);
+      
+      if (existingItemIndex === -1) return state;
+      
+      const existingItem = state.items[existingItemIndex];
+      let updatedItems;
+      
+      if (existingItem.quantity === 1) {
+        // Remove item completely if quantity is 1
+        updatedItems = state.items.filter(item => item.id !== id);
+      } else {
+        // Decrease quantity by 1
+        updatedItems = [...state.items];
+        updatedItems[existingItemIndex] = {
+          ...existingItem,
+          quantity: existingItem.quantity - 1
+        };
+      }
+      
+      // Calculate new totals
+      const totalAmount = updatedItems.reduce(
+        (total, item) => total + item.price * item.quantity, 
+        0
+      );
+      
+      const totalItems = updatedItems.reduce(
+        (total, item) => total + item.quantity, 
+        0
+      );
+      
+      return {
+        ...state,
+        items: updatedItems,
+        totalAmount,
+        totalItems
+      };
+    }
+    
+    case 'CLEAR_CART':
+      return {
+        ...state,
+        items: [],
+        totalAmount: 0,
+        totalItems: 0
+      };
+      
+    default:
+      return state;
+  }
+};
+
+// Cart provider component
 export const CartProvider = ({ children }) => {
-  // Initialize cart from localStorage if available
-  const [cart, setCart] = useState(() => {
-    const storedCart = localStorage.getItem('cart');
-    return storedCart ? JSON.parse(storedCart) : [];
-  });
-
+  const [cartState, dispatch] = useReducer(cartReducer, initialState);
+  
   // Save cart to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }, [cart]);
-
-  // Add to cart or increment quantity
-  const addToCart = (product) => {
-    setCart((prev) => {
-      const existing = prev.find(item => item.id === product.id);
-      if (existing) {
-        return prev.map(item =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-        );
-      }
-      return [...prev, { ...product, quantity: 1 }];
+    localStorage.setItem('cart', JSON.stringify(cartState.items));
+  }, [cartState.items]);
+  
+  // Actions
+  const addToCart = (product, quantity = 1) => {
+    dispatch({
+      type: 'ADD_ITEM',
+      payload: { product, quantity }
     });
   };
-
-  // Remove product from cart completely
+  
   const removeFromCart = (id) => {
-    setCart((prev) => prev.filter(item => item.id !== id));
+    dispatch({
+      type: 'REMOVE_ITEM',
+      payload: { id }
+    });
   };
-
-  // Increment quantity
-  const incrementQuantity = (id) => {
-    setCart((prev) =>
-      prev.map(item =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-      )
-    );
+  
+  const clearCart = () => {
+    dispatch({ type: 'CLEAR_CART' });
   };
-
-  // Decrement quantity (minimum 1)
-  const decrementQuantity = (id) => {
-    setCart((prev) =>
-      prev.map(item =>
-        item.id === id ? { ...item, quantity: Math.max(1, item.quantity - 1) } : item
-      )
-    );
-  };
-
-  const isInCart = (id) => cart.some(item => item.id === id);
-
+  
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, isInCart, incrementQuantity, decrementQuantity }}>
+    <CartContext.Provider 
+      value={{
+        cart: cartState.items,
+        totalAmount: cartState.totalAmount,
+        totalItems: cartState.totalItems,
+        addToCart,
+        removeFromCart,
+        clearCart
+      }}
+    >
       {children}
     </CartContext.Provider>
   );
 };
 
-export const useCart = () => useContext(CartContext);
+// Custom hook to use the cart context
+export const useCart = () => {
+  const context = useContext(CartContext);
+  if (context === undefined) {
+    throw new Error('useCart must be used within a CartProvider');
+  }
+  return context;
+};
+
+export default CartContext;
