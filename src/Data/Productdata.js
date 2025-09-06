@@ -1,72 +1,92 @@
-import product_1_img1 from "../assets/images/product/atrasa1.jpeg";
-import product_1_img2 from "../assets/images/product/atrasa2.jpeg";
-import product_1_img3 from "../assets/images/product/atrasa3.jpeg";
-import product_2_img1 from "../assets/images/product/bananachips1.jpg";
-import product_2_img2 from "../assets/images/product/bananachips2.webp";
-import product_2_img3 from "../assets/images/product/bananachips3.webp";
-import product_3_img1 from "../assets/images/product/chakli1.jpeg";
-import product_3_img2 from "../assets/images/product/chakli2.jpeg";
-import product_3_img3 from "../assets/images/product/chakli3.png";
-import product_4_img1 from "../assets/images/product/ghee1.png";
-import product_4_img2 from "../assets/images/product/ghee2.png";
-import product_4_img3 from "../assets/images/product/ghee3.png";
-import product_5_img1 from "../assets/images/product/honey1.jpeg";
-import product_5_img2 from "../assets/images/product/honey2.png";
-import product_5_img3 from "../assets/images/product/honey3.jpg";
-import product_6_img1 from "../assets/images/product/jackchips1.webp";
-import product_6_img2 from "../assets/images/product/jackchips2.webp";
-import product_6_img3 from "../assets/images/product/jackchips3.jpg";
-import product_7_img1 from "../assets/images/product/karjikai1.jpg";
-import product_7_img2 from "../assets/images/product/karjikai2.webp";
-import product_7_img3 from "../assets/images/product/karjikai3.jpg";
-import product_8_img1 from "../assets/images/product/oil1.png";
-import product_8_img2 from "../assets/images/product/oil2.png";
-import product_8_img3 from "../assets/images/product/oil3.png";
-import product_9_img1 from "../assets/images/product/papad1.jpg";
-import product_9_img2 from "../assets/images/product/papad2.webp";
-import product_9_img3 from "../assets/images/product/papad3.webp";
-import product_10_img1 from "../assets/images/product/vada1.jpeg";
-import product_10_img2 from "../assets/images/product/vada2.jpg";
-import product_10_img3 from "../assets/images/product/vada3.jpg";
+// Simple approach using direct image imports for Vite
+import atrasa1 from "../assets/images/product/atrasa1.jpeg";
+import atrasa2 from "../assets/images/product/atrasa2.jpeg";
+import atrasa3 from "../assets/images/product/atrasa3.jpeg";
+import bananachips1 from "../assets/images/product/bananachips1.jpg";
+import bananachips2 from "../assets/images/product/bananachips2.webp";
+import bananachips3 from "../assets/images/product/bananachips3.webp";
+import chakli1 from "../assets/images/product/chakli1.jpeg";
+import chakli2 from "../assets/images/product/chakli2.jpeg";
+import chakli3 from "../assets/images/product/chakli3.png";
+import ghee1 from "../assets/images/product/ghee1.png";
+import ghee2 from "../assets/images/product/ghee2.png";
+import ghee3 from "../assets/images/product/ghee3.png";
+import honey1 from "../assets/images/product/honey1.jpeg";
+import honey2 from "../assets/images/product/honey2.png";
+import honey3 from "../assets/images/product/honey3.jpg";
+import jackchips1 from "../assets/images/product/jackchips1.webp";
+import jackchips2 from "../assets/images/product/jackchips2.webp";
+import jackchips3 from "../assets/images/product/jackchips3.jpg";
+import karjikai1 from "../assets/images/product/karjikai1.jpg";
+import karjikai2 from "../assets/images/product/karjikai2.webp";
+import karjikai3 from "../assets/images/product/karjikai3.jpg";
+import oil1 from "../assets/images/product/oil1.png";
+import oil2 from "../assets/images/product/oil2.png";
+import oil3 from "../assets/images/product/oil3.png";
+import papad1 from "../assets/images/product/papad1.jpg";
+import papad2 from "../assets/images/product/papad2.webp";
+import papad3 from "../assets/images/product/papad3.webp";
+import vada1 from "../assets/images/product/vada1.jpeg";
+import vada2 from "../assets/images/product/vada2.jpg";
+import vada3 from "../assets/images/product/vada3.jpg";
+
+// Fallback to a placeholder if any image fails to load
+const placeholder = "https://via.placeholder.com/300x200?text=Product+Image";
 
 const products = [
   {
     id: 1,
-    name: "Homemade Atrasa",
+    name: "Atrasa",
     description:
-      "Traditional recipe passed down through generations with fresh tomatoes and herbs",
-    price: 12.99,
-    images: [product_1_img1, product_1_img2, product_1_img3],
+      "Traditional Indian sweet, deep-fried and crispy, infused with ghee and jaggery",
+    price: 15,  // 1 piece
+    images: [
+      atrasa1 || placeholder,
+      atrasa2 || placeholder,
+      atrasa3 || placeholder,
+    ],
+    image: atrasa1 || placeholder, // Single image for product card
     rating: 4.8,
     category: "Sauces",
   },
   {
     id: 2,
-    name: "Grandma's Apple Pie",
+    name: "Banana Chips",
     description:
-      "Sweet and tart apples baked in a flaky homemade crust with cinnamon",
-    price: 24.99,
-    images: [product_2_img1, product_2_img2, product_2_img3],
+      "Crispy and crunchy banana chips, a perfect snack for all ages",
+    price: 119,  // 100g
+    images: [
+      bananachips1 || placeholder,
+      bananachips2 || placeholder,
+      bananachips3 || placeholder,
+    ],
+    image: bananachips1 || placeholder,
     rating: 5.0,
     category: "Desserts",
   },
   {
     id: 3,
-    name: "Artisan Sourdough Bread",
+    name: "Chakli",
     description:
-      "Naturally leavened bread with a perfect crust and soft interior",
-    price: 8.99,
-    images: [product_3_img1, product_3_img2, product_3_img3],
+      "Crispy and savory snack made from rice flour and spices, deep-fried to perfection",
+    price: 99, // 250g
+    images: [
+      chakli1 || placeholder,
+      chakli2 || placeholder,
+      chakli3 || placeholder,
+    ],
+    image: chakli1 || placeholder,
     rating: 4.7,
     category: "Bakery",
   },
   {
     id: 4,
-    name: "Homemade Ghee",
+    name: "Desi Ghee",
     description:
       "Pure clarified butter made from fresh cow's milk, rich in flavor and nutrients",
     price: 18.99,
-    images: [product_4_img1, product_4_img2, product_4_img3],
+    images: [ghee1 || placeholder, ghee2 || placeholder, ghee3 || placeholder],
+    image: ghee1 || placeholder,
     rating: 4.9,
     category: "Dairy",
   },
@@ -76,7 +96,12 @@ const products = [
     description:
       "Raw honey harvested from local beehives, naturally sweet and healthy",
     price: 14.99,
-    images: [product_5_img1, product_5_img2, product_5_img3],
+    images: [
+      honey1 || placeholder,
+      honey2 || placeholder,
+      honey3 || placeholder,
+    ],
+    image: honey1 || placeholder,
     rating: 4.8,
     category: "Sweeteners",
   },
@@ -86,7 +111,12 @@ const products = [
     description:
       "Crispy chips made from fresh jackfruit, lightly salted and delicious",
     price: 10.99,
-    images: [product_6_img1, product_6_img2, product_6_img3],
+    images: [
+      jackchips1 || placeholder,
+      jackchips2 || placeholder,
+      jackchips3 || placeholder,
+    ],
+    image: jackchips1 || placeholder,
     rating: 4.6,
     category: "Snacks",
   },
@@ -96,7 +126,12 @@ const products = [
     description:
       "Traditional sweet dumplings filled with coconut and jaggery, fried to perfection",
     price: 16.99,
-    images: [product_7_img1, product_7_img2, product_7_img3],
+    images: [
+      karjikai1 || placeholder,
+      karjikai2 || placeholder,
+      karjikai3 || placeholder,
+    ],
+    image: karjikai1 || placeholder,
     rating: 4.7,
     category: "Desserts",
   },
@@ -106,7 +141,8 @@ const products = [
     description:
       "Virgin coconut oil extracted from fresh coconuts, ideal for cooking and skincare",
     price: 13.99,
-    images: [product_8_img1, product_8_img2, product_8_img3],
+    images: [oil1 || placeholder, oil2 || placeholder, oil3 || placeholder],
+    image: oil1 || placeholder,
     rating: 4.8,
     category: "Oils",
   },
@@ -116,17 +152,23 @@ const products = [
     description:
       "Thin, crispy lentil crackers seasoned with spices, perfect as a snack",
     price: 8.99,
-    images: [product_9_img1, product_9_img2, product_9_img3],
+    images: [
+      papad1 || placeholder,
+      papad2 || placeholder,
+      papad3 || placeholder,
+    ],
+    image: papad1 || placeholder,
     rating: 4.5,
     category: "Snacks",
   },
   {
     id: 10,
-    name: "Medu Vada",
+    name: "Crunchy Vada",
     description:
       "Savory lentil fritters with spices, a traditional South Indian delicacy",
     price: 12.99,
-    images: [product_10_img1, product_10_img2, product_10_img3],
+    images: [vada1 || placeholder, vada2 || placeholder, vada3 || placeholder],
+    image: vada1 || placeholder,
     rating: 4.9,
     category: "Snacks",
   },

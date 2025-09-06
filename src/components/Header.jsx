@@ -5,7 +5,7 @@ import '../styles/header.scss';
 const Header = ({ searchQuery, setSearchQuery }) => {
   return (
     <div className="header">
-      <h1>Homemade Food</h1>
+      <h1>Homey</h1>
       <Navbar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
     </div>
   );

@@ -18,7 +18,7 @@ const Home = () => {
       <section className="hero-section">
         <div className="container">
           <div className="hero-content">
-            <h1>Welcome to HomeMade Delights</h1>
+            <h1>Welcome to Homey..!</h1>
             <p>Discover the taste of homemade goodness, made fresh just for you.</p>
             <button className="btn-primary">Explore Our Products</button>
           </div>
@@ -46,7 +46,7 @@ const Home = () => {
                     <span className="product-rating">
                       <FaStar /> {product.rating}
                     </span>
-                    <span className="product-price">${product.price}</span>
+                    <span className="product-price">Rs {product.price}</span>
                   </div>
                   <button 
                     className="add-to-cart"
