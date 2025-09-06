@@ -1,6 +1,6 @@
 import React from 'react';
 import '../styles/footer.scss';
-import { FaFacebook, FaInstagram, FaPinterest, FaTwitter, FaPhone, FaEnvelope, FaMapMarkerAlt, FaCreditCard, FaPaypal, FaApplePay, FaGooglePay } from 'react-icons/fa';
+import { FaFacebook, FaInstagram, FaPinterest, FaTwitter, FaPhone, FaEnvelope, FaMapMarkerAlt, FaCreditCard, FaPaypal, FaApplePay, FaGooglePay, FaWhatsapp } from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -15,37 +15,25 @@ const Footer = () => {
               Handcrafted food products made with love, using time-tested family recipes and premium ingredients.
             </p>
             <div className="social-links">
-              <a href="#" className="social-link"><FaFacebook /></a>
-              <a href="#" className="social-link"><FaInstagram /></a>
-              <a href="#" className="social-link"><FaPinterest /></a>
-              <a href="#" className="social-link"><FaTwitter /></a>
+              <a href="tel:(123) 456-7890" className="social-link"><FaPhone /></a>
+              <a href="https://wa.me/1234567890" className="social-link"><FaWhatsapp /></a>
+              <a href="mailto:hello@homemadedelights.com" className="social-link"><FaEnvelope /></a>
             </div>
           </div>
           
           <div className="footer-column">
-            <h3>Quick Links</h3>
+            <h2>Pages</h2>
             <ul className="footer-links">
               <li><a href="#home">Home</a></li>
               <li><a href="#products">Products</a></li>
-              <li><a href="#about">About Us</a></li>
-              <li><a href="#testimonials">Testimonials</a></li>
+              <li><a href="#cart">Cart</a></li>
+              <li><a href="#wishlist">Wishlist</a></li>
               <li><a href="#contact">Contact</a></li>
             </ul>
           </div>
           
           <div className="footer-column">
-            <h3>Categories</h3>
-            <ul className="footer-links">
-              <li><a href="#">Sauces & Dips</a></li>
-              <li><a href="#">Preserves & Jams</a></li>
-              <li><a href="#">Bakery</a></li>
-              <li><a href="#">Desserts</a></li>
-              <li><a href="#">Gift Boxes</a></li>
-            </ul>
-          </div>
-          
-          <div className="footer-column">
-            <h3>Contact Us</h3>
+            <h2>Contact Us</h2>
             <ul className="contact-info">
               <li>
                 <FaPhone className="contact-icon" />
@@ -91,3 +79,4 @@ const Footer = () => {
 };
 
 export default Footer;
+

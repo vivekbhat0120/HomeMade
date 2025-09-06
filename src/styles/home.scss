@@ -59,6 +59,87 @@ $transition: all 0.3s ease-in-out;
     }
   }
 
+  // Hero Section
+  .hero-section {
+    padding: 120px 0;
+    background: linear-gradient(
+      to right,
+      $primary-color,
+      darken($primary-color, 15%)
+    );
+    color: white;
+    text-align: center;
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+
+      h1 {
+        font-family: "Playfair Display", serif;
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      p {
+        font-size: 1.3rem;
+        margin-bottom: 40px;
+        opacity: 0.9;
+        line-height: 1.6;
+      }
+
+      .btn-primary {
+        padding: 15px 30px;
+        background-color: white;
+        color: $primary-color;
+        border: none;
+        border-radius: 30px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: $transition;
+        font-family: "Poppins", sans-serif;
+        font-size: 1rem;
+        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+
+        &:hover {
+          background-color: $dark-color;
+          color: white;
+          transform: translateY(-3px);
+          box-shadow: 0 6px 20px rgba(26, 83, 92, 0.4);
+        }
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      padding: 80px 0;
+
+      .hero-content {
+        h1 {
+          font-size: 2.5rem;
+        }
+
+        p {
+          font-size: 1.1rem;
+        }
+      }
+    }
+
+    @media screen and (max-width: 576px) {
+      padding: 60px 0;
+
+      .hero-content {
+        h1 {
+          font-size: 2rem;
+        }
+
+        p {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+
   // Featured Products Section
   .featured-products {
     padding: 100px 0;
@@ -332,67 +413,6 @@ $transition: all 0.3s ease-in-out;
     }
   }
 
-  // Testimonials Section
-  .testimonials-section {
-    padding: 100px 0;
-    background-color: $bg-color;
-
-    .testimonials-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-
-      .testimonial-card {
-        background-color: white;
-        padding: 30px;
-        border-radius: 15px;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-        transition: $transition;
-
-        &:hover {
-          transform: translateY(-10px);
-          box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .testimonial-rating {
-          color: #ffc107;
-          font-size: 1.2rem;
-          margin-bottom: 15px;
-
-          svg {
-            margin-right: 3px;
-          }
-        }
-
-        .testimonial-text {
-          font-size: 1rem;
-          line-height: 1.7;
-          color: #555;
-          margin-bottom: 20px;
-          font-style: italic;
-        }
-
-        .testimonial-author {
-          display: flex;
-          align-items: center;
-
-          img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 15px;
-          }
-
-          span {
-            font-weight: 600;
-            color: $dark-color;
-          }
-        }
-      }
-    }
-  }
-
   // CTA Section
   .cta-section {
     padding: 100px 0;
@@ -485,7 +505,6 @@ $transition: all 0.3s ease-in-out;
     .featured-products,
     .about-section,
     .features-section,
-    .testimonials-section,
     .cta-section {
       padding: 70px 0;
     }

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
-import Navbar from './components/Navbar';
 import Home from './pages/Home';
 // import ProductDetail from './pages/ProductDetail';
 import { CartProvider } from './context/CartContext';
@@ -10,6 +9,7 @@ import { WishlistProvider } from './context/WishlistContext';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
+  console.log("App component is rendering"); // Added for debugging
   return (
     <CartProvider>
       <WishlistProvider>
@@ -19,7 +19,6 @@ function App() {
             <Route path="/" element={<Home searchQuery={searchQuery} />} />
             {/* <Route path="/product/:id" element={<ProductDetail />} /> */}
           </Routes>
-          <Navbar />
         </Router>
       </WishlistProvider>
     </CartProvider>
