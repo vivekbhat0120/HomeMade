@@ -223,9 +223,10 @@ $transition: all 0.3s ease-in-out;
   }
 
   .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding: 25px 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 
     .copyright {

@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="footer-top">
           <div className="footer-column">
             <div className="footer-logo">
-              <h2>HomeMade<span>Delights</span></h2>
+              <h2><span>Homey</span></h2>
             </div>
             <p className="footer-desc">
               Handcrafted food products made with love, using time-tested family recipes and premium ingredients.
@@ -51,7 +51,7 @@ const Footer = () => {
           </div>
         </div>
         
-        <div className="footer-middle">
+        {/* <div className="footer-middle">
           <div className="newsletter">
             <h3>Subscribe to our Newsletter</h3>
             <p>Get updates on new products, special offers, and seasonal recipes.</p>
@@ -60,18 +60,18 @@ const Footer = () => {
               <button type="submit">Subscribe</button>
             </form>
           </div>
-        </div>
+        </div> */}
         
         <div className="footer-bottom">
           <div className="copyright">
-            <p>&copy; {new Date().getFullYear()} HomeMade Delights. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} Homey. All rights reserved.</p>
           </div>
-          <div className="payment-methods">
+          {/* <div className="payment-methods">
             <span className="payment-icon"><FaCreditCard /></span>
             <span className="payment-icon"><FaPaypal /></span>
             <span className="payment-icon"><FaApplePay /></span>
             <span className="payment-icon"><FaGooglePay /></span>
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>

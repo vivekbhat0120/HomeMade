@@ -28,7 +28,7 @@ const Home = () => {
       <section className="featured-products" id="products">
         <div className="container">
           <div className="section-header">
-            <h2>Our Best Sellers</h2>
+            <h2>Our Best Products</h2>
             <p>Handcrafted with love, enjoyed by many</p>
           </div>
           
@@ -72,14 +72,14 @@ const Home = () => {
               <h2>Our Story</h2>
               <h3>From Family Kitchen to Your Table</h3>
               <p>
-                Started in 2015, HomeMade Delights began with a simple mission: to share authentic family recipes with food lovers everywhere. 
-                What started as weekend farmers market sales has grown into a beloved brand, but our commitment to quality remains unchanged.
+                Started in 2024, HomeMade Delights began with a simple mission: to share authentic family recipes with food lovers everywhere.
+                Our commitment to quality remains unchanged.
               </p>
               <p>
                 Every product is made in small batches using traditional methods and premium ingredients. We never use preservatives or artificial flavors - just pure, 
                 honest food made with care.
               </p>
-              <button className="btn-primary">Learn More About Us</button>
+              {/* <button className="btn-primary">Learn More About Us</button> */}
             </div>
             <div className="about-image">
               <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Our kitchen" />
@@ -123,7 +123,7 @@ const Home = () => {
             <p>Join thousands of happy customers enjoying our homemade products</p>
             <div className="cta-buttons">
               <button className="btn-primary">Shop Now</button>
-              <button className="btn-secondary">Join Our Newsletter</button>
+              {/* <button className="btn-secondary">Join Our Newsletter</button> */}
             </div>
           </div>
         </div>
