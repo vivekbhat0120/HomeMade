@@ -1,14 +1,24 @@
-import React from 'react';
-// import Navbar from '../components/Navbar'; // Removed to avoid duplication
-import Header from '../components/Header'; // Removed import as Header is no longer used here
+import React, { useContext } from 'react';
 import Footer from '../components/Footer';
 import '../styles/home.scss';
 import { FaStar, FaLeaf, FaHeart, FaClock } from 'react-icons/fa';
-import { useCart } from '../context/CartContext';
+import { useCart } from '../context/CartContext.jsx';
+import { WishlistContext } from '../context/WishlistContext.jsx';
 import products from '../Data/Productdata';
 
 const Home = () => {
   const { addToCart } = useCart();
+  const { wishlist, addToWishlist, removeFromWishlist } = useContext(WishlistContext);
+
+  const toggleWish = (product) => {
+    const isProductInWishlist = wishlist.some(item => item.id === product.id);
+    
+    if (isProductInWishlist) {
+      removeFromWishlist(product.id);
+    } else {
+      addToWishlist(product);
+    }
+  };
 
   return (
     <div className="home">
@@ -33,30 +43,52 @@ const Home = () => {
           </div>
           
           <div className="product-grid">
-            {products.map(product => (
-              <div className="product-card" key={product.id}>
-                <div className="product-badge">{product.category}</div>
-                <div className="product-image">
-                  <img src={product.image} alt={product.name} />
-                </div>
-                <div className="product-info">
-                  <h3>{product.name}</h3>
-                  <p>{product.description}</p>
-                  <div className="product-meta">
-                    <span className="product-rating">
-                      <FaStar /> {product.rating}
-                    </span>
-                    <span className="product-price">Rs {product.price}</span>
+            {products.map(product => {
+              const discount = Math.round(((product.oldprice - product.newprice) / product.oldprice) * 100);
+              const isWished = wishlist.some(item => item.id === product.id);
+              return (
+                <div className="product-card" key={product.id}>
+                  <div className="product-badge">{discount}% OFF</div>
+                  <div className="product-image">
+                    <img src={product.image} alt={product.name} />
+                    <FaHeart 
+                      className={`wish-icon ${isWished ? 'wished' : ''}`} 
+                      onClick={() => toggleWish(product)} 
+                    />
                   </div>
-                  <button 
-                    className="add-to-cart"
-                    onClick={() => addToCart(product)}
-                  >
-                    Add to Cart
-                  </button>
+                  <div className="product-info">
+                    <h3>{product.name}</h3>
+                    <p>{product.description}</p>
+                    <div className="product-meta">
+                      <span className="product-rating">
+                        <FaStar /> {product.rating}
+                      </span>
+                      <div className="product-prices">
+                        <span className="old-price">Rs {product.oldprice}</span>
+                        <span className="new-price">Rs {product.newprice}</span>
+                      </div>
+                    </div>
+                    <div className="product-actions">
+                      <button 
+                        className="add-to-cart"
+                        onClick={() => addToCart(product)}
+                      >
+                        Add to Cart
+                      </button>
+                      <button 
+                        className="buy-now"
+                        onClick={() => {
+                          addToCart(product);
+                          alert('Proceeding to checkout...');
+                        }}
+                      >
+                        Buy Now
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
           
           <div className="see-more">

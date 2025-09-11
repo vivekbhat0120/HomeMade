@@ -1,13 +1,20 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 
 // Initial state for the cart
-const initialState = {
-  items: localStorage.getItem('cart') 
+const initialState = (() => {
+  const items = localStorage.getItem('cart') 
     ? JSON.parse(localStorage.getItem('cart')) 
-    : [],
-  totalAmount: 0,
-  totalItems: 0
-};
+    : [];
+  const totalAmount = items.reduce(
+    (total, item) => total + (item.newprice || item.price) * item.quantity, 
+    0
+  );
+  const totalItems = items.reduce(
+    (total, item) => total + item.quantity, 
+    0
+  );
+  return { items, totalAmount, totalItems };
+})();
 
 // Create the context
 const CartContext = createContext(initialState);
@@ -35,7 +42,7 @@ const cartReducer = (state, action) => {
       
       // Calculate new totals
       const totalAmount = updatedItems.reduce(
-        (total, item) => total + item.price * item.quantity, 
+        (total, item) => total + (item.newprice || item.price) * item.quantity, 
         0
       );
       
@@ -75,7 +82,7 @@ const cartReducer = (state, action) => {
       
       // Calculate new totals
       const totalAmount = updatedItems.reduce(
-        (total, item) => total + item.price * item.quantity, 
+        (total, item) => total + (item.newprice || item.price) * item.quantity, 
         0
       );
       
@@ -92,6 +99,20 @@ const cartReducer = (state, action) => {
       };
     }
     
+    case 'REMOVE_ITEM_COMPLETELY': {
+      const { id } = action.payload;
+      const updatedItems = state.items.filter(item => item.id !== id);
+      const totalAmount = updatedItems.reduce(
+        (total, item) => total + (item.newprice || item.price) * item.quantity, 
+        0
+      );
+      const totalItems = updatedItems.reduce(
+        (total, item) => total + item.quantity, 
+        0
+      );
+      return { ...state, items: updatedItems, totalAmount, totalItems };
+    }
+    
     case 'CLEAR_CART':
       return {
         ...state,
@@ -100,6 +121,34 @@ const cartReducer = (state, action) => {
         totalItems: 0
       };
       
+    case 'UPDATE_QUANTITY': {
+      const { id, quantity } = action.payload;
+      if (quantity <= 0) {
+        const updatedItems = state.items.filter(item => item.id !== id);
+        const totalAmount = updatedItems.reduce(
+          (total, item) => total + (item.newprice || item.price) * item.quantity, 
+          0
+        );
+        const totalItems = updatedItems.reduce(
+          (total, item) => total + item.quantity, 
+          0
+        );
+        return { ...state, items: updatedItems, totalAmount, totalItems };
+      }
+      const updatedItems = state.items.map(item =>
+        item.id === id ? { ...item, quantity } : item
+      );
+      const totalAmount = updatedItems.reduce(
+        (total, item) => total + (item.newprice || item.price) * item.quantity, 
+        0
+      );
+      const totalItems = updatedItems.reduce(
+        (total, item) => total + item.quantity, 
+        0
+      );
+      return { ...state, items: updatedItems, totalAmount, totalItems };
+    }
+    
     default:
       return state;
   }
@@ -133,6 +182,20 @@ export const CartProvider = ({ children }) => {
     dispatch({ type: 'CLEAR_CART' });
   };
   
+  const updateQuantity = (id, quantity) => {
+    dispatch({
+      type: 'UPDATE_QUANTITY',
+      payload: { id, quantity }
+    });
+  };
+  
+  const removeItemCompletely = (id) => {
+    dispatch({
+      type: 'REMOVE_ITEM_COMPLETELY',
+      payload: { id }
+    });
+  };
+  
   return (
     <CartContext.Provider 
       value={{
@@ -141,7 +204,9 @@ export const CartProvider = ({ children }) => {
         totalItems: cartState.totalItems,
         addToCart,
         removeFromCart,
-        clearCart
+        clearCart,
+        updateQuantity,
+        removeItemCompletely,
       }}
     >
       {children}

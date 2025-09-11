@@ -39,7 +39,8 @@ const products = [
     name: "Atrasa",
     description:
       "Traditional Indian sweet, deep-fried and crispy, infused with ghee and jaggery",
-    price: 15,  // 1 piece
+    newprice: 15, // 1 piece
+    oldprice: 20,
     images: [
       atrasa1 || placeholder,
       atrasa2 || placeholder,
@@ -54,7 +55,8 @@ const products = [
     name: "Banana Chips",
     description:
       "Crispy and crunchy banana chips, a perfect snack for all ages",
-    price: 119,  // 100g
+    newprice: 119, // 100g
+    oldprice: 140,
     images: [
       bananachips1 || placeholder,
       bananachips2 || placeholder,
@@ -69,7 +71,8 @@ const products = [
     name: "Chakli",
     description:
       "Crispy and savory snack made from rice flour and spices, deep-fried to perfection",
-    price: 99, // 250g
+    newprice: 99, // 250g
+    oldprice: 120,
     images: [
       chakli1 || placeholder,
       chakli2 || placeholder,
@@ -84,7 +87,8 @@ const products = [
     name: "Desi Ghee",
     description:
       "Pure clarified butter made from fresh cow's milk, rich in flavor and nutrients",
-    price: 18.99,
+    newprice: 18.99,
+    oldprice: 22,
     images: [ghee1 || placeholder, ghee2 || placeholder, ghee3 || placeholder],
     image: ghee1 || placeholder,
     rating: 4.9,
@@ -95,7 +99,8 @@ const products = [
     name: "Organic Honey",
     description:
       "Raw honey harvested from local beehives, naturally sweet and healthy",
-    price: 14.99,
+    newprice: 14.99,
+    oldprice: 18,
     images: [
       honey1 || placeholder,
       honey2 || placeholder,
@@ -110,7 +115,8 @@ const products = [
     name: "Jackfruit Chips",
     description:
       "Crispy chips made from fresh jackfruit, lightly salted and delicious",
-    price: 10.99,
+    newprice: 10.99,
+    oldprice: 13,
     images: [
       jackchips1 || placeholder,
       jackchips2 || placeholder,
@@ -125,7 +131,8 @@ const products = [
     name: "Karjikai",
     description:
       "Traditional sweet dumplings filled with coconut and jaggery, fried to perfection",
-    price: 16.99,
+    newprice: 16.99,
+    oldprice: 20,
     images: [
       karjikai1 || placeholder,
       karjikai2 || placeholder,
@@ -140,7 +147,8 @@ const products = [
     name: "Coconut Oil",
     description:
       "Virgin coconut oil extracted from fresh coconuts, ideal for cooking and skincare",
-    price: 13.99,
+    newprice: 13.99,
+    oldprice: 16,
     images: [oil1 || placeholder, oil2 || placeholder, oil3 || placeholder],
     image: oil1 || placeholder,
     rating: 4.8,
@@ -151,7 +159,8 @@ const products = [
     name: "Homemade Papad",
     description:
       "Thin, crispy lentil crackers seasoned with spices, perfect as a snack",
-    price: 8.99,
+    newprice: 8.99,
+    oldprice: 11,
     images: [
       papad1 || placeholder,
       papad2 || placeholder,
@@ -166,7 +175,8 @@ const products = [
     name: "Crunchy Vada",
     description:
       "Savory lentil fritters with spices, a traditional South Indian delicacy",
-    price: 12.99,
+    newprice: 12.99,
+    oldprice: 15,
     images: [vada1 || placeholder, vada2 || placeholder, vada3 || placeholder],
     image: vada1 || placeholder,
     rating: 4.9,

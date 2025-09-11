@@ -1,9 +1,19 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { FaSearch } from 'react-icons/fa'; // Added import for search icon
+import React, { useContext } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { FaSearch } from 'react-icons/fa';
 import '../styles/navbar.scss';
+import { useCart } from '../context/CartContext.jsx';
+import { WishlistContext } from '../context/WishlistContext.jsx';
 
 const Navbar = ({ searchQuery, setSearchQuery }) => {
+  const location = useLocation();
+  const { cart } = useCart();
+  const { wishlist } = useContext(WishlistContext);
+  
+  const isActive = (path) => {
+    return location.pathname === path ? 'active' : '';
+  };
+
   return (
     <nav className="navbar">
       <div className="search-container"> 
@@ -17,10 +27,14 @@ const Navbar = ({ searchQuery, setSearchQuery }) => {
         />
       </div>
       <ul className="nav-links">
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/cart">Cart</Link></li>
-        <li><Link to="/wishlist">Wishlist</Link></li>
-        <li><Link to="/contact">Contact</Link></li>
+        <li className={isActive('/')}><Link to="/">Home</Link></li>
+        <li className={isActive('/cart')}>
+          <Link to="/cart">Cart {cart.length > 0 && <span className="item-count">({cart.length})</span>}</Link>
+        </li>
+        <li className={isActive('/wishlist')}>
+          <Link to="/wishlist">Wishlist {wishlist.length > 0 && <span className="item-count">({wishlist.length})</span>}</Link>
+        </li>
+        <li className={isActive('/contact')}><Link to="/contact">Contact</Link></li>
       </ul>
     </nav>
   );
