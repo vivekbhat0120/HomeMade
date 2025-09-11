@@ -26,7 +26,7 @@ const Wishlist = () => {
         <div className="wishlist-header">
           <h1>Your Wishlist</h1>
           <Link to="/" className="continue-shopping">
-            <FaArrowLeft /> Continue Shopping
+            <FaArrowLeft /> Add More
           </Link>
         </div>
 

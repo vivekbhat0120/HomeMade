@@ -1,16 +1,21 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Footer from '../components/Footer';
 import '../styles/home.scss';
-import { FaStar, FaLeaf, FaHeart, FaClock } from 'react-icons/fa';
+import { FaStar, FaLeaf, FaHeart, FaClock, FaSort } from 'react-icons/fa';
 import { useCart } from '../context/CartContext.jsx';
 import { WishlistContext } from '../context/WishlistContext.jsx';
 import products from '../Data/Productdata';
+import { useNavigate } from 'react-router-dom';
 
-const Home = () => {
+const Home = ({ searchQuery }) => {
   const { addToCart } = useCart();
   const { wishlist, addToWishlist, removeFromWishlist } = useContext(WishlistContext);
+  const navigate = useNavigate();
+  const [sortOption, setSortOption] = useState('default');
+  const [sortedProducts, setSortedProducts] = useState([...products]);
 
-  const toggleWish = (product) => {
+  const toggleWish = (e, product) => {
+    e.stopPropagation(); // Prevent event bubbling up to parent elements
     const isProductInWishlist = wishlist.some(item => item.id === product.id);
     
     if (isProductInWishlist) {
@@ -19,6 +24,49 @@ const Home = () => {
       addToWishlist(product);
     }
   };
+
+  const handleProductClick = (productId) => {
+    navigate(`/product/${productId}`);
+  };
+  
+  useEffect(() => {
+    let filtered = [...products];
+    
+    // Filter by search query
+    if (searchQuery && searchQuery.trim() !== '') {
+      const query = searchQuery.toLowerCase().trim();
+      filtered = filtered.filter(product => 
+        product.name.toLowerCase().includes(query) || 
+        product.description.toLowerCase().includes(query) ||
+        product.category.toLowerCase().includes(query)
+      );
+    }
+    
+    // Then sort the filtered products
+    switch(sortOption) {
+      case 'price-low-high':
+        filtered.sort((a, b) => a.newprice - b.newprice);
+        break;
+      case 'price-high-low':
+        filtered.sort((a, b) => b.newprice - a.newprice);
+        break;
+      case 'rating':
+        filtered.sort((a, b) => b.rating - a.rating);
+        break;
+      case 'discount':
+        filtered.sort((a, b) => {
+          const discountA = ((a.oldprice - a.newprice) / a.oldprice) * 100;
+          const discountB = ((b.oldprice - b.newprice) / b.oldprice) * 100;
+          return discountB - discountA;
+        });
+        break;
+      default:
+        // Default sorting (no specific order)
+        break;
+    }
+    
+    setSortedProducts(filtered);
+  }, [sortOption, searchQuery]);
 
   return (
     <div className="home">
@@ -42,53 +90,77 @@ const Home = () => {
             <p>Handcrafted with love, enjoyed by many</p>
           </div>
           
+          <div className="sorting-container">
+            <div className="sort-wrapper">
+              <FaSort className="sort-icon" />
+              <select 
+                value={sortOption} 
+                onChange={(e) => setSortOption(e.target.value)}
+                className="sort-select"
+              >
+                <option value="default">Sort by: Default</option>
+                <option value="price-low-high">Price: Low to High</option>
+                <option value="price-high-low">Price: High to Low</option>
+                <option value="rating">Highest Rated</option>
+                <option value="discount">Biggest Discount</option>
+              </select>
+            </div>
+          </div>
+          
           <div className="product-grid">
-            {products.map(product => {
-              const discount = Math.round(((product.oldprice - product.newprice) / product.oldprice) * 100);
-              const isWished = wishlist.some(item => item.id === product.id);
-              return (
-                <div className="product-card" key={product.id}>
-                  <div className="product-badge">{discount}% OFF</div>
-                  <div className="product-image">
-                    <img src={product.image} alt={product.name} />
-                    <FaHeart 
-                      className={`wish-icon ${isWished ? 'wished' : ''}`} 
-                      onClick={() => toggleWish(product)} 
-                    />
-                  </div>
-                  <div className="product-info">
-                    <h3>{product.name}</h3>
-                    <p>{product.description}</p>
-                    <div className="product-meta">
-                      <span className="product-rating">
-                        <FaStar /> {product.rating}
-                      </span>
-                      <div className="product-prices">
-                        <span className="old-price">Rs {product.oldprice}</span>
-                        <span className="new-price">Rs {product.newprice}</span>
+            {sortedProducts.length > 0 ? (
+              sortedProducts.map(product => {
+                const discount = Math.round(((product.oldprice - product.newprice) / product.oldprice) * 100);
+                const isWished = wishlist.some(item => item.id === product.id);
+                return (
+                  <div className="product-card" key={product.id} onClick={() => handleProductClick(product.id)}>
+                    <div className="product-badge">{discount}% OFF</div>
+                    <div className="product-image">
+                      <img src={product.image} alt={product.name} />
+                      <FaHeart 
+                        className={`wish-icon ${isWished ? 'wished' : ''}`} 
+                        onClick={(e) => toggleWish(e, product)} 
+                      />
+                    </div>
+                    <div className="product-info">
+                      <h3>{product.name}</h3>
+                      <p>{product.description}</p>
+                      <div className="product-meta">
+                        <span className="product-rating">
+                          <FaStar /> {product.rating}
+                        </span>
+                        <div className="product-prices">
+                          <span className="old-price">Rs {product.oldprice}</span>
+                          <span className="new-price">Rs {product.newprice}</span>
+                        </div>
+                      </div>
+                      <div className="product-actions">
+                        <button 
+                          className="add-to-cart"
+                          onClick={() => addToCart(product)}
+                        >
+                          Add to Cart
+                        </button>
+                        <button 
+                          className="buy-now"
+                          onClick={() => {
+                            addToCart(product);
+                            alert('Proceeding to checkout...');
+                          }}
+                        >
+                          Buy Now
+                        </button>
                       </div>
                     </div>
-                    <div className="product-actions">
-                      <button 
-                        className="add-to-cart"
-                        onClick={() => addToCart(product)}
-                      >
-                        Add to Cart
-                      </button>
-                      <button 
-                        className="buy-now"
-                        onClick={() => {
-                          addToCart(product);
-                          alert('Proceeding to checkout...');
-                        }}
-                      >
-                        Buy Now
-                      </button>
-                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })
+            ) : (
+              <div className="no-results">
+                <h3>No products found</h3>
+                <p>Try adjusting your search or browse our categories</p>
+              </div>
+            )}
           </div>
           
           <div className="see-more">

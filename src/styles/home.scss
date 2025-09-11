@@ -19,7 +19,7 @@ $transition: all 0.3s ease-in-out;
 
   .section-header {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
 
     h2 {
       font-family: "Playfair Display", serif;
@@ -109,10 +109,76 @@ $transition: all 0.3s ease-in-out;
     padding: 0;
     background-color: white;
 
+    .sorting-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+      padding: 0 20px;
+
+      .sort-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        .sort-icon {
+          position: absolute;
+          left: 10px;
+          color: $dark-color;
+          font-size: 0.9rem;
+          pointer-events: none;
+        }
+
+        .sort-select {
+          padding: 8px 15px 8px 32px;
+          border: 1px solid #ddd;
+          border-radius: 25px;
+          font-family: "Poppins", sans-serif;
+          font-size: 0.9rem;
+          color: $dark-color;
+          background-color: white;
+          cursor: pointer;
+          appearance: none;
+          outline: none;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+          transition: $transition;
+
+          &:hover {
+            border-color: $primary-color;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+          }
+
+          &:focus {
+            border-color: $primary-color;
+            box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
+          }
+        }
+      }
+    }
+
     .product-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 30px;
+
+      .no-results {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 60px 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        margin: 30px 0;
+
+        h3 {
+          font-size: 1.5rem;
+          color: $dark-color;
+          margin-bottom: 10px;
+        }
+
+        p {
+          font-size: 1rem;
+          color: #666;
+        }
+      }
 
       .product-card {
         background-color: white;
@@ -165,13 +231,13 @@ $transition: all 0.3s ease-in-out;
             position: absolute;
             top: 15px;
             right: 20px;
-            font-size: 2.5rem;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 8px;
-            border-radius: 50%;
-            color: white;
+            font-size: 1.5rem;
+            color: #ffffff;
             cursor: pointer;
             transition: color 0.3s ease;
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+              1px 1px 0 #000;
+            filter: drop-shadow(0 0 1px rgba(0, 0, 0, 1));
 
             &.wished {
               color: red;
