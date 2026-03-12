@@ -8,7 +8,11 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "host": "vite --host"
+    "host": "vite --host",
+    "build:render": "npm install --include=dev && npm run build"
+  },
+  "engines": {
+    "node": "18.x"
   },
   "dependencies": {
     "react": "^19.1.0",
