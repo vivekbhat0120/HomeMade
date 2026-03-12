@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/footer.scss';
-import { FaFacebook, FaInstagram, FaPinterest, FaTwitter, FaPhone, FaEnvelope, FaMapMarkerAlt, FaCreditCard, FaPaypal, FaApplePay, FaGooglePay, FaWhatsapp } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { FaFacebook, FaInstagram, FaPinterest, FaTwitter, FaPhone, FaEnvelope, FaMapMarkerAlt, FaCreditCard, FaPaypal, FaApplePay, FaGooglePay, FaWhatsapp, FaUserShield } from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -29,6 +30,7 @@ const Footer = () => {
               <li><a href="#cart">Cart</a></li>
               <li><a href="#wishlist">Wishlist</a></li>
               <li><a href="#contact">Contact</a></li>
+              <li><Link to="/admin/login" className="admin-link">Admin</Link></li>
             </ul>
           </div>
           

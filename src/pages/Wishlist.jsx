@@ -5,7 +5,6 @@ import Footer from '../components/Footer';
 import '../styles/wishlist.scss';
 import { useCart } from '../context/CartContext.jsx';
 import { WishlistContext } from '../context/WishlistContext.jsx';
-import products from '../Data/Productdata';
 
 const Wishlist = () => {
   const { addToCart } = useCart();

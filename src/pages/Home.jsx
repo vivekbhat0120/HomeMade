@@ -4,15 +4,16 @@ import '../styles/home.scss';
 import { FaStar, FaLeaf, FaHeart, FaClock, FaSort } from 'react-icons/fa';
 import { useCart } from '../context/CartContext.jsx';
 import { WishlistContext } from '../context/WishlistContext.jsx';
-import products from '../Data/Productdata';
+import { ProductContext } from '../context/ProductContext.jsx';
 import { useNavigate } from 'react-router-dom';
 
 const Home = ({ searchQuery }) => {
   const { addToCart } = useCart();
   const { wishlist, addToWishlist, removeFromWishlist } = useContext(WishlistContext);
   const navigate = useNavigate();
+  const { products } = useContext(ProductContext);
   const [sortOption, setSortOption] = useState('default');
-  const [sortedProducts, setSortedProducts] = useState([...products]);
+  const [sortedProducts, setSortedProducts] = useState([]);
 
   const toggleWish = (e, product) => {
     e.stopPropagation(); // Prevent event bubbling up to parent elements
@@ -30,18 +31,18 @@ const Home = ({ searchQuery }) => {
   };
   
   useEffect(() => {
-    let filtered = [...products];
-    
+    let filtered = [...(products || [])];
+
     // Filter by search query
     if (searchQuery && searchQuery.trim() !== '') {
       const query = searchQuery.toLowerCase().trim();
       filtered = filtered.filter(product => 
-        product.name.toLowerCase().includes(query) || 
-        product.description.toLowerCase().includes(query) ||
-        product.category.toLowerCase().includes(query)
+        (product.name || '').toLowerCase().includes(query) || 
+        (product.description || '').toLowerCase().includes(query) ||
+        (product.category || '').toLowerCase().includes(query)
       );
     }
-    
+
     // Then sort the filtered products
     switch(sortOption) {
       case 'price-low-high':
@@ -64,9 +65,17 @@ const Home = ({ searchQuery }) => {
         // Default sorting (no specific order)
         break;
     }
-    
+
     setSortedProducts(filtered);
-  }, [sortOption, searchQuery]);
+  }, [sortOption, searchQuery, products]);
+
+  // Keep sortedProducts in sync when products change (initial load, edits)
+  useEffect(() => {
+    setSortedProducts(prev => {
+      // keep existing sort/filter; trigger re-filter by updating state via above effect
+      return prev;
+    });
+  }, [products]);
 
   return (
     <div className="home">

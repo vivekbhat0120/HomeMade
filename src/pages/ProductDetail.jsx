@@ -4,24 +4,29 @@ import { FaStar, FaHeart } from 'react-icons/fa';
 import { BsShare } from 'react-icons/bs';
 import { useCart } from '../context/CartContext';
 import { WishlistContext } from '../context/WishlistContext';
-import products from '../Data/Productdata';
+import { ProductContext } from '../context/ProductContext.jsx';
 import Footer from '../components/Footer';
 import '../styles/productdetail.scss';
 
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const product = products.find(p => p.id === parseInt(id));
+  const { products } = useContext(ProductContext);
+  const product = (products || []).find(p => p.id === parseInt(id));
   const { addToCart } = useCart();
   const { wishlist, addToWishlist, removeFromWishlist } = useContext(WishlistContext);
-  const [selectedImage, setSelectedImage] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
   const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     if (product) {
-      setSelectedImage(product.images[0]);
+      // prefer the first non-empty image, fall back to single `image` field
+      const firstImage = (product.images && product.images.find(img => img)) || product.image || null;
+      setSelectedImage(firstImage);
       // Scroll to top on component mount
       window.scrollTo(0, 0);
+    } else {
+      setSelectedImage(null);
     }
   }, [product]);
 
@@ -90,7 +95,11 @@ const ProductDetail = () => {
         <div className="product-content">
           <div className="product-gallery">
             <div className="main-image">
-              <img src={selectedImage} alt={product.name} />
+              {selectedImage ? (
+                <img src={selectedImage} alt={product.name} />
+              ) : (
+                <div className="image-placeholder">No image available</div>
+              )}
               <BsShare className="share-icon" />
               <FaHeart 
                 className={`wish-icon ${isWished ? 'wished' : ''}`} 
@@ -98,7 +107,7 @@ const ProductDetail = () => {
               />
             </div>
             <div className="thumbnail-gallery">
-              {product.images.map((img, index) => (
+              {(product.images || []).filter(Boolean).map((img, index) => (
                 <div 
                   key={index} 
                   className={`thumbnail ${selectedImage === img ? 'active' : ''}`}
